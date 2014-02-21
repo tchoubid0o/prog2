@@ -13,7 +13,7 @@
                     <br />
                     <input type="hidden" name="connexion" value="1" />
                     <div style="margin: auto;">
-                        <input class="submit" type="submit" value="Identifiez-vous" style="cursor: pointer;color: #fff;border-radius: 4px;padding: 10px;background-color: #0ea67a;text-transform: none;text-decoration: none;font-weight: 600;-moz-transition: background-color 0.35s linear;-webkit-transition: background-color 0.35s linear;transition: background-color 0.35s linear;" id="submit" />	
+                        <input class="submit" type="submit" value="Identifiez-vous" style="cursor: pointer;color: #fff;border-radius: 4px;padding: 10px;background-color: #2db3e8;text-transform: none;text-decoration: none;font-weight: 600;-moz-transition: background-color 0.35s linear;-webkit-transition: background-color 0.35s linear;transition: background-color 0.35s linear;" id="submit" />	
                     </div>
                 </form>
             </center>

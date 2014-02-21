@@ -1,5 +1,5 @@
 body{
-    background-color: #edede5;	
+    background-color: #ffffff;	
 }
 
 #logintop {
@@ -8,7 +8,7 @@ body{
     top: 5%;
     padding: 50px;
     border-radius: 5px;
-    background-color: white;
+    background-color: #f6f6f6;
     z-index: 999;
 }
 
