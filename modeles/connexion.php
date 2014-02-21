@@ -43,7 +43,7 @@ function connexion($auth, $mail, $password) {
 								$_SESSION['mail'] = $mail;
 								$_SESSION['prenom'] = $mdp['prenom'];
 								$_SESSION['nom'] = $mdp['nom'];
-								$_SESSION['adm'] = 0;
+								$_SESSION['adm'] = $mdp['adm'];
 							}
 
 							$retour_check_pass->closeCursor();

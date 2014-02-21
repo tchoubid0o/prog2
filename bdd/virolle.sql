@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.4
+-- version 4.1.1
 -- http://www.phpmyadmin.net
 --
--- Client: localhost
--- Généré le: Ven 21 Février 2014 à 19:16
--- Version du serveur: 5.6.12-log
--- Version de PHP: 5.4.12
+-- Client :  localhost
+-- Généré le :  Ven 21 Février 2014 à 20:27
+-- Version du serveur :  5.5.24-log
+-- Version de PHP :  5.3.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,10 +17,8 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Base de données: `virolle`
+-- Base de données :  `virolle`
 --
-CREATE DATABASE IF NOT EXISTS `virolle` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `virolle`;
 
 -- --------------------------------------------------------
 
@@ -176,6 +174,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `birthday` varchar(25) NOT NULL,
   `imgAvatar` varchar(250) NOT NULL DEFAULT '1383611218_green-35.png',
   `descri` text NOT NULL,
+  `adm` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
 
@@ -183,31 +182,31 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Contenu de la table `user`
 --
 
-INSERT INTO `user` (`id`, `prenom`, `nom`, `password`, `ip`, `mail`, `adresse`, `tel`, `cp`, `ville`, `birthday`, `imgAvatar`, `descri`) VALUES
-(1, 'michaël', 'RUPP', '180f068dc45ee81f66123d46d2768c29', '::1', 'michaelrupp@free.fr', '316 rue leon blum', '0698329149', 62232, 'Annezin', '10/11/1992', '1383611218_green-35.png', 'ghjghgh'),
-(2, 'Prenomtest', 'Nomtest', '180f068dc45ee81f66123d46d2768c29', '::1', 'tst@hotmail.fr', '', '', 0, '', '', '1383611218_green-35.png', ''),
-(3, 'monprenom', 'test', '180f068dc45ee81f66123d46d2768c29', '::1', 'blabliblou@hotmail.fr', '', '', 0, '', '0000-00-00', '1383611218_green-35.png', ''),
-(4, 'new', 'moi', '180f068dc45ee81f66123d46d2768c29', '::1', 'boum@hotmail.fr', '', '', 0, '', '0000-00-00', '1383611218_green-35.png', ''),
-(5, 'mew', 'toum', '180f068dc45ee81f66123d46d2768c29', '::1', 'azerty@hotmail.fr', '', '', 0, '', '0000-00-00', '1383611218_green-35.png', ''),
-(6, 'tarask', 'pli', '180f068dc45ee81f66123d46d2768c29', '::1', 'ab@hotmail.fr', '', '', 0, '', '09/11/2013', '1383611218_green-35.png', ''),
-(7, 'wxd', 'cfbvf', '180f068dc45ee81f66123d46d2768c29', '::1', 'w@hotmail.fr', '', '', 0, '', '0000-00-00', '1383611218_green-35.png', ''),
-(8, 'c', 'c', '180f068dc45ee81f66123d46d2768c29', '::1', 'c@hotmail.fr', '', '', 0, '', '0000-00-00', '1383611218_green-35.png', ''),
-(9, 'v', 'v', '180f068dc45ee81f66123d46d2768c29', '::1', 'v@hotmail.fr', '', '', 0, '', '0000-00-00', '1383611218_green-35.png', ''),
-(10, 'b', 'b', '180f068dc45ee81f66123d46d2768c29', '::1', 'b@hotmail.fr', '', '', 0, '', '0000-00-00', 'arena.jpg.jpg', ''),
-(11, 'n', 'n', '180f068dc45ee81f66123d46d2768c29', '::1', 'n@hotmail.fr', '', '', 0, '', '0000-00-00', '1356288328', ''),
-(12, 'q', 'q', '180f068dc45ee81f66123d46d2768c29', '::1', 'q@hotmail.fr', '', '', 0, '', '0000-00-00', '1664322395', ''),
-(13, 's', 's', '180f068dc45ee81f66123d46d2768c29', '::1', 's@hotmail.fr', '', '', 0, '', '0000-00-00', '703446565', ''),
-(14, 'd', 'd', '180f068dc45ee81f66123d46d2768c29', '::1', 'd@hotmail.fr', '', '', 0, '', '0000-00-00', '909038353', ''),
-(15, 'f', 'f', '180f068dc45ee81f66123d46d2768c29', '::1', 'f@hotmail.fr', '', '', 0, '', '0000-00-00', '1254606751', ''),
-(16, 'g', 'g', '180f068dc45ee81f66123d46d2768c29', '::1', 'g@hotmail.fr', '', '', 0, '', '0000-00-00', '1383611218_green-35.png', ''),
-(17, 'h', 'h', '180f068dc45ee81f66123d46d2768c29', '::1', 'h@hotmail.fr', '', '', 0, '', '0000-00-00', '2005042347.jpg', ''),
-(18, 'j', 'j', '180f068dc45ee81f66123d46d2768c29', '::1', 'j@hotmail.fr', '', '', 0, '', '0000-00-00', '', ''),
-(19, 'k', 'k', '180f068dc45ee81f66123d46d2768c29', '::1', 'k@hotmail.fr', '', '', 0, '', '0000-00-00', '1383611218_green-35.png', ''),
-(20, 'l', 'l', '180f068dc45ee81f66123d46d2768c29', '::1', 'l@hotmail.fr', '23 rue des martyrs', '33642643617', 13000, 'Marseille', '04/11/2013', '702799712.jpg', ''),
-(21, 'uiop', 'uiop', '180f068dc45ee81f66123d46d2768c29', '::1', 'osef@hotmail.fr', '', '', 0, '', '', '1383611218_green-35.png', ''),
-(22, 'theo', 'fanchini', '77fac59c9d1db9b83bfab3787de86659', '88.165.159.101', 'theo.fanchini@hei.fr', '', '', 0, '', '', '2117745655.jpeg', ''),
-(23, 'dfgdfg', 'dfgfdgf', '8ead6e4b55f7813e69c4217a16c24cfb', '::1', 'test@hotmail.fr', '', '', 0, '', '', '1383611218_green-35.png', ''),
-(24, 'gvnhgh', 'gh,nhg,', '180f068dc45ee81f66123d46d2768c29', '::1', 'abcdefg@hotmail.fr', '', '', 0, '', '', '1383611218_green-35.png', '');
+INSERT INTO `user` (`id`, `prenom`, `nom`, `password`, `ip`, `mail`, `adresse`, `tel`, `cp`, `ville`, `birthday`, `imgAvatar`, `descri`, `adm`) VALUES
+(1, 'michaël', 'RUPP', '180f068dc45ee81f66123d46d2768c29', '::1', 'michaelrupp@free.fr', '316 rue leon blum', '0698329149', 62232, 'Annezin', '10/11/1992', '1383611218_green-35.png', 'ghjghgh', 1),
+(2, 'Prenomtest', 'Nomtest', '180f068dc45ee81f66123d46d2768c29', '::1', 'tst@hotmail.fr', '', '', 0, '', '', '1383611218_green-35.png', '', 0),
+(3, 'monprenom', 'test', '180f068dc45ee81f66123d46d2768c29', '::1', 'blabliblou@hotmail.fr', '', '', 0, '', '0000-00-00', '1383611218_green-35.png', '', 0),
+(4, 'new', 'moi', '180f068dc45ee81f66123d46d2768c29', '::1', 'boum@hotmail.fr', '', '', 0, '', '0000-00-00', '1383611218_green-35.png', '', 0),
+(5, 'mew', 'toum', '180f068dc45ee81f66123d46d2768c29', '::1', 'azerty@hotmail.fr', '', '', 0, '', '0000-00-00', '1383611218_green-35.png', '', 0),
+(6, 'tarask', 'pli', '180f068dc45ee81f66123d46d2768c29', '::1', 'ab@hotmail.fr', '', '', 0, '', '09/11/2013', '1383611218_green-35.png', '', 0),
+(7, 'wxd', 'cfbvf', '180f068dc45ee81f66123d46d2768c29', '::1', 'w@hotmail.fr', '', '', 0, '', '0000-00-00', '1383611218_green-35.png', '', 0),
+(8, 'c', 'c', '180f068dc45ee81f66123d46d2768c29', '::1', 'c@hotmail.fr', '', '', 0, '', '0000-00-00', '1383611218_green-35.png', '', 0),
+(9, 'v', 'v', '180f068dc45ee81f66123d46d2768c29', '::1', 'v@hotmail.fr', '', '', 0, '', '0000-00-00', '1383611218_green-35.png', '', 0),
+(10, 'b', 'b', '180f068dc45ee81f66123d46d2768c29', '::1', 'b@hotmail.fr', '', '', 0, '', '0000-00-00', 'arena.jpg.jpg', '', 0),
+(11, 'n', 'n', '180f068dc45ee81f66123d46d2768c29', '::1', 'n@hotmail.fr', '', '', 0, '', '0000-00-00', '1356288328', '', 0),
+(12, 'q', 'q', '180f068dc45ee81f66123d46d2768c29', '::1', 'q@hotmail.fr', '', '', 0, '', '0000-00-00', '1664322395', '', 0),
+(13, 's', 's', '180f068dc45ee81f66123d46d2768c29', '::1', 's@hotmail.fr', '', '', 0, '', '0000-00-00', '703446565', '', 0),
+(14, 'd', 'd', '180f068dc45ee81f66123d46d2768c29', '::1', 'd@hotmail.fr', '', '', 0, '', '0000-00-00', '909038353', '', 0),
+(15, 'f', 'f', '180f068dc45ee81f66123d46d2768c29', '::1', 'f@hotmail.fr', '', '', 0, '', '0000-00-00', '1254606751', '', 0),
+(16, 'g', 'g', '180f068dc45ee81f66123d46d2768c29', '::1', 'g@hotmail.fr', '', '', 0, '', '0000-00-00', '1383611218_green-35.png', '', 0),
+(17, 'h', 'h', '180f068dc45ee81f66123d46d2768c29', '::1', 'h@hotmail.fr', '', '', 0, '', '0000-00-00', '2005042347.jpg', '', 0),
+(18, 'j', 'j', '180f068dc45ee81f66123d46d2768c29', '::1', 'j@hotmail.fr', '', '', 0, '', '0000-00-00', '', '', 0),
+(19, 'k', 'k', '180f068dc45ee81f66123d46d2768c29', '::1', 'k@hotmail.fr', '', '', 0, '', '0000-00-00', '1383611218_green-35.png', '', 0),
+(20, 'l', 'l', '180f068dc45ee81f66123d46d2768c29', '::1', 'l@hotmail.fr', '23 rue des martyrs', '33642643617', 13000, 'Marseille', '04/11/2013', '702799712.jpg', '', 0),
+(21, 'uiop', 'uiop', '180f068dc45ee81f66123d46d2768c29', '::1', 'osef@hotmail.fr', '', '', 0, '', '', '1383611218_green-35.png', '', 0),
+(22, 'theo', 'fanchini', '77fac59c9d1db9b83bfab3787de86659', '88.165.159.101', 'theo.fanchini@hei.fr', '', '', 0, '', '', '2117745655.jpeg', '', 0),
+(23, 'dfgdfg', 'dfgfdgf', '8ead6e4b55f7813e69c4217a16c24cfb', '::1', 'test@hotmail.fr', '', '', 0, '', '', '1383611218_green-35.png', '', 0),
+(24, 'gvnhgh', 'gh,nhg,', '180f068dc45ee81f66123d46d2768c29', '::1', 'abcdefg@hotmail.fr', '', '', 0, '', '', '1383611218_green-35.png', '', 0);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

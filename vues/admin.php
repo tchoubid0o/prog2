@@ -11,7 +11,7 @@ if(isset($_GET['act']) && $_GET['act'] == "adduser"){
 }
         if (!isset($_GET['act'])) {
             ?>
-
+            
             <h4 style="text-align: center;">Accueil Administration</h4>
             <div style="width:380px; margin: auto;">
                 <div id="clientsAdm" style="width: 150px;float: left; padding: 20px;">
