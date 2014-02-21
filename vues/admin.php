@@ -1,0 +1,177 @@
+<?php
+if (isset($_SESSION['id'])) {
+    if ($_SESSION['adm'] == 1) {?>
+<a href="<?php echo ROOTPATH; ?>/admin.html">Accueil</a>  
+<?php if(isset($_GET['act']) && $_GET['act'] == "modifyclient"){
+    echo "> Client n°".$_GET['param1']."";
+} 
+if(isset($_GET['act']) && $_GET['act'] == "adduser"){
+    $nb = countNbClients($auth);
+    echo "> Client n°".($nb['nb']+1)."";
+}
+        if (!isset($_GET['act'])) {
+            ?>
+
+            <h4 style="text-align: center;">Accueil Administration</h4>
+            <div style="width:380px; margin: auto;">
+                <div id="clientsAdm" style="width: 150px;float: left; padding: 20px;">
+                    <h5>Mes Clients</h5>
+                    <div style="overflow-x: hidden; overflow-y: scroll;height: 300px;">
+                        <?php
+                        foreach ($clients as $client) {
+                            echo "<a href='" . ROOTPATH . "/admin-modifyclient&" . $client['id'] . ".html'>Client n°" . $client['id'] . "</a><form style='display: inline;' action='" . ROOTPATH . "/admin.html' enctype='multipart/form-data' method='post'>
+                        <input type='hidden' name='idClient' value='" . $client['id'] . "' />
+                        <input style='width: 15px; display: inline;' type='image' src='" . ROOTPATH . "/img/1387754326_001_05.png' alt='submit' name='submitDeleteClient" . $client['id'] . "' />
+                        </form><br/>                            
+
+                        ";
+                        }
+                        ?>
+                    </div>
+                    <a style="color: red;" href="<?php echo ROOTPATH; ?>/admin-adduser.html">Ajouter un client</a>
+                </div>
+                <div id="societesAdm" style="width: 150px;float: left; padding: 20px;">
+                    <h5>Mes Sociétés</h5>
+                    <div style="overflow-x: hidden; overflow-y: scroll;height: 300px;">
+                        <?php
+                        foreach ($societes as $societe) {
+                            echo "<a href=''>" . $societe['nomSociete'] . "</a><form style='display: inline;' action='" . ROOTPATH . "/admin.html' enctype='multipart/form-data' method='post'>
+                        <input type='hidden' name='idSociete' value='" . $societe['idSociete'] . "' />
+                        <input style='width: 15px; display: inline;' type='image' src='" . ROOTPATH . "/img/1387754326_001_05.png' alt='submit' name='submitDeleteSociete" . $societe['idSociete'] . "' />
+                        </form><br/>                            
+
+                        ";
+                        }
+                        ?>
+                    </div>
+                    <a style="color: red;" href="">Ajouter une société</a>
+                </div>
+                <div style="clear:both;"></div>
+            </div>
+            <?php
+        } else {
+            if ($_GET['act'] == "modifyclient") {
+                ?>
+                <h4 style="text-align: center;">Client n°<?php echo $_GET['param1']; ?></h4>
+                <form action="<?php echo ROOTPATH; ?>/admin-modifyclient&<?php echo $_GET['param1']; ?>.html" method="post" enctype="multipart/form-data">
+                    <div style="width:720px; margin: auto;">
+                        <div id="clientsAdm" style="width: 200px;text-align: center;float: left; padding: 20px;">
+                            <h5>Son Profil</h5>
+                            <div style="height: 300px;border: 1px solid black;">
+
+
+                                <label for="societe">Société</label><br/>
+                                <input type="text" value="<?php
+                                if (!empty($infoClient['societe'])) {
+                                    echo $infoClient['societe'];
+                                }
+                                ?>" name="societe" id="societe" /><br/><br/>
+
+                                <label for="mail">E-mail</label><br/>
+                                <input type="text" value="<?php
+                                if (!empty($infoClient['mail'])) {
+                                    echo $infoClient['mail'];
+                                }
+                                ?>" name="mail" id="mail"/><br/><br/>
+
+                                <label for="adresse">Adresse</label><br />
+                                <input type="text" name="adresse" id="adresse" value="<?php
+                                if (!empty($infoClient['adresse'])) {
+                                    echo $infoClient['adresse'];
+                                }
+                                ?>" /><br/><br/>
+
+                                <label for="password">Mot de passe</label><br/>
+                                <input type="password" placeholder="**********" name="password" id="password"/><br /><br />
+                            </div>
+                        </div>
+                        <div id="societesAdm" style="width: 200px;text-align: center;float: left; padding: 20px;">
+                            <h5>Accès Sociétés</h5>
+                            <div style="overflow-x: hidden; overflow-y: scroll;height: 300px;border: 1px solid black;">
+                                <?php
+                                $accesClients = getAccesClient($auth, $_GET['param1']);
+                                if (!empty($societes)) {
+                                    foreach ($societes as $societe) {
+                                        echo "<input type='checkbox' name='accesSociete[]' value='" . $societe['idSociete'] . "'";
+                                        if(!empty($accesClients)) {
+                                            foreach ($accesClients as $accesClient) {
+                                                if ($accesClient['idSociete'] == $societe['idSociete']) {
+                                                    echo "checked";
+                                                }
+                                            }
+                                        }
+                                        echo "> " . $societe['nomSociete'] . "<br/>";
+                                    }
+                                }
+                                ?>
+                            </div>
+                        </div>
+                        <div id="historiqueAdm" style="width: 200px;text-align: center;float: left; padding: 20px;">
+                            <h5>Historique des Commandes</h5>
+                            <div style="overflow-x: hidden; overflow-y: scroll;height: 300px;border: 1px solid black;">
+
+                            </div>
+                        </div>
+                        <div style="clear:both;"></div>
+                        <center>
+                            <input type="hidden" name="modifyClient" value="1" />
+                            <input class="submit" type="submit" value="Valider" style="color: #fff;border-radius: 4px;padding: 10px;background-color: #00ba84;text-transform: none;text-decoration: none;font-weight: 600;-moz-transition: background-color 0.35s linear;-webkit-transition: background-color 0.35s linear;transition: background-color 0.35s linear;" id="submit" /></center>
+                    </div>
+                </form>
+                <?php
+            }
+            if($_GET['act'] == "adduser"){
+                $nbUser = countNbClients($auth);
+                ?>
+                <h4 style="text-align: center;">Client n°<?php echo ($nbUser['nb']+1); ?></h4>
+                <form action="<?php echo ROOTPATH; ?>/admin.html" method="post" enctype="multipart/form-data">
+                    <div style="width:720px; margin: auto;">
+                        <div id="clientsAdm" style="width: 200px;text-align: center;float: left; padding: 20px;">
+                            <h5>Son Profil</h5>
+                            <div style="height: 300px;border: 1px solid black;">
+
+
+                                <label for="societe">Société</label><br/>
+                                <input type="text" value="" name="societe" id="societe" /><br/><br/>
+
+                                <label for="mail">E-mail</label><br/>
+                                <input type="text" value="" name="mail" id="mail"/><br/><br/>
+
+                                <label for="adresse">Adresse</label><br />
+                                <input type="text" name="adresse" id="adresse" value="" /><br/><br/>
+
+                                <label for="password">Mot de passe</label><br/>
+                                <input type="password" placeholder="**********" name="password" id="password"/><br /><br />
+                            </div>
+                        </div>
+                        <div id="societesAdm" style="width: 200px;text-align: center;float: left; padding: 20px;">
+                            <h5>Accès Sociétés</h5>
+                            <div style="overflow-x: hidden; overflow-y: scroll;height: 300px;border: 1px solid black;">
+                                <?php
+                                if (!empty($societes)) {
+                                    foreach ($societes as $societe) {
+                                        echo "<input type='checkbox' name='accesSociete[]' value='" . $societe['idSociete'] . "'";
+                                        echo "> " . $societe['nomSociete'] . "<br/>";
+                                    }
+                                }
+                                ?>
+                            </div>
+                        </div>
+                        <div id="historiqueAdm" style="width: 200px;text-align: center;float: left; padding: 20px;">
+                            <h5>Historique des Commandes</h5>
+                            <div style="overflow-x: hidden; overflow-y: scroll;height: 300px;border: 1px solid black;">
+
+                            </div>
+                        </div>
+                        <div style="clear:both;"></div>
+                        <center>
+                            <input type="hidden" name="addClient" value="1" />
+                            <input class="submit" type="submit" value="Valider" style="color: #fff;border-radius: 4px;padding: 10px;background-color: #00ba84;text-transform: none;text-decoration: none;font-weight: 600;-moz-transition: background-color 0.35s linear;-webkit-transition: background-color 0.35s linear;transition: background-color 0.35s linear;" id="submit" /></center>
+                    </div>
+                </form>
+                <?php
+            }
+        }
+    }
+}
+?>

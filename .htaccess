@@ -1,0 +1,24 @@
+RewriteEngine On
+
+RewriteRule	([a-zA-Z0-9_]+)\.([a-zA-Z0-9_]+)&([a-zA-Z0-9_]+)&([a-zA-Z0-9_]+)\.html	index.php?page=$1&param1=$2&param2=$3&param3=$4
+RewriteRule	([a-zA-Z0-9_]+)\.([a-zA-Z0-9_]+)&([a-zA-Z0-9_]+)\.html	index.php?page=$1&param1=$2&param2=$3
+RewriteRule	([a-zA-Z0-9_]+)\.([a-zA-Z0-9_]+)\.html	index.php?page=$1&param1=$2
+
+
+RewriteRule	([a-zA-Z0-9_]+)-([a-zA-Z0-9_]+)&([0-9]+)\.html	index.php?page=$1&act=$2&param1=$3
+
+RewriteRule	([a-zA-Z0-9_]+)-([a-zA-Z0-9_]+)\.html	index.php?page=$1&act=$2
+RewriteRule	([a-zA-Z0-9_]+)\.html	index.php?page=$1
+
+# Compression GZip
+<IfModule mod_deflate.c>
+   AddOutputFilterByType DEFLATE text/plain
+   AddOutputFilterByType DEFLATE text/html
+   AddOutputFilterByType DEFLATE text/xml
+   AddOutputFilterByType DEFLATE text/css
+   AddOutputFilterByType DEFLATE application/xml
+   AddOutputFilterByType DEFLATE application/xhtml+xml
+   AddOutputFilterByType DEFLATE application/rss+xml
+   AddOutputFilterByType DEFLATE application/javascript
+   AddOutputFilterByType DEFLATE application/x-javascript
+</IfModule>

@@ -1,0 +1,32 @@
+body{
+    background-color: #edede5;	
+}
+
+#logintop {
+    position: fixed;
+    left: 40%;
+    top: 5%;
+    padding: 50px;
+    border-radius: 5px;
+    background-color: white;
+    z-index: 999;
+}
+
+
+
+.sub-menu {
+    display: none;
+}
+ 
+.accordion li:target > .sub-menu {
+    display: block;
+}
+
+.formvalid{
+	color: #dc2b2b;
+	background-image: none;
+	background-color: transparent;
+	cursor: pointer;
+	border:none;
+	width: auto;
+}

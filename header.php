@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html> 
+    <head> 
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" /> 
+        <title>Virolle</title> 
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <!-- Géo Meta Tag -->
+        <meta name="geo.region" content="FR-75" />
+        <meta name="geo.placename" content="Lille" />
+        <meta name="geo.position" content="50.62925;3.057256" />
+        <meta name="ICBM" content="50.62925, 3.057256" />
+        <!-- Auteur de la page -->
+        <meta name="author" content="Virolle" />
+        <!-- Description de la page -->
+        <meta name="description" content="Virolle" />
+        <!-- Mots-clés de la page -->
+        <meta name="keywords" content="Virolle" />
+        <!-- Adresse de contact -->
+        <meta name="reply-to" content="" />
+        <meta http-equiv="content-language" content="fr-FR" />
+        <meta name="language" content="fr-FR" />
+        <!-- Empêcher la mise en cache de la page par le navigateur -->
+        <meta http-equiv="pragma" content="no-cache" />
+        <!-- Lien vers le style de la page -->
+        <link rel="stylesheet" media="screen" type="text/css" title="Design" href="<?php echo ROOTPATH; ?>/design.css" />
+        <!-- On importe Jquery -->
+        <script type="text/javascript" src="//code.jquery.com/jquery-1.9.1.js"></script>
+        <!-- Script de modification des formulaires -->
+        <script type="text/javascript" src="<?php echo ROOTPATH; ?>/scripts/usableforms.js"></script>
+        <!-- DatePicker -->
+        <link rel="stylesheet" type="text/css" href="scripts/datepicker/jquery-ui.css">
+        <link rel="stylesheet" type="text/css" href="scripts/datepicker/demos.css">
+        <script src="scripts/datepicker/jquery-1.5.1.js"></script>
+        <script src="scripts/datepicker/jquery.ui.core.js"></script>
+        <script src="scripts/datepicker/jquery.ui.widget.js"></script>
+        <script src="scripts/datepicker/jquery.ui.datepicker.js"></script>
+        <script src="scripts/datepicker/jquery.ui.datepicker-fr.js"></script>
+    </head> 
+    <body>
+        <div id="content" style="width: 1000px;margin: auto;">
+            <?php if (empty($_SESSION['id'])) { ?> 
+                <a href="<?php echo ROOTPATH; ?>/connexion.html">Connexion</a>
+            <?php } else {
+                ?>
+                <table style="width: 1000px; margin: auto;">
+                    <tr>
+                        <td style="width: 250px;"><a href="<?php echo ROOTPATH; ?>/index.html">Accueil</a></td>
+                        <td style="width: 250px;"><a href="<?php echo ROOTPATH; ?>/howto.html">Comment ça marche?</a></td>
+                        <td style="width: 250px;"><a href="<?php echo ROOTPATH; ?>/user.html">Mon compte</a></td>
+                        <td style="width: 250px;"><a href="<?php echo ROOTPATH; ?>/mycart.html">Mon panier</a></td>
+                    </tr>
+                </table>
+            <?php } ?>
