@@ -2,6 +2,46 @@ body{
     background-color: #ffffff;	
 }
 
+.underline{
+    text-decoration: underline;  
+}
+
+/*Catalogue Catégorie*/
+.accordion{
+    list-style: none;
+    width: 248px;
+    float: left;
+    padding-left: 0px;
+    border: 1px solid black;
+    margin-top: 20px;
+}
+
+.accordion li{
+
+}
+
+#right{
+    float: left;
+    
+    width: 750px;
+}
+
+.right_content{
+    text-align: center;
+    padding: 0px;
+    margin-top: 0px;
+}
+
+.right_content li{
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.right_content .img_index{
+    text-align: center;
+    margin: auto;
+}
+
 #logintop {
     position: fixed;
     left: 40%;
@@ -17,16 +57,16 @@ body{
 .sub-menu {
     display: none;
 }
- 
+
 .accordion li:target > .sub-menu {
     display: block;
 }
 
 .formvalid{
-	color: #dc2b2b;
-	background-image: none;
-	background-color: transparent;
-	cursor: pointer;
-	border:none;
-	width: auto;
+    color: #dc2b2b;
+    background-image: none;
+    background-color: transparent;
+    cursor: pointer;
+    border:none;
+    width: auto;
 }

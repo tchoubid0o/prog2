@@ -43,9 +43,12 @@ foreach ($array AS $noeud) {
 		else{$html .= "\n</form><ul class='sub-menu".$niveau."' style='display:none;'>\n";}
 	}
 
- 
-	$html .= '<li><form class="menuCategorie" method="post" ><input type="hidden" name="submitSearch" value="'.$noeud['idCategorie'].'"><input class="formvalid" type="submit" name="idCategorie" value="'.$noeud['libelleCategorie'].'" />';
- 
+        if($niveau == 0){
+            $html .= '<li><form class="menuCategorie" style="border-bottom: 1px solid black; border-top: 1px solid black;" method="post" ><input type="hidden" name="submitSearch" value="'.$noeud['idCategorie'].'"><input class="formvalid" type="submit" name="idCategorie" value="'.$noeud['libelleCategorie'].'" />';
+        }
+        else{
+            $html .= '<li><form class="menuCategorie" method="post" ><input type="hidden" name="submitSearch" value="'.$noeud['idCategorie'].'"><input class="formvalid" type="submit" name="idCategorie" value="'.$noeud['libelleCategorie'].'" />';
+        }
 	$niveau_precedent = $niveau;
  
 	$html .= afficher_menu($noeud['idCategorie'], ($niveau + 1), $array);
@@ -79,8 +82,9 @@ function recupProduits($auth, $idCategorie, $idSociete){
 			$d[$i]['idCategorie'] = $donnees['idCategorie'];
 			$d[$i]['prixProduit'] = $donnees['prixProduit'];
 			$d[$i]['minQte'] = $donnees['minQte'];
-			$d[$i]['quantiteProduit'] = $donnees['quantiteProduit'];	
-
+			$d[$i]['quantiteProduit'] = $donnees['quantiteProduit'];
+                        $d[$i]['imgProduit'] = $donnees['imgProduit'];
+                        $d[$i]['refProduit'] = $donnees['refProduit'];
 			$i++;
 		}
 	}
