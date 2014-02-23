@@ -1,4 +1,5 @@
-<h4 class="underline">Catalogue de la <?php echo $nomSociete['nomSociete']; ?></h4>
+<?php if(isset($add2Cart['message'])){echo $add2Cart['message'];} ?>
+<h4 class="underline">Catalogue de la <?php echo $nomSociete['nomSociete'];?></h4>
 <div id="idSociete" style="display: none;"><?php echo $_GET['act']; ?></div>
 <?php
 echo afficher_menu(0, 0, $donnees);
@@ -21,10 +22,10 @@ echo afficher_menu(0, 0, $donnees);
 
 
 <div id="result" style="width: 1000px; margin: auto;"></div>
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script type="text/javascript">
     var ROOTPATH = "/prog2/";
-
+    var idS = $('#idSociete').text();
+    
     $('.empty_panier').click(function() {
         localStorage.setItem("panier", null);
     });
@@ -133,7 +134,7 @@ echo afficher_menu(0, 0, $donnees);
         else
             $(element).next().slideDown();
     }
-    ;
+    
     function postForm(element) {
         function printDataReceived(data) {
             // Traitement et affichage des données reçues sous forme de Json : 
@@ -149,6 +150,7 @@ echo afficher_menu(0, 0, $donnees);
                     newContent += '</a><br/>';
                     newContent += '<span class="prixProduit">Prix: ' + data[i].prixProduit + '€</span><br/>';
                     newContent += '<span class="prixProduit">Ref: ' + data[i].refProduit + '</span><br/>';
+                    newContent += '<form method="POST" class="formAdd2Cart" action="societe-'+idS+'.html">';
                     newContent += 'Quantité: <select name="quantiteProduit">';
                     var o = 1;
                     do {
@@ -157,10 +159,11 @@ echo afficher_menu(0, 0, $donnees);
                         o++;
                     } while (j < data[i].quantiteProduit);
                     newContent += '</select>';
-                    newContent += '<input type="hidden" name="idProduit" value="' + data[i].idProduit + '"><input type="hidden" name="idSociete" value="' + data[i].idSociete + '"><input type="hidden" name="idCategorie" value="' + data[i].idCategorie + '"><br/>';
-                    newContent += '<a class="add_article" href="#" title="ajouter article">Ajouter au panier</a><br/>';
-                    newContent += '</ul></div>';
+                    newContent += '<input type="hidden" name="idProduit" value="' + data[i].idProduit + '"><input type="hidden" name="idSociete" value="' + data[i].idSociete + '"><br/>';
+                    newContent += '<input type="submit" class="submit2Cart" name="add2Cart" value="Ajouter au panier" style="cursor: pointer;color: #fff;border: 1px solid grey;background-color: #2db3e6;height: 22px;">';
+                    newContent += '</form>';
                 }
+                newContent += '</ul></div>';
             }
             else {
                 newContent += '<center><span>Aucun Résultat</span></center><br/>';

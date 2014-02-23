@@ -1,5 +1,60 @@
 <?php
 
+function add2Cart($auth, $qteProduit, $idProduit, $idSociete){
+    //On vérifie qu'on a pas déjà un panier avec des objets d'une autre société
+    //Si c'est le cas, alors on dit à l'utilisateur qu'il doit d'abord valider son précédent panier
+    //On ajoute au panier la quantité d'objet voulue
+    //Il faut vérifier si l'objet n'est pas déjà présent dans le panier, si c'est le cas, on ajoute au stock précédent
+    $add2Cart['message'] = "";
+    
+    $check = $auth->prepare('SELECT COUNT(*) AS nb FROM panier WHERE idUser = :idUser AND idSociete != :idSociete');
+    $check->bindValue(":idUser", $_SESSION['id'], PDO::PARAM_INT);
+    $check->bindValue(":idSociete", $idSociete, PDO::PARAM_INT);
+    $check->execute();
+    $checkResult = $check->fetch();
+    $check->closeCursor();
+    
+    if($checkResult['nb'] == 0){
+        $check2 = $auth->prepare('SELECT * FROM panier WHERE idUser = :idUser AND idSociete = :idSociete AND idProduit = :idProduit');
+        $check2->bindValue(":idUser", $_SESSION['id'], PDO::PARAM_INT);
+        $check2->bindValue(":idSociete", $idSociete, PDO::PARAM_INT);
+        $check2->bindValue(":idProduit", $idProduit, PDO::PARAM_INT);
+        $check2->execute();
+        $checkResult2 = $check2->fetch();
+        $check2->closeCursor();
+        
+        if($checkResult2['qteProduit']==0){
+            //L'objet n'existe pas déjà dans notre panier
+            $insert = $auth->prepare('INSERT INTO panier(`idUser`, `idProduit`, `idSociete`, `qteProduit`) VALUES(:idUser, :idProduit, :idSociete, :qteProduit)');
+            $insert->bindValue(":idUser", $_SESSION['id'], PDO::PARAM_INT);
+            $insert->bindValue(":idProduit", $idProduit, PDO::PARAM_INT);
+            $insert->bindValue(":idSociete", $idSociete, PDO::PARAM_INT);
+            $insert->bindValue(":qteProduit", $qteProduit, PDO::PARAM_INT);
+            $insert->execute();
+            $insert->closeCursor();
+            
+            $add2Cart['message'] = "L'objet a bien été ajouté au panier.";
+        }
+        else{
+            $qteNow = $checkResult2['qteProduit'] + $qteProduit;
+            $insert = $auth->prepare('UPDATE panier SET qteProduit = :qteNow WHERE idUser = :idUser AND idProduit = :idProduit AND idSociete = :idSociete');
+            $insert->bindValue(":qteNow", $qteNow, PDO::PARAM_INT);
+            $insert->bindValue(":idUser", $_SESSION['id'], PDO::PARAM_INT);
+            $insert->bindValue(":idProduit", $idProduit, PDO::PARAM_INT);
+            $insert->bindValue(":idSociete", $idSociete, PDO::PARAM_INT);
+            $insert->execute();
+            $insert->closeCursor();
+            
+            $add2Cart['message'] = "L'objet a bien été ajouté au panier.";
+        }
+    }
+    else{
+        $add2Cart['message'] .= "Vous devez d'abord valider votre ancien panier avant de pouvoir en refaire un.";
+    }
+    
+    return $add2Cart;
+}
+
 function getNomSociete($auth, $id) {
 
     $reqInfo = $auth->query('SELECT nomSociete FROM societe WHERE idSociete = ' . $id . '');
