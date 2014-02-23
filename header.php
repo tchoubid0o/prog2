@@ -24,17 +24,9 @@
         <!-- Lien vers le style de la page -->
         <link rel="stylesheet" media="screen" type="text/css" title="Design" href="<?php echo ROOTPATH; ?>/design.css" />
         <!-- On importe Jquery -->
-        <script type="text/javascript" src="//code.jquery.com/jquery-1.9.1.js"></script>
-        <!-- Script de modification des formulaires -->
-        <script type="text/javascript" src="<?php echo ROOTPATH; ?>/scripts/usableforms.js"></script>
-        <!-- DatePicker -->
-        <link rel="stylesheet" type="text/css" href="scripts/datepicker/jquery-ui.css">
-        <link rel="stylesheet" type="text/css" href="scripts/datepicker/demos.css">
-        <script src="scripts/datepicker/jquery-1.5.1.js"></script>
-        <script src="scripts/datepicker/jquery.ui.core.js"></script>
-        <script src="scripts/datepicker/jquery.ui.widget.js"></script>
-        <script src="scripts/datepicker/jquery.ui.datepicker.js"></script>
-        <script src="scripts/datepicker/jquery.ui.datepicker-fr.js"></script>
+        <script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.js"></script>
+        <script type="text/javascript" src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
     </head> 
     <body>
         <div id="content" style="width: 1000px;margin: auto;">
@@ -47,7 +39,7 @@
                         <td style="width: 250px;"><a href="<?php echo ROOTPATH; ?>/index.html">Accueil</a></td>
                         <td style="width: 250px;"><a href="<?php echo ROOTPATH; ?>/howto.html">Comment ça marche?</a></td>
                         <td style="width: 250px;"><a href="<?php echo ROOTPATH; ?>/user.html">Mon compte</a></td>
-                        <td style="width: 250px;"><a href="<?php echo ROOTPATH; ?>/mycart.html">Mon panier</a></td>
+                        <td style="width: 250px;"><a href="<?php echo ROOTPATH; ?>/basket.html">Mon panier</a></td>
                     </tr>
                 </table>
             <?php } ?>

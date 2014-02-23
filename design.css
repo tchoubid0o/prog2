@@ -6,6 +6,24 @@ body{
     text-decoration: underline;  
 }
 
+.width1000{
+    width: 1000px;
+    margin: auto;
+}
+
+.width800{
+    width: 800px;
+    margin: auto;
+}
+
+.right{
+    float: right;
+}
+
+.left{
+    float: left;
+}
+
 /*Catalogue Catégorie*/
 .accordion{
     list-style: none;
@@ -69,4 +87,26 @@ body{
     cursor: pointer;
     border:none;
     width: auto;
+}
+
+#basketTable{
+    width: 800px; 
+    margin: auto; 
+    margin-top: 25px; 
+    border: 1px solid black;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+#basketTable th,#basketTable td{
+    border: 1px solid black;
+}
+
+.classButton{
+    cursor: pointer;
+    color: #fff;
+    border-radius: 4px;
+    padding: 5px;
+    background-color: #2db3e8;
+    text-decoration: none;
 }

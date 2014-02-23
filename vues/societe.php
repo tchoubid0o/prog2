@@ -1,8 +1,13 @@
-<?php if(isset($add2Cart['message'])){echo $add2Cart['message'];} ?>
-<h4 class="underline">Catalogue de la <?php echo $nomSociete['nomSociete'];?></h4>
+<?php if (isset($add2Cart['message'])) {
+    echo $add2Cart['message'];
+} ?>
+<h4 class="underline">Catalogue de la <?php echo $nomSociete['nomSociete']; ?></h4>
 <div id="idSociete" style="display: none;"><?php echo $_GET['act']; ?></div>
 <?php
-echo afficher_menu(0, 0, $donnees);
+$menu = afficher_menu(0, 0, $donnees);
+if (isset($menu)) {
+    echo $menu;
+}
 ?>
 
 <!--<p class="article">
@@ -25,80 +30,6 @@ echo afficher_menu(0, 0, $donnees);
 <script type="text/javascript">
     var ROOTPATH = "/prog2/";
     var idS = $('#idSociete').text();
-    
-    $('.empty_panier').click(function() {
-        localStorage.setItem("panier", null);
-    });
-
-    $('.remove_article').click(function() {
-        // Regarder si l'article est présent, si non : on ne fait rien
-        // Si oui : on le supprimer, puis on regarde si il reste d'autres articles pour cette societe. (si non : on supprime l'id en question)'
-    });
-
-    $('.add_article').click(function(event) {
-
-        function addToPannier(article) {
-            if (isNaN(article.quantiteProduit) || article.quantiteProduit == "") {
-                return;
-            }
-
-            console.log(article.idProduit);
-            var panier = JSON.parse(localStorage.getItem("panier"));
-            // Si il n'y a pas encore de pannier stocké en mémoire on en créé un.
-            if (panier == null) {
-                panier = new Object();
-                panier.societe = new Array();
-            }
-
-            // Parcours du panier pour savoir si il y a déjà des articles de la même société dans le panier
-            var idSocieteInArray = -1;
-            for (var i = 0; i < panier.societe.length && idSocieteInArray == -1; ++i) {
-                if (panier.societe[i].idSociete == article.idSociete)
-                    idSocieteInArray = i;
-            }
-
-            // Si il n'y en a pas, on créé un panier pour cette societe
-            if (idSocieteInArray == -1) {
-                console.log("creation array" + article.idSociete);
-                idSocieteInArray = panier.societe.length;
-                panier.societe[idSocieteInArray] = new Object();
-                panier.societe[idSocieteInArray].idSociete = article.idSociete;
-                panier.societe[idSocieteInArray].articles = new Array(); // TODO à déplacer ailleurs.
-            }
-
-            // Parcours du pannier pour savoir si l'article existe déjà dans le pannier ou pas.
-            var idArticleInArray = -1;
-            for (var i = 0; i < panier.societe[idSocieteInArray].articles.length && idArticleInArray == -1; ++i) {
-                if (panier.societe[idSocieteInArray].articles[i].idProduit == article.idProduit)
-                    idArticleInArray = i;
-            }
-
-            // Si l'article est déjà dans la liste, on ajoute la quantité à la précédente (on considère que le prix ne peut pas changer)
-            // Sinon on ajoute l'article
-            if (idArticleInArray != -1)
-                panier.societe[idSocieteInArray].articles[idArticleInArray].quantiteProduit =
-                        parseInt(panier.societe[idSocieteInArray].articles[idArticleInArray].quantiteProduit) + parseInt(article.quantiteProduit);
-            else
-                panier.societe[idSocieteInArray].articles[panier.societe[idSocieteInArray].articles.length] = article
-
-            // Mise à jour des données en mémoire.
-            localStorage.setItem("panier", JSON.stringify(panier));
-            console.log(localStorage.getItem("panier"));
-        }
-
-        // Création de l'article en javascript
-        var thisArticle = $(this).parent();
-        var article = {
-            idProduit: $(thisArticle).children('[name="idProduit"]').val(),
-            idSociete: $(thisArticle).children('[name="idSociete"]').val(),
-            idCategorie: $(thisArticle).children('[name="idCategorie"]').val(),
-            libelleProduit: $(thisArticle).children('.libelleProduit').html(),
-            quantiteProduit: $(thisArticle).children('[name="quantiteProduit"]').val(),
-            prixProduit: parseFloat($(thisArticle).children('.prixProduit').html())
-        };
-
-        addToPannier(article);
-    });
 
     // ***************** GESTION DU MENU **************************************
 
@@ -119,7 +50,7 @@ echo afficher_menu(0, 0, $donnees);
     }
 
     function derouleMenu(element, event) {
-
+        console.log("menu");
 
         // Si on est pas dans la même catégorie, on cache les autres
         var categories = $(element).parent().siblings().children('form.menuCategorie'); // On sélectionne les autres catégories
@@ -134,7 +65,7 @@ echo afficher_menu(0, 0, $donnees);
         else
             $(element).next().slideDown();
     }
-    
+
     function postForm(element) {
         function printDataReceived(data) {
             // Traitement et affichage des données reçues sous forme de Json : 
@@ -150,7 +81,7 @@ echo afficher_menu(0, 0, $donnees);
                     newContent += '</a><br/>';
                     newContent += '<span class="prixProduit">Prix: ' + data[i].prixProduit + '€</span><br/>';
                     newContent += '<span class="prixProduit">Ref: ' + data[i].refProduit + '</span><br/>';
-                    newContent += '<form method="POST" class="formAdd2Cart" action="societe-'+idS+'.html">';
+                    newContent += '<form method="POST" class="formAdd2Cart" action="societe-' + idS + '.html">';
                     newContent += 'Quantité: <select name="quantiteProduit">';
                     var o = 1;
                     do {
