@@ -81,44 +81,40 @@ function getSociete($auth, $id) {
 }
 
 function afficher_menu($parent, $niveau, $array) {
+ 
+$html = "";
+$niveau_precedent = 0;
+ 
+if (!$niveau && !$niveau_precedent) $html .= "\n<ul class='accordion'>\n";
+ 
+foreach ($array AS $noeud) {
+ 
+	if ($parent == $noeud['idParent']) {
+ 
+	if ($niveau_precedent < $niveau){
+		if($niveau == 1){$html .= "\n</form><ul class='sub-menu'>\n";}
+		else{$html .= "\n</form><ul class='sub-menu".$niveau."' style='display:none;'>\n";}
+	}
 
-    $html = "";
-    $niveau_precedent = 0;
-
-    if (!$niveau && !$niveau_precedent)
-        if (isset($array)) {
-            $html .= "\n<ul class='accordion'>\n";
-            foreach ($array AS $noeud) {
-
-                if ($parent == $noeud['idParent']) {
-
-                    if ($niveau_precedent < $niveau) {
-                        if ($niveau == 1) {
-                            $html .= "\n</form><ul class='sub-menu'>\n";
-                        } else {
-                            $html .= "\n</form><ul class='sub-menu" . $niveau . "' style='display:none;'>\n";
-                        }
-                    }
-
-                    if ($niveau == 0) {
-                        $html .= '<li><form class="menuCategorie" style="border-bottom: 1px solid black; border-top: 1px solid black;" method="post" ><input type="hidden" name="submitSearch" value="' . $noeud['idCategorie'] . '"><input class="formvalid" type="submit" name="idCategorie" value="' . $noeud['libelleCategorie'] . '" />';
-                    } else {
-                        $html .= '<li><form class="menuCategorie" method="post" ><input type="hidden" name="submitSearch" value="' . $noeud['idCategorie'] . '"><input class="formvalid" type="submit" name="idCategorie" value="' . $noeud['libelleCategorie'] . '" />';
-                    }
-                    $niveau_precedent = $niveau;
-
-                    $html .= afficher_menu($noeud['idCategorie'], ($niveau + 1), $array);
-                }
-            }
+        if($niveau == 0){
+            $html .= '<li><form class="menuCategorie" style="border-bottom: 1px solid black; border-top: 1px solid black;" method="post" ><input type="hidden" name="submitSearch" value="'.$noeud['idCategorie'].'"><input class="formvalid" type="submit" name="idCategorie" value="'.$noeud['libelleCategorie'].'" />';
         }
-    if (($niveau_precedent == $niveau) && ($niveau_precedent != 0))
-        $html .= "</ul>\n</li>\n";
-    else if ($niveau_precedent == $niveau)
-        $html .= "</ul>\n";
-    else
-        $html .= "</form></li>\n";
-
-    return $html;
+        else{
+            $html .= '<li><form class="menuCategorie" method="post" ><input type="hidden" name="submitSearch" value="'.$noeud['idCategorie'].'"><input class="formvalid" type="submit" name="idCategorie" value="'.$noeud['libelleCategorie'].'" />';
+        }
+	$niveau_precedent = $niveau;
+ 
+	$html .= afficher_menu($noeud['idCategorie'], ($niveau + 1), $array);
+ 
+	}
+}
+ 
+if (($niveau_precedent == $niveau) && ($niveau_precedent != 0)) $html .= "</ul>\n</li>\n";
+else if ($niveau_precedent == $niveau) $html .= "</ul>\n";
+else $html .= "</form></li>\n";
+ 
+return $html;
+ 
 }
 
 function recupProduits($auth, $idCategorie, $idSociete) {
