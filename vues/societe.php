@@ -1,30 +1,44 @@
-<?php if (isset($add2Cart['message'])) {
-    echo $add2Cart['message'];
-} ?>
-<h4 class="underline">Catalogue de la <?php echo $nomSociete['nomSociete']; ?></h4>
-<div id="idSociete" style="display: none;"><?php echo $_GET['act']; ?></div>
 <?php
-$menu = afficher_menu(0, 0, $donnees);
-if (isset($menu)) {
-    echo $menu;
+if (isset($add2Cart['message'])) {
+    echo $add2Cart['message'];
 }
 ?>
-
-<!--<p class="article">
-    <img alt="imgProduit" src="img/1393110376_Picture.png" />
-    <span class="libelleProduit">nomProd</span> <span class="prixProduit">75 €</span>
-    qte : <input name="quantiteProduit"/>
-    
-    <input type="hidden" name="idProduit" value="4">
-    <input type="hidden" name="idSociete" value="8">
-    <input type="hidden" name="idCategorie" value="10">
-    <a class="add_article" href="#" title="ajouter article">Ajouter Article</a>
-    <a class="remove_article" href="#" title="ajouter article">Supprimer Article</a>
-    <a class="empty_panier" href="#" title="ajouter article">Vider le panier</a>
-
-    
-</p>-->
-
+<h4 class="underline">Catalogue de la <?php echo $nomSociete['nomSociete']; ?></h4>
+<div id="idSociete" style="display: none;"><?php echo $_GET['act']; ?></div>
+<div class="left">
+    <?php
+    $menu = afficher_menu(0, 0, $donnees);
+    if (isset($menu)) {
+        echo $menu;
+    }
+    ?>
+    <div style="clear: both;"></div>
+    <div style="width: 248px; border: 1px solid black; text-align: center;">
+        Recherche rapide<br/>
+        <form method="post" action="societe.html" id="rapidSearchForm">
+            <input type="hidden" name="searchProduct" value="1"/>
+            <div class="left" style="width: 124px;">
+                <label for="refSearch">Ref :</label><br/>
+                <input type="text" style="width: 80px;" id="refSearch" name="refSearch"/>
+            </div>
+            <div class="left" style="width: 124px;">
+                <label for="spinnerSearchQte">Quantité :</label><br/>
+                <input type="text" name="qteSearch" id="spinnerSearchQte" style="font-size: 13px; width: 57px;" placeholder="min"/>
+                <script>
+                    $(function() {
+                        $('#spinnerSearchQte').spinner({
+                            min: 0,
+                            max: 999,
+                            step: 1
+                        });
+                    });
+                </script>
+            </div>
+            <div style="clear: both;"></div>
+            <input type="submit" class="classButton" value="Ajouter au panier" />
+        </form>
+    </div>
+</div>
 
 <div id="result" style="width: 1000px; margin: auto;"></div>
 <script type="text/javascript">
@@ -115,5 +129,13 @@ if (isset($menu)) {
          });
          }*/
     }
+
+    $("#rapidSearchForm").submit(function(event) {
+        event.preventDefault();
+        $.ajax({url: "societe.html", type: "POST",
+            data: $(this).serialize()
+                    //On envoie le formulaire qui contient: idProduit et qteProduit
+        });
+    });
 
 </script>

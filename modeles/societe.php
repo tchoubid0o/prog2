@@ -1,5 +1,73 @@
 <?php
 
+function searchAndAdd($auth, $refSearch, $qteSearch) {
+    $searchAndAdd['message'] = "";
+
+    $checkRef = $auth->prepare('SELECT COUNT(*) AS nb FROM produit WHERE refProduit = :refSearch');
+    $checkRef->bindValue(":refSearch", $refSearch, PDO::PARAM_STR);
+    $checkRef->execute();
+    $checkNb = $checkRef->fetch();
+    $checkRef->closeCursor();
+    if ($checkNb['nb'] > 0) {
+        //Le produit existe
+        //On vérifie l'id de la société correspondant au produit et on vérifie qu'on a pas un autre panier d'une société différente.
+        $getSociete = $auth->prepare('SELECT * FROM produit WHERE refProduit = :refSearch');
+        $getSociete->bindValue(":refSearch", $refSearch, PDO::PARAM_STR);
+        $getSociete->execute();
+        $item = $getSociete->fetch();
+        $getSociete->closeCursor();
+        //$item['idSociete'] retourne l'id de la société correspondant au produit
+
+        $checkPanier = $auth->prepare('SELECT COUNT(*) AS nb FROM panier WHERE idUser = :idUser AND idSociete != :idSociete');
+        $checkPanier->bindValue(":idUser", $_SESSION['id'], PDO::PARAM_INT);
+        $checkPanier->bindValue(":idSociete", $item['idSociete'], PDO::PARAM_INT);
+        $checkPanier->execute();
+        $returnNb = $checkPanier->fetch();
+        $checkPanier->closeCursor();
+        if ($returnNb['nb'] == 0) {
+            //On peut ajouter le produit au panier
+            $idSearch = $auth->prepare('SELECT * FROM produit WHERE refProduit = :refSearch');
+            $idSearch->bindValue(":refSearch", $refSearch, PDO::PARAM_STR);
+            $idSearch->execute();
+            $idProd = $idSearch->fetch();
+            $idSearch->closeCursor();
+
+            $check2 = $auth->prepare('SELECT * FROM panier WHERE idUser = :idUser AND idSociete = :idSociete AND idProduit = :idProduit');
+            $check2->bindValue(":idUser", $_SESSION['id'], PDO::PARAM_INT);
+            $check2->bindValue(":idSociete", $item['idSociete'], PDO::PARAM_INT);
+            $check2->bindValue(":idProduit", $idProd['idProduit'], PDO::PARAM_INT);
+            $check2->execute();
+            $checkResult2 = $check2->fetch();
+            $check2->closeCursor();
+
+            if ($checkResult2['qteProduit'] == 0) {
+                //L'objet n'existe pas déjà dans notre panier
+                $insert = $auth->prepare('INSERT INTO panier(`idUser`, `idProduit`, `idSociete`, `qteProduit`) VALUES(:idUser, :idProduit, :idSociete, :qteProduit)');
+                $insert->bindValue(":idUser", $_SESSION['id'], PDO::PARAM_INT);
+                $insert->bindValue(":idProduit", $idProd['idProduit'], PDO::PARAM_INT);
+                $insert->bindValue(":idSociete", $item['idSociete'], PDO::PARAM_INT);
+                $insert->bindValue(":qteProduit", $qteSearch, PDO::PARAM_INT);
+                $insert->execute();
+                $insert->closeCursor();
+
+                $searchAndAdd['message'] = "L'objet a bien été ajouté au panier.";
+            } else {
+                $qteNow = $checkResult2['qteProduit'] + $qteSearch;
+                $insert = $auth->prepare('UPDATE panier SET qteProduit = :qteNow WHERE idUser = :idUser AND idProduit = :idProduit AND idSociete = :idSociete');
+                $insert->bindValue(":qteNow", $qteNow, PDO::PARAM_INT);
+                $insert->bindValue(":idUser", $_SESSION['id'], PDO::PARAM_INT);
+                $insert->bindValue(":idProduit", $idProd['idProduit'], PDO::PARAM_INT);
+                $insert->bindValue(":idSociete", $item['idSociete'], PDO::PARAM_INT);
+                $insert->execute();
+                $insert->closeCursor();
+
+                $searchAndAdd['message'] = "L'objet a bien été ajouté au panier.";
+            }
+        }
+    }
+    return $searchAndAdd;
+}
+
 function add2Cart($auth, $qteProduit, $idProduit, $idSociete) {
     //On vérifie qu'on a pas déjà un panier avec des objets d'une autre société
     //Si c'est le cas, alors on dit à l'utilisateur qu'il doit d'abord valider son précédent panier
@@ -81,40 +149,44 @@ function getSociete($auth, $id) {
 }
 
 function afficher_menu($parent, $niveau, $array) {
- 
-$html = "";
-$niveau_precedent = 0;
- 
-if (!$niveau && !$niveau_precedent) $html .= "\n<ul class='accordion'>\n";
- 
-foreach ($array AS $noeud) {
- 
-	if ($parent == $noeud['idParent']) {
- 
-	if ($niveau_precedent < $niveau){
-		if($niveau == 1){$html .= "\n</form><ul class='sub-menu'>\n";}
-		else{$html .= "\n</form><ul class='sub-menu".$niveau."' style='display:none;'>\n";}
-	}
 
-        if($niveau == 0){
-            $html .= '<li><form class="menuCategorie" style="border-bottom: 1px solid black; border-top: 1px solid black;" method="post" ><input type="hidden" name="submitSearch" value="'.$noeud['idCategorie'].'"><input class="formvalid" type="submit" name="idCategorie" value="'.$noeud['libelleCategorie'].'" />';
+    $html = "";
+    $niveau_precedent = 0;
+
+    if (!$niveau && !$niveau_precedent)
+        $html .= "\n<ul class='accordion'>\n";
+
+    foreach ($array AS $noeud) {
+
+        if ($parent == $noeud['idParent']) {
+
+            if ($niveau_precedent < $niveau) {
+                if ($niveau == 1) {
+                    $html .= "\n</form><ul class='sub-menu'>\n";
+                } else {
+                    $html .= "\n</form><ul class='sub-menu" . $niveau . "' style='display:none;'>\n";
+                }
+            }
+
+            if ($niveau == 0) {
+                $html .= '<li><form class="menuCategorie" style="border-bottom: 1px solid black; border-top: 1px solid black;" method="post" ><input type="hidden" name="submitSearch" value="' . $noeud['idCategorie'] . '"><input class="formvalid" type="submit" name="idCategorie" value="' . $noeud['libelleCategorie'] . '" />';
+            } else {
+                $html .= '<li><form class="menuCategorie" method="post" ><input type="hidden" name="submitSearch" value="' . $noeud['idCategorie'] . '"><input class="formvalid" type="submit" name="idCategorie" value="' . $noeud['libelleCategorie'] . '" />';
+            }
+            $niveau_precedent = $niveau;
+
+            $html .= afficher_menu($noeud['idCategorie'], ($niveau + 1), $array);
         }
-        else{
-            $html .= '<li><form class="menuCategorie" method="post" ><input type="hidden" name="submitSearch" value="'.$noeud['idCategorie'].'"><input class="formvalid" type="submit" name="idCategorie" value="'.$noeud['libelleCategorie'].'" />';
-        }
-	$niveau_precedent = $niveau;
- 
-	$html .= afficher_menu($noeud['idCategorie'], ($niveau + 1), $array);
- 
-	}
-}
- 
-if (($niveau_precedent == $niveau) && ($niveau_precedent != 0)) $html .= "</ul>\n</li>\n";
-else if ($niveau_precedent == $niveau) $html .= "</ul>\n";
-else $html .= "</form></li>\n";
- 
-return $html;
- 
+    }
+
+    if (($niveau_precedent == $niveau) && ($niveau_precedent != 0))
+        $html .= "</ul>\n</li>\n";
+    else if ($niveau_precedent == $niveau)
+        $html .= "</ul>\n";
+    else
+        $html .= "</form></li>\n";
+
+    return $html;
 }
 
 function recupProduits($auth, $idCategorie, $idSociete) {

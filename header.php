@@ -37,7 +37,7 @@
                 <table style="width: 1000px; margin: auto;">
                     <tr>
                         <td style="width: 250px;"><a href="<?php echo ROOTPATH; ?>/index.html">Accueil</a></td>
-                        <td style="width: 250px;"><a href="<?php echo ROOTPATH; ?>/howto.html">Comment ça marche?</a></td>
+                        <td style="width: 250px;"><a href="<?php echo ROOTPATH; ?>/HowtoUse.html">Comment ça marche?</a></td>
                         <td style="width: 250px;"><a href="<?php echo ROOTPATH; ?>/user.html">Mon compte</a></td>
                         <td style="width: 250px;"><a href="<?php echo ROOTPATH; ?>/basket.html">Mon panier</a></td>
                     </tr>
