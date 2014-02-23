@@ -26,8 +26,7 @@
                                     $('#spinner_<?php echo $produit['refProduit']; ?>').spinner({
                                         min: <?php echo $produit['minQte']; ?>,
                                         max: <?php echo $produit['quantiteProduit']; ?>,
-                                        step: <?php echo $produit['minQte']; ?>
-                                    });
+                                        step: <?php echo $produit['minQte']; ?>});
                                 });
                             </script>
                         </form>
@@ -53,7 +52,7 @@
         <div class="right">Total: <span id="cartPrice"><?php echo $prixPanier; ?></span>€</div>
         <div style="clear: both;"></div>
         <a href="index.html" class="classButton left">Continuer mes achats</a>
-        <a href="valide.html" class="classButton right">Valider ma commande</a>
+        <a href="OrderProcess.html" class="classButton right">Valider ma commande</a>
     </div>
 </div>
 <script>

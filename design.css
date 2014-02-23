@@ -6,6 +6,10 @@ body{
     text-decoration: underline;  
 }
 
+.center{
+    text-align: center;
+}
+
 .width1000{
     width: 1000px;
     margin: auto;
@@ -13,6 +17,11 @@ body{
 
 .width800{
     width: 800px;
+    margin: auto;
+}
+
+.width500{
+    width: 500px;
     margin: auto;
 }
 
@@ -110,4 +119,15 @@ body{
     background-color: #2db3e8;
     text-decoration: none;
     border: none;
+}
+
+#userSettings label{
+    display: block;
+    width: 6em;
+    float: left;
+}
+
+.spaceBot{
+    padding-bottom: 15px;
+    padding-top: 15px;
 }
