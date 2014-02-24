@@ -15,11 +15,16 @@ function confirmOrder($auth, $date, $comment) {
         
         if ($i == 0) {
             //On crée une unique nouvelle commande
-            $insert = $auth->prepare('INSERT INTO commande(`idUser`, `idSociete`, `dateCommande`, `dateLivraison`, `commentOrder`) VALUES(:id, :idSociete, NOW(), :date, :comment)');
+            
+            //Clée unique de la commande:
+            $key = generateOrderKey($auth);
+            
+            $insert = $auth->prepare('INSERT INTO commande(`idUser`, `idSociete`, `dateCommande`, `dateLivraison`, `commentOrder`, `keyOrder`) VALUES(:id, :idSociete, NOW(), :date, :comment, :key)');
             $insert->bindValue(":id", $_SESSION['id'], PDO::PARAM_INT);
             $insert->bindValue(":idSociete", $donnees['idSociete'], PDO::PARAM_INT);
             $insert->bindValue(":date", $date, PDO::PARAM_STR);
             $insert->bindValue(":comment", $comment, PDO::PARAM_STR);
+            $insert->bindValue(":key", $key, PDO::PARAM_STR);
             $insert->execute();
             
             $idCmd = $auth->lastInsertId();
@@ -48,4 +53,9 @@ function confirmOrder($auth, $date, $comment) {
     $del->closeCursor();
 }
 
+function generateOrderKey($auth){
+    $time = time();
+    $rand = mt_rand(11111111, 99999999);
+    return $time.$rand;
+}
 ?>

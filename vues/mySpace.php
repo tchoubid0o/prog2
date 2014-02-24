@@ -29,7 +29,7 @@
             <div style="border: 1px solid black; padding: 15px; height: 250px;">
                 <?php
                     foreach($orders as $order){
-                        echo "<a href=''>Commande du ".$order['date']."</a> <span class='right'>".$order['priceCmd']."€</span><br/>";
+                        echo "<a href='OrderDetail-".$order['keyOrder'].".html'>Commande du ".$order['date']."</a> <span class='right'>".$order['priceCmd']."€</span><br/>";
                     }
                 ?>
             </div>

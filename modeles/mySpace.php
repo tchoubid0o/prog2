@@ -11,7 +11,7 @@
             $order[$i]['id'] = $donnees['id'];
             date_default_timezone_set("Europe/Paris");
             $order[$i]['date'] = date("d/m/Y", strtotime($donnees['dateCommande']));
-            
+            $order[$i]['keyOrder'] = $donnees['keyOrder'];
             //On va calculer le prix de la commande
             $gets = $auth->prepare('SELECT * FROM orderdetails WHERE idOrder = :idOrder');
             $gets->bindValue(":idOrder", $donnees['id'], PDO::PARAM_INT);
