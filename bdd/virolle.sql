@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Ven 21 Février 2014 à 20:27
+-- Généré le :  Lun 24 Février 2014 à 00:18
 -- Version du serveur :  5.5.24-log
 -- Version de PHP :  5.3.13
 
@@ -78,7 +78,7 @@ CREATE TABLE IF NOT EXISTS `categorie` (
   `idParent` int(11) NOT NULL,
   `libelleCategorie` varchar(250) NOT NULL,
   PRIMARY KEY (`idCategorie`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
 -- Contenu de la table `categorie`
@@ -102,11 +102,60 @@ INSERT INTO `categorie` (`idCategorie`, `idSociete`, `idParent`, `libelleCategor
 
 CREATE TABLE IF NOT EXISTS `commande` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `idCommandeUser` int(11) NOT NULL,
   `idUser` int(11) NOT NULL,
   `idSociete` int(11) NOT NULL,
+  `dateCommande` datetime NOT NULL,
+  `dateLivraison` varchar(25) NOT NULL,
+  `commentOrder` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Contenu de la table `commande`
+--
+
+INSERT INTO `commande` (`id`, `idUser`, `idSociete`, `dateCommande`, `dateLivraison`, `commentOrder`) VALUES
+(1, 1, 1, '2014-02-24 01:04:23', '26/02/2014', 'dfgdf'),
+(2, 1, 1, '2014-02-24 01:16:00', '28/02/2014', 'test');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `orderdetails`
+--
+
+CREATE TABLE IF NOT EXISTS `orderdetails` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `idOrder` int(11) NOT NULL,
+  `idProduct` int(11) NOT NULL,
+  `unitPrice` decimal(10,0) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Contenu de la table `orderdetails`
+--
+
+INSERT INTO `orderdetails` (`id`, `idOrder`, `idProduct`, `unitPrice`, `quantity`) VALUES
+(1, 1, 1, '15', 4),
+(2, 1, 3, '18', 5),
+(3, 2, 5, '60', 14);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `panier`
+--
+
+CREATE TABLE IF NOT EXISTS `panier` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `idUser` int(11) NOT NULL,
+  `idProduit` int(11) NOT NULL,
+  `idSociete` int(11) NOT NULL,
+  `qteProduit` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
 
 -- --------------------------------------------------------
 
@@ -121,17 +170,23 @@ CREATE TABLE IF NOT EXISTS `produit` (
   `prixProduit` decimal(10,0) NOT NULL,
   `minQte` int(11) NOT NULL,
   `quantiteProduit` int(11) NOT NULL,
-  `imgProduit` varchar(250) NOT NULL,
+  `imgProduit` varchar(250) NOT NULL DEFAULT '1393110376_Picture.png',
   `libelleProduit` varchar(250) NOT NULL,
+  `refProduit` varchar(50) NOT NULL,
   PRIMARY KEY (`idProduit`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Contenu de la table `produit`
 --
 
-INSERT INTO `produit` (`idProduit`, `idSociete`, `idCategorie`, `prixProduit`, `minQte`, `quantiteProduit`, `imgProduit`, `libelleProduit`) VALUES
-(1, 1, 1, '15', 2, 200, '', '');
+INSERT INTO `produit` (`idProduit`, `idSociete`, `idCategorie`, `prixProduit`, `minQte`, `quantiteProduit`, `imgProduit`, `libelleProduit`, `refProduit`) VALUES
+(1, 1, 1, '15', 4, 200, '1393110376_Picture.png', 'Produit1', '5894632154'),
+(2, 1, 3, '10', 4, 200, '1393110376_Picture.png', 'Cravate', '215498'),
+(3, 1, 1, '18', 5, 200, '1393110376_Picture.png', 'Chemise', '49785463'),
+(4, 1, 1, '20', 2, 50, '1393110376_Picture.png', 'piston', '4987563'),
+(5, 1, 1, '60', 1, 50, '1393110376_Picture.png', 'tablette', '46987231'),
+(6, 2, 9, '60', 1, 15, '1393110376_Picture.png', 'ProduitSociete2', '457521');
 
 -- --------------------------------------------------------
 
