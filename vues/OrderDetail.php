@@ -43,7 +43,7 @@
         </div>
     </div>
     <?php }else{
-        echo "<div style='margin-top: 25px;'>".$order['message']."</div>";
+        echo "<div style='margin-top: 25px;'>".$order['message']."test</div>";
     }
     ?>
 </div>
