@@ -1,17 +1,22 @@
 <?php
 if (isset($_SESSION['id'])) {
-    if ($_SESSION['adm'] == 1) {?>
-<a href="<?php echo ROOTPATH; ?>/admin.html">Accueil</a>  
-<?php if(isset($_GET['act']) && $_GET['act'] == "modifyclient"){
-    echo "> Client n°".$_GET['param1']."";
-} 
-if(isset($_GET['act']) && $_GET['act'] == "adduser"){
-    $nb = countNbClients($auth);
-    echo "> Client n°".($nb['nb']+1)."";
-}
+    if ($_SESSION['adm'] == 1) {
+        ?>
+        <a href="<?php echo ROOTPATH; ?>/admin.html">Accueil</a>  
+        <?php
+        if (isset($_GET['act']) && $_GET['act'] == "modifyclient") {
+            echo "> Client n°" . $_GET['param1'] . "";
+        }
+        if (isset($_GET['act']) && $_GET['act'] == "adduser") {
+            $nb = countNbClients($auth);
+            echo "> Client n°" . ($nb['nb'] + 1) . "";
+        }
+        if (isset($_GET['act']) && $_GET['act'] == "OrderDetail") {
+            echo "> <a href='admin-modifyclient&".$_GET['param1'].".html'>Client n°" . $_GET['param1'] . "</a> > commande du " . date("d/m/Y", strtotime($order['dateCommande'])) . "";
+        }
         if (!isset($_GET['act'])) {
             ?>
-            
+
             <h4 style="text-align: center;">Accueil Administration</h4>
             <div style="width:380px; margin: auto;">
                 <div id="clientsAdm" style="width: 150px;float: left; padding: 20px;">
@@ -93,7 +98,7 @@ if(isset($_GET['act']) && $_GET['act'] == "adduser"){
                                 if (!empty($societes)) {
                                     foreach ($societes as $societe) {
                                         echo "<input type='checkbox' name='accesSociete[]' value='" . $societe['idSociete'] . "'";
-                                        if(!empty($accesClients)) {
+                                        if (!empty($accesClients)) {
                                             foreach ($accesClients as $accesClient) {
                                                 if ($accesClient['idSociete'] == $societe['idSociete']) {
                                                     echo "checked";
@@ -109,7 +114,21 @@ if(isset($_GET['act']) && $_GET['act'] == "adduser"){
                         <div id="historiqueAdm" style="width: 200px;text-align: center;float: left; padding: 20px;">
                             <h5>Historique des Commandes</h5>
                             <div style="overflow-x: hidden; overflow-y: scroll;height: 300px;border: 1px solid black;">
-
+                                <?php
+                                $allSocietes = getAllSocietes($auth);
+                                //On récupère toutes les sociétés
+                                foreach ($allSocietes as $allSociete) {
+                                    $orders = getOrdersClient($auth, $_GET['param1'], $allSociete['idSociete']);
+                                    if (!empty($orders)) {
+                                        echo "" . $allSociete['nomSociete'] . "<br/>";
+                                        foreach ($orders as $order) {
+                                            date_default_timezone_set("Europe/Paris");
+                                            $order['date'] = date("d/m/Y", strtotime($order['dateCommande']));
+                                            echo "<a href='admin-OrderDetail&" . $_GET['param1'] . "&" . $order['keyOrder'] . ".html'>Commande du " . $order['date'] . "</a><br/>";
+                                        }
+                                    }
+                                }
+                                ?>
                             </div>
                         </div>
                         <div style="clear:both;"></div>
@@ -120,10 +139,10 @@ if(isset($_GET['act']) && $_GET['act'] == "adduser"){
                 </form>
                 <?php
             }
-            if($_GET['act'] == "adduser"){
+            if ($_GET['act'] == "adduser") {
                 $nbUser = countNbClients($auth);
                 ?>
-                <h4 style="text-align: center;">Client n°<?php echo ($nbUser['nb']+1); ?></h4>
+                <h4 style="text-align: center;">Client n°<?php echo ($nbUser['nb'] + 1); ?></h4>
                 <form action="<?php echo ROOTPATH; ?>/admin.html" method="post" enctype="multipart/form-data">
                     <div style="width:720px; margin: auto;">
                         <div id="clientsAdm" style="width: 200px;text-align: center;float: left; padding: 20px;">
@@ -169,6 +188,61 @@ if(isset($_GET['act']) && $_GET['act'] == "adduser"){
                             <input class="submit" type="submit" value="Valider" style="color: #fff;border-radius: 4px;padding: 10px;background-color: #00ba84;text-transform: none;text-decoration: none;font-weight: 600;-moz-transition: background-color 0.35s linear;-webkit-transition: background-color 0.35s linear;transition: background-color 0.35s linear;" id="submit" /></center>
                     </div>
                 </form>
+                <?php
+            }
+            if ($_GET['act'] == "OrderDetail") {
+                ?>
+                <div class="width800">
+                    <?php
+                    date_default_timezone_set("Europe/Paris");
+                    if (empty($order['message'])) {
+                        ?>
+                        <h1 class="center underline">Client n°<?php echo $_GET['param1']; ?></h1>
+                        <h3>Commande du <?php echo date("d/m/Y", strtotime($order['dateCommande'])); ?></h3> <br/>
+                        <div>
+                            <table id="basketTable">
+                                <tr>
+                                    <th>Produit</th>
+                                    <th>Référence</th>
+                                    <th>Quantité</th>
+                                    <th>Prix U</th>
+                                    <th>Prix</th>
+                                </tr>
+                                <?php
+                                $prixPanier = 0;
+                                if (isset($produits)) {
+                                    foreach ($produits as $produit) {
+                                        ?>
+                                        <tr>
+                                            <td><?php echo $produit['libelleProduit']; ?></td>
+                                            <td><?php echo $produit['refProduit']; ?></td>
+                                            <td><?php echo $produit['quantity']; ?></td>
+                                            <td><?php echo $produit['prixProduit']; ?></td>
+                                            <td><?php
+                                                $prixTot = $produit['prixProduit'] * $produit['quantity'];
+                                                $prixPanier += $prixTot;
+                                                echo $prixTot;
+                                                ?></td>
+                                        </tr>
+                                        <?php
+                                    }
+                                }
+                                ?>
+                            </table>
+                            <h3 class="center">
+                                <span class="underline">Total:</span> 
+                                <span id="cartPrice"><?php echo $prixPanier; ?></span>€
+                            </h3>
+                            <div class="center">
+                                <a href="getInvoice.php?id=<?php echo $_GET['act']; ?>">Exporter sous excel</a>
+                            </div>
+                        </div>
+                        <?php
+                    } else {
+                        echo "<div style='margin-top: 25px;'>" . $order['message'] . "</div>";
+                    }
+                    ?>
+                </div>
                 <?php
             }
         }

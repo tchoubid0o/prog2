@@ -39,11 +39,11 @@
             <span id="cartPrice"><?php echo $prixPanier; ?></span>€
         </h3>
         <div class="center">
-            <button>Exporter sous excel</button>
+            <a href="getInvoice.php?id=<?php echo $_GET['act']; ?>">Exporter sous excel</a>
         </div>
     </div>
     <?php }else{
-        echo "<div style='margin-top: 25px;'>".$order['message']."test</div>";
+        echo "<div style='margin-top: 25px;'>".$order['message']."</div>";
     }
     ?>
 </div>

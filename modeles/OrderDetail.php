@@ -22,7 +22,7 @@ function getOrderDetail($auth, $keyOrder) {
     return $result;
 }
 
-function getProductsOrder($auth, $keyOrder){
+function getProductsOrder($auth, $keyOrder) {
     $checkIsMyOrder = $auth->prepare('SELECT COUNT(*) AS nb FROM commande WHERE idUser = :id AND keyOrder = :keyOrder');
     $checkIsMyOrder->bindValue(":id", $_SESSION['id'], PDO::PARAM_INT);
     $checkIsMyOrder->bindValue(":keyOrder", $keyOrder, PDO::PARAM_STR);
@@ -37,14 +37,28 @@ function getProductsOrder($auth, $keyOrder){
         $select->bindValue(":keyOrder", $keyOrder, PDO::PARAM_STR);
         $select->execute();
         $i = 0;
-	while ($order = $select->fetch()){
-		$result[$i]['quantity'] = $order['quantity'];
-                $result[$i]['libelleProduit'] = $order['libelleProduit'];
-                $result[$i]['refProduit'] = $order['refProduit'];
-                $result[$i]['prixProduit'] = $order['prixProduit'];
-		$i++;
-	}
+        while ($order = $select->fetch()) {
+            $result[$i]['quantity'] = $order['quantity'];
+            $result[$i]['libelleProduit'] = $order['libelleProduit'];
+            $result[$i]['refProduit'] = $order['refProduit'];
+            $result[$i]['prixProduit'] = $order['prixProduit'];
+            $i++;
+        }
         return $result;
+    }
+}
+
+function getInvoice($auth) {
+    header('Content-Type: application/csv-tab-delimited-table');
+//nommage du fichier avec la date du jour
+    header('Content-disposition: filename=monfichier_' . date('Ymd') . '.csv');
+
+//Première ligne avec le noms des colonnes
+    echo '"Nom";"Prénom";"Email"' . "\n"; {
+        //Pour chaque ligne, création d'une ligne dans le csv.
+        //Les champs sont entourés de guillemets, séparés par des points-virgules
+        //Les lignes sont terminées par un retour-chariot.
+        echo '"RUPP";"Michaël";"michrupp@free.fr"';
     }
 }
 

@@ -25,6 +25,11 @@ if (isset($_SESSION['id'])) {
             }
             $infoClient = getInfoClient($auth, $_GET['param1']);
         }
+        if ($_GET['act'] == "OrderDetail") {
+            require_once('./modeles/OrderDetail.php');
+            $order = getOrderDetail($auth, $_GET['param2']);
+            $produits = getProductsOrder($auth, $_GET['param2']);
+        }
     }
     $clients = getClients($auth);
     $societes = getSocietes($auth);

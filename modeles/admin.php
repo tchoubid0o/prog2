@@ -1,11 +1,11 @@
 <?php
 
-function countNbClients($auth){
+function countNbClients($auth) {
     $countNb = $auth->query('SELECT COUNT(*) AS nb FROM user');
-    $nb=$countNb->fetch();
+    $nb = $countNb->fetch();
     $countNb->closeCursor();
-    
-    if(!empty($nb)){
+
+    if (!empty($nb)) {
         return $nb;
     }
 }
@@ -95,6 +95,40 @@ function getInfoClient($auth, $id) {
     }
 }
 
+function getAllSocietes($auth) {
+    $gets = $auth->query('SELECT * FROM societe');
+    $i = 0;
+    while ($donnees = $gets->fetch()) {
+        $d[$i]['idSociete'] = $donnees['idSociete'];
+        $d[$i]['nomSociete'] = $donnees['nomSociete'];
+        $i++;
+    }
+    if (!empty($d)) {
+        return $d;
+    }
+}
+
+function getOrdersClient($auth, $id, $idSociete) {
+    $checkAdm = checkIsAdmin($auth);
+    if ($checkAdm['nb'] >= 1) {
+        $getOrders = $auth->prepare('SELECT * FROM commande WHERE idUser = :id AND idSociete = :idSociete');
+        $getOrders->bindValue(":id", $id, PDO::PARAM_INT);
+        $getOrders->bindValue(":idSociete", $idSociete, PDO::PARAM_INT);
+        $getOrders->execute();
+        $i = 0;
+        while ($donnees = $getOrders->fetch()) {
+            $d[$i]['dateCommande'] = $donnees['dateCommande'];
+            $d[$i]['dateLivraison'] = $donnees['dateLivraison'];
+            $d[$i]['commentOrder'] = $donnees['commentOrder'];
+            $d[$i]['keyOrder'] = $donnees['keyOrder'];
+            $i++;
+        }
+        if (!empty($d)) {
+            return $d;
+        }
+    }
+}
+
 function getAccesClient($auth, $id) {
     $getAcces = $auth->prepare('SELECT idSociete FROM accessociete WHERE idUser = :id');
     $getAcces->bindValue(':id', $id, PDO::PARAM_INT);
@@ -107,8 +141,8 @@ function getAccesClient($auth, $id) {
     }
 
     $getAcces->closeCursor();
-    if(!empty($a))
-    return $a;
+    if (!empty($a))
+        return $a;
 }
 
 function updateClient($auth, $id, $mail, $adresse, $accesSociete) {
@@ -153,12 +187,12 @@ function insertClient($auth, $password, $mail, $adresse, $accesSociete) {
     $checkAdm = checkIsAdmin($auth);
     if ($checkAdm['nb'] >= 1) {
         $insertClient = $auth->prepare('INSERT INTO user(`password`, `mail` , `adresse`) VALUES(:password, :mail, :adresse)');
-        $insertClient->bindValue(':password', md5("web".(sha1($password))."site"), PDO::PARAM_STR);
+        $insertClient->bindValue(':password', md5("web" . (sha1($password)) . "site"), PDO::PARAM_STR);
         $insertClient->bindValue(':mail', $mail, PDO::PARAM_STR);
         $insertClient->bindValue(':adresse', $adresse, PDO::PARAM_STR);
         $insertClient->execute();
         $insertClient->closeCursor();
-        
+
         $id = $auth->lastInsertId();
         if ($accesSociete == -999) {
             
