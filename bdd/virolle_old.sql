@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.4
+-- version 4.1.1
 -- http://www.phpmyadmin.net
 --
--- Client: localhost
--- Généré le: Mer 26 Mars 2014 à 14:37
--- Version du serveur: 5.6.12-log
--- Version de PHP: 5.4.12
+-- Client :  localhost
+-- Généré le :  Lun 24 Février 2014 à 00:18
+-- Version du serveur :  5.5.24-log
+-- Version de PHP :  5.3.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,10 +17,8 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Base de données: `virolle`
+-- Base de données :  `virolle`
 --
-CREATE DATABASE IF NOT EXISTS `virolle` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `virolle`;
 
 -- --------------------------------------------------------
 
@@ -33,16 +31,15 @@ CREATE TABLE IF NOT EXISTS `accessociete` (
   `idUser` int(11) NOT NULL,
   `idSociete` int(11) NOT NULL,
   PRIMARY KEY (`ref`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Contenu de la table `accessociete`
 --
 
 INSERT INTO `accessociete` (`ref`, `idUser`, `idSociete`) VALUES
-(3, 1, 1),
-(4, 1, 2),
-(5, 1, 3);
+(1, 1, 1),
+(2, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -81,7 +78,7 @@ CREATE TABLE IF NOT EXISTS `categorie` (
   `idParent` int(11) NOT NULL,
   `libelleCategorie` varchar(250) NOT NULL,
   PRIMARY KEY (`idCategorie`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
 -- Contenu de la table `categorie`
@@ -110,17 +107,16 @@ CREATE TABLE IF NOT EXISTS `commande` (
   `dateCommande` datetime NOT NULL,
   `dateLivraison` varchar(25) NOT NULL,
   `commentOrder` text NOT NULL,
-  `keyOrder` varchar(25) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Contenu de la table `commande`
 --
 
-INSERT INTO `commande` (`id`, `idUser`, `idSociete`, `dateCommande`, `dateLivraison`, `commentOrder`, `keyOrder`) VALUES
-(3, 1, 1, '2014-02-24 12:33:41', '28/02/2014', 'test', '139324162183150744'),
-(4, 1, 1, '2014-02-24 15:08:16', '28/02/2014', 'panier', '139325089690288256');
+INSERT INTO `commande` (`id`, `idUser`, `idSociete`, `dateCommande`, `dateLivraison`, `commentOrder`) VALUES
+(1, 1, 1, '2014-02-24 01:04:23', '26/02/2014', 'dfgdf'),
+(2, 1, 1, '2014-02-24 01:16:00', '28/02/2014', 'test');
 
 -- --------------------------------------------------------
 
@@ -135,18 +131,16 @@ CREATE TABLE IF NOT EXISTS `orderdetails` (
   `unitPrice` decimal(10,0) NOT NULL,
   `quantity` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Contenu de la table `orderdetails`
 --
 
 INSERT INTO `orderdetails` (`id`, `idOrder`, `idProduct`, `unitPrice`, `quantity`) VALUES
-(4, 3, 1, '15', 4),
-(5, 4, 1, '15', 4),
-(6, 4, 3, '18', 5),
-(7, 4, 4, '20', 2),
-(8, 4, 5, '60', 1);
+(1, 1, 1, '15', 4),
+(2, 1, 3, '18', 5),
+(3, 2, 5, '60', 14);
 
 -- --------------------------------------------------------
 
@@ -161,7 +155,7 @@ CREATE TABLE IF NOT EXISTS `panier` (
   `idSociete` int(11) NOT NULL,
   `qteProduit` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
 
 -- --------------------------------------------------------
 
