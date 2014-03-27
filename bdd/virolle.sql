@@ -245,7 +245,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 INSERT INTO `user` (`id`, `prenom`, `nom`, `password`, `ip`, `mail`, `adresse`, `tel`, `cp`, `ville`, `birthday`, `imgAvatar`, `descri`, `adm`) VALUES
 (1, 'michaël', 'RUPP', '180f068dc45ee81f66123d46d2768c29', '::1', 'michaelrupp@free.fr', '316 rue leon blum', '0698329149', 62232, 'Annezin', '10/11/1992', '1383611218_green-35.png', 'ghjghgh', 1),
-(2, 'Prenomtest', 'Nomtest', '180f068dc45ee81f66123d46d2768c29', '::1', 'tst@hotmail.fr', '', '', 0, '', '', '1383611218_green-35.png', '', 0),
+(2, 'Stanislas', 'BOYET', '180f068dc45ee81f66123d46d2768c29', '::1', 'stanislas', 'adresse', 'tel', 59000, 'Lille', '01/01/1451', 'image.jpg', 'ghjghgh', 1),
 (3, 'monprenom', 'test', '180f068dc45ee81f66123d46d2768c29', '::1', 'blabliblou@hotmail.fr', '', '', 0, '', '0000-00-00', '1383611218_green-35.png', '', 0),
 (4, 'new', 'moi', '180f068dc45ee81f66123d46d2768c29', '::1', 'boum@hotmail.fr', '', '', 0, '', '0000-00-00', '1383611218_green-35.png', '', 0),
 (5, 'mew', 'toum', '180f068dc45ee81f66123d46d2768c29', '::1', 'azerty@hotmail.fr', '', '', 0, '', '0000-00-00', '1383611218_green-35.png', '', 0),
