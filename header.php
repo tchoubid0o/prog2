@@ -2,7 +2,7 @@
 <html> 
     <head> 
         <meta http-equiv="content-type" content="text/html; charset=UTF-8" /> 
-        <title>Virolle</title> 
+        <title>Virolle-Prog</title> 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <!-- Géo Meta Tag -->
         <meta name="geo.region" content="FR-75" />
