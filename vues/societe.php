@@ -98,7 +98,7 @@ if (isset($add2Cart['message'])) {
                 
                 //************************ PAGINATION **************************
                 //On calcule le nombre de page nécessaire pour afficher tous les items
-                var maxPage = data[0].nbProduit/$('.nbPerPage select').val();
+                var maxPage = Math.ceil(data[0].nbProduit/$('.nbPerPage select').val());
                 if(maxPage>4){
                     $("#pagination").html("");
                     if(parseInt($("#idPage").text()) > 2){
@@ -232,7 +232,7 @@ if (isset($add2Cart['message'])) {
                 
                 //************************ PAGINATION **************************
                 //On calcule le nombre de page nécessaire pour afficher tous les items
-                var maxPage = data[0].nbProduit/$('.nbPerPage select').val();
+                var maxPage = Math.ceil(data[0].nbProduit/$('.nbPerPage select').val());
                 if(maxPage>4){
                     $("#pagination").html("");
                     if(parseInt($("#idPage").text()) > 2){
@@ -393,7 +393,7 @@ if (isset($add2Cart['message'])) {
                 
                 //************************ PAGINATION **************************
                 //On calcule le nombre de page nécessaire pour afficher tous les items
-                var maxPage = data[0].nbProduit/$('.nbPerPage select').val();
+                var maxPage = Math.ceil(data[0].nbProduit/$('.nbPerPage select').val());
                 if(maxPage>4){
                     $("#pagination").html("");
                     if(parseInt($("#idPage").text()) > 2){
@@ -407,6 +407,7 @@ if (isset($add2Cart['message'])) {
                         //Si c'est la 1ère page
                         
                         if(pa>=1){
+                            console.log(maxPage);
                             if(pa <= (maxPage)){
                                 if(pa == 1){
                                     if(pa == $("#idPage").text()){
@@ -444,6 +445,7 @@ if (isset($add2Cart['message'])) {
                     }
                     for(var p = 1; p<= maxPage; ++p){
                         //Si c'est la 1ère page
+                        console.log(maxPage);
                         if(p == 1){
                             if(p == $("#idPage").text()){
                                 $("#pagination").append('<form method="POST" id="pagination" style="float: left; border: 1px solid #c6c6c6;" action="societe.html"><input type="hidden" name="numPage" value="'+p+'"><input type="submit" class="paginationForm" style="border: none; background: none;" data-value="'+p+'" value="'+p+'" /></form>');
