@@ -1,0 +1,33 @@
+
+<form class="nbPerPage" method="post" action="">
+            <select>Affichage par page:
+                <option value="25">25</option>
+                <option value="50" style="border: 1px solid red;">50</option>
+                <option value="75">75</option>
+            </select>
+        </form>
+		
+
+// Fonction quand on click sur le formulaire de sélection de nb elements par page :
+$('.nbPerPage select').change(function(){
+	// Change le nb d'éléments par page (normal...) + 
+	// Recharge le contenu de la page avec le nouveau contenu limité à 20.
+	// TODO : rajouter dans l'url le &pageNb=getNumPage()&cat=getCategorie()
+	$.get("/societe-1.html?nbElem="+$('.nbPerPage select').val(), function(data) {
+		// Changer le contenu de la page avec les nouvelles données recues (celles contenues dans data) 
+}); //,'json' // à mettre après l'accolade
+	})
+
+// Lors du click sur une catégorie : 
+// Meme principe, on fait un &.get en ajax, qui récupère sur la page les éléments/variables pageNb et catégorie et nbElemPerPage ... 
+// Envoie le get avec l'url?var1=...&var2=...
+// Met à jour le contenu de la page. (si data != null)
+
+
+	
+	
+$.get("http://localhost/prog2/societe-1.html", function(data) {
+	data.nbPerPage = 25; // A enelever
+	$('.nbPerPage select option[value="'+data.nbPerPage+'"]').prop('selected', true);
+}); //,'json' // à mettre après l'accolade
+

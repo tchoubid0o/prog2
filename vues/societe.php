@@ -2,6 +2,7 @@
 if (isset($add2Cart['message'])) {
     echo $add2Cart['message'];
 }
+
 ?>
 <h4 class="underline">Catalogue de la <?php echo $nomSociete['nomSociete']; ?></h4>
 <div id="idSociete" style="display: none;"><?php echo $_GET['act']; ?></div>
@@ -13,6 +14,16 @@ if (isset($add2Cart['message'])) {
     }
     ?>
     <div style="clear: both;"></div>
+    <div>
+        <form class="nbPerPage" method="get" action="">
+            <select>
+                <label>Affichage par page:</label>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="75">75</option>
+            </select>
+        </form>
+    </div>
     <div style="width: 248px; border: 1px solid black; text-align: center;">
         Recherche rapide<br/>
         <form method="post" action="societe.html" id="rapidSearchForm">
@@ -45,9 +56,63 @@ if (isset($add2Cart['message'])) {
     var ROOTPATH = "/prog2/";
     var idS = $('#idSociete').text();
 
+    // ***************** Gestion nb Product par page **************************
+
+    $('.nbPerPage select').change(function() {
+        // Change le nb d'éléments par page (normal...) + 
+        // Recharge le contenu de la page avec le nouveau contenu limité à 20.
+        // TODO : rajouter dans l'url le &pageNb=getNumPage()&cat=getCategorie()
+        $.get("societe-1&" + $('.nbPerPage select').val()+"&"+ $("#currentCategory").html() + ".html", function(data) {
+            
+            //function printDataReceived(data)
+            var newContent = '<div id="right"><ul class="right_content">';
+            if (data) {
+                console.log(data.length);
+                for (var i = 0; i < data.length; ++i) {
+                    //newContent += ''+data[i].prixProduit+'<br/>';
+                    //newContent += ''+data[i].quantiteProduit+'<br/>';
+                    newContent += '<li style="list-style: none; width: 220px; margin: auto;float: left;">';
+                    newContent += '<div id="id555288" class="img_index">';
+                    newContent += '<a href="image?id=555288" title="">';
+                    newContent += '<img alt="imgProduit" style="width: 128px; height: 128px;" src="img/' + data[i].imgProduit + '" />';
+                    newContent += '</a><br/>';
+                    newContent += '<span class="prixProduit">Prix: ' + data[i].prixProduit + '€</span><br/>';
+                    newContent += '<span class="prixProduit">Ref: ' + data[i].refProduit + '</span><br/>';
+                    newContent += '<form method="POST" class="formAdd2Cart" action="societe-' + idS + '.html">';
+                    newContent += 'Quantité: <select name="quantiteProduit">';
+                    var o = 1;
+                    do {
+                        j = o * data[i].minQte;
+                        newContent += '<option value="' + j + '">' + j + '</option>';
+                        o++;
+                    } while (j < data[i].quantiteProduit);
+                    newContent += '</select>';
+                    newContent += '<input type="hidden" name="idProduit" value="' + data[i].idProduit + '"><input type="hidden" name="idSociete" value="' + data[i].idSociete + '"><br/>';
+                    newContent += '<input type="submit" class="submit2Cart" name="add2Cart" value="Ajouter au panier" style="cursor: pointer;color: #fff;border: 1px solid grey;background-color: #2db3e6;height: 22px;">';
+                    newContent += '</form>';
+                }
+                newContent += '</ul></div>';
+            }
+            else {
+                newContent += '<center><span>Aucun Résultat</span></center><br/>';
+                newContent += '</ul></div>';
+            }
+            $('#result').fadeOut();
+            var section = $(document.createElement("section")).css('display', 'none').html(newContent);
+            $('#result').html(section).show(50, function() {
+                section.fadeIn()
+            });
+            $('#result').fadeIn();
+        // Changer le contenu de la page avec les nouvelles données recues (celles contenues dans data) 
+        }, 'json'); //,'json' // à mettre après l'accolade
+    });
+
     // ***************** GESTION DU MENU **************************************
 
     $('.menuCategorie').click(function(event) {
+        $("#currentCategory").html($(this).find('input[name=\"submitSearch\"]').attr("value"));
+        //$($(this)+' input[name=\"submitSearch\"]');
+        //console.log()); //.attr("value")
         event.preventDefault();
         //event.stopPropagation();
         postForm($(this));

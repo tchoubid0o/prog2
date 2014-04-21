@@ -169,13 +169,14 @@ function afficher_menu($parent, $niveau, $array) {
             }
 
             if ($niveau == 0) {
-                $html .= '<li><form class="menuCategorie" style="border-bottom: 1px solid black; border-top: 1px solid black;" method="post" ><input type="hidden" name="submitSearch" value="' . $noeud['idCategorie'] . '"><input class="formvalid" type="submit" name="idCategorie" value="' . $noeud['libelleCategorie'] . '" />';
+                $html .= '<li><form class="menuCategorie" id="cat'.$niveau.'" style="border-bottom: 1px solid black; border-top: 1px solid black;" method="post" ><input type="hidden" name="submitSearch" value="' . $noeud['idCategorie'] . '"><input class="formvalid" type="submit" name="idCategorie" value="' . $noeud['libelleCategorie'] . '" />';
             } else {
                 $html .= '<li><form class="menuCategorie" method="post" ><input type="hidden" name="submitSearch" value="' . $noeud['idCategorie'] . '"><input class="formvalid" type="submit" name="idCategorie" value="' . $noeud['libelleCategorie'] . '" />';
             }
             $niveau_precedent = $niveau;
 
             $html .= afficher_menu($noeud['idCategorie'], ($niveau + 1), $array);
+            $html .= "<span style=\"display: hidden;\" id=\"currentCategory\"></span>";
         }
     }
 

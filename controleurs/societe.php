@@ -15,6 +15,15 @@ if (isset($_GET['act'])) {
             echo json_encode($recupProduits);
         }
     }
+    if (isset($_GET['param1'])) {
+        $recupProduits2 = recupProduits($auth, $_GET['param2'], $_GET['act']);
+        // Ici le GET attend du JSON, pas du HTML, donc on lui renvoie la même info sous forme de JSON pure.
+        if ((strstr($_SERVER['HTTP_ACCEPT'], "html") == FALSE ) && ($_SERVER['REQUEST_METHOD'] == 'GET')) {
+
+            echo json_encode($recupProduits2);
+        }
+    }
+    
 }
 if(isset($_POST['add2Cart'])){
     $add2Cart = add2Cart($auth, $_POST['quantiteProduit'], $_POST['idProduit'], $_POST['idSociete']);
