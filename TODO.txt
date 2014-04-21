@@ -34,3 +34,11 @@ $.get("http://localhost/prog2/societe-1.html", function(data) {
 *************************************************** KOUKOU SAY FAIT ****************************************************
 
 ******************************CALCULER LE NOMBRE NOMBRE DE PAGE ET AFFICHER UNE PAGINATION******************************
+
+Ligne 68 de vues/societe ne marche pas correctement
+Il ne récupère pas le numéro de page correcte
+
+
+************************************************************************************************************************
+PAGINATION FINIE AIIIIIIIIIIIIIIIIIGHHHT
+************************************************************************************************************************

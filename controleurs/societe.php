@@ -8,7 +8,7 @@ if (isset($_GET['act'])) {
     $nomSociete = getNomSociete($auth, $_GET['act']);
     $donnees = getSociete($auth, $_GET['act']);
     if (isset($_POST['idCategorie']) && isset($_POST['idSociete'])) {
-        $recupProduits = recupProduits($auth, $_POST['idCategorie'], $_POST['idSociete'], $_POST['nbProduct'], 1);
+        $recupProduits = recupProduits($auth, $_POST['idCategorie'], $_POST['idSociete'], $_POST['nbProduct'], $_POST['idPage']);
         // Ici le GET attend du JSON, pas du HTML, donc on lui renvoie la même info sous forme de JSON pure.
         if ((strstr($_SERVER['HTTP_ACCEPT'], "html") == FALSE ) && ($_SERVER['REQUEST_METHOD'] == 'POST')) {
 

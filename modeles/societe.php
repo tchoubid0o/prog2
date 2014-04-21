@@ -198,13 +198,20 @@ function recupProduits($auth, $idCategorie, $idSociete, $nbProduct, $idPage) {
 
     //Si on a les accès
     if ($checkP['nb'] >= 1) {
-        $selectProduct = $auth->prepare('SELECT * FROM produit WHERE idSociete = :idSociete AND idCategorie = :idCategorie ORDER BY idProduit ASC LIMIT '.$minIdProduct.','.$maxIdProduct.'');
+        $selectProduct = $auth->prepare('SELECT * FROM produit WHERE idSociete = :idSociete AND idCategorie = :idCategorie ORDER BY idProduit ASC LIMIT '.$minIdProduct.','.$nbProduct.'');
         $selectProduct->bindValue(':idSociete', $idSociete, PDO::PARAM_INT);
         $selectProduct->bindValue(':idCategorie', $idCategorie, PDO::PARAM_INT);
         $selectProduct->execute();
 
         $i = 0;
         while ($donnees = $selectProduct->fetch()) {
+            
+            $countProducts = $auth->prepare('SELECT COUNT(*) AS nb FROM produit WHERE idSociete = :idSociete AND idCategorie = :idCategorie ORDER BY idProduit ASC');
+            $countProducts->bindValue(':idSociete', $idSociete, PDO::PARAM_INT);
+            $countProducts->bindValue(':idCategorie', $idCategorie, PDO::PARAM_INT);
+            $countProducts->execute();
+            $countProduct = $countProducts->fetch();
+            
             $d[$i]['idProduit'] = $donnees['idProduit'];
             $d[$i]['idSociete'] = $donnees['idSociete'];
             $d[$i]['idCategorie'] = $donnees['idCategorie'];
@@ -213,8 +220,10 @@ function recupProduits($auth, $idCategorie, $idSociete, $nbProduct, $idPage) {
             $d[$i]['quantiteProduit'] = $donnees['quantiteProduit'];
             $d[$i]['imgProduit'] = $donnees['imgProduit'];
             $d[$i]['refProduit'] = $donnees['refProduit'];
+            $d[$i]['nbProduit'] = $countProduct['nb'];
+            
             $i++;
-        }
+        }     
     }
     if (!empty($d)) {
         return $d;
