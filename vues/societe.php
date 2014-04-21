@@ -5,7 +5,8 @@ if (isset($add2Cart['message'])) {
 
 ?>
 <h4 class="underline">Catalogue de la <?php echo $nomSociete['nomSociete']; ?></h4>
-<div id="idSociete" style="display: none;"><?php echo $_GET['act']; ?></div>
+<div id="idSociete" style="display: none;"><?php if(isset($_GET['act'])){echo $_GET['act'];} ?></div>
+<div id="idPage" style="display: none;"><?php if(isset($_GET['idPage'])){echo $_GET['idPage'];} else{echo "1";} ?></div>
 <div class="left">
     <?php
     $menu = afficher_menu(0, 0, $donnees);
@@ -16,11 +17,11 @@ if (isset($add2Cart['message'])) {
     <div style="clear: both;"></div>
     <div>
         <form class="nbPerPage" method="get" action="">
+            <label>Affichage par page:</label>
             <select>
-                <label>Affichage par page:</label>
-                <option value="25">25</option>
-                <option value="50">50</option>
-                <option value="75">75</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="6">6</option>
             </select>
         </form>
     </div>
@@ -62,7 +63,16 @@ if (isset($add2Cart['message'])) {
         // Change le nb d'éléments par page (normal...) + 
         // Recharge le contenu de la page avec le nouveau contenu limité à 20.
         // TODO : rajouter dans l'url le &pageNb=getNumPage()&cat=getCategorie()
-        $.get("societe-1&" + $('.nbPerPage select').val()+"&"+ $("#currentCategory").html() + ".html", function(data) {
+        
+        //index.php?page=$1&act=$2&nbProduct=$3&idCat=$4&idPage=$5
+        var idCat;
+        if($("#currentCategory").html().length != 0){
+            idCat =  $("#currentCategory").html();
+        }
+        else{
+            idCat = 0;
+        }
+        $.get("societe-" +$("#idSociete").text()+ "&" + $('.nbPerPage select').val()+"-"+ idCat + "-"+ $("#idPage").text() +".html", function(data) {
             
             //function printDataReceived(data)
             var newContent = '<div id="right"><ul class="right_content">';
@@ -186,7 +196,7 @@ if (isset($add2Cart['message'])) {
             });
             $('#result').fadeIn();
         }
-        $.post(ROOTPATH + 'societe.html', {idCategorie: $(element).children().val(), idSociete: $('#idSociete').text()}, function(data) {
+        $.post(ROOTPATH + 'societe.html', {idCategorie: $(element).children().val(), idSociete: $('#idSociete').text(), nbProduct: $('.nbPerPage select').val()}, function(data) {
             printDataReceived(data);
         }, 'json');
         /*$.ajax({type:"POST", data: {idCategorie: $(this).children().val() , idSociete: $('#idSociete').text()}, url:""+ROOTPATH+"societe.html",success: function(data){

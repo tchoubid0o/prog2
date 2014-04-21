@@ -31,3 +31,6 @@ $.get("http://localhost/prog2/societe-1.html", function(data) {
 	$('.nbPerPage select option[value="'+data.nbPerPage+'"]').prop('selected', true);
 }); //,'json' // à mettre après l'accolade
 
+*************************************************** KOUKOU SAY FAIT ****************************************************
+
+******************************CALCULER LE NOMBRE NOMBRE DE PAGE ET AFFICHER UNE PAGINATION******************************

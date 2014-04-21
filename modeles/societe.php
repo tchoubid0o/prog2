@@ -176,7 +176,7 @@ function afficher_menu($parent, $niveau, $array) {
             $niveau_precedent = $niveau;
 
             $html .= afficher_menu($noeud['idCategorie'], ($niveau + 1), $array);
-            $html .= "<span style=\"display: hidden;\" id=\"currentCategory\"></span>";
+            $html .= "<span style=\"display: none;\" id=\"currentCategory\"></span>";
         }
     }
 
@@ -190,13 +190,15 @@ function afficher_menu($parent, $niveau, $array) {
     return $html;
 }
 
-function recupProduits($auth, $idCategorie, $idSociete) {
+function recupProduits($auth, $idCategorie, $idSociete, $nbProduct, $idPage) {
+    $minIdProduct = ($idPage-1)*$nbProduct;
+    $maxIdProduct = ($idPage*$nbProduct);
     $checkPerm = $auth->query('SELECT COUNT(*) AS nb FROM accessociete WHERE idUser = ' . $_SESSION['id'] . ' AND idSociete = ' . $idSociete . '');
     $checkP = $checkPerm->fetch();
 
     //Si on a les accès
     if ($checkP['nb'] >= 1) {
-        $selectProduct = $auth->prepare('SELECT * FROM produit WHERE idSociete = :idSociete AND idCategorie = :idCategorie');
+        $selectProduct = $auth->prepare('SELECT * FROM produit WHERE idSociete = :idSociete AND idCategorie = :idCategorie ORDER BY idProduit ASC LIMIT '.$minIdProduct.','.$maxIdProduct.'');
         $selectProduct->bindValue(':idSociete', $idSociete, PDO::PARAM_INT);
         $selectProduct->bindValue(':idCategorie', $idCategorie, PDO::PARAM_INT);
         $selectProduct->execute();
