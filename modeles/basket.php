@@ -19,7 +19,9 @@
         }
         
         $getBasket->closeCursor();
-        return $basket;
+        if(isset($basket)){
+            return $basket;
+        }
     }
     
     function modifyCart($auth, $idProduit, $qteProduit){

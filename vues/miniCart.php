@@ -8,12 +8,16 @@
                     <?php
                     foreach ($basket as $produit) {
                         ?>
-                        <li class="minicart_item" data-sku="294302">
+                        <li class="minicart_item" data-ref="<?php echo $produit['refProduit']; ?>">
                             <?php echo $produit['libelleProduit']; ?> Qté <?php echo $produit['qteProduit']; ?> Prix <?php
                             $prixTot = $produit['prixProduit'] * $produit['qteProduit'];
                             $prixPanier += $prixTot;
                             echo $prixTot;
                             ?>
+                            <form method="post" action="" style="display: inline;">
+                                <input type="hidden" name="idProduit" value="<?php echo $produit['idProduit']; ?>" />
+                                <i class="fa fa-times deleteItemMiniCart"></i>
+                            </form>
                         </li>
                     <?php }
                     ?>
@@ -31,11 +35,18 @@
 </div>
 
 <script type="text/javascript">
+    var ROOTPATH = "/prog2/";
+    
     $("#miniCart").mouseenter(function() {
         $(".minicart_con").show();
     });
 
     $("#miniCart").mouseleave(function() {
         $(".minicart_con").hide();
+    });
+    
+    $(".deleteItemMiniCart").click(function(){
+        $(this).parent().submit();
+        //$.post(ROOTPATH+'miniCart.html', {idProduit: $(this).attr('data-idProduit')});
     });
 </script>

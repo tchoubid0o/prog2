@@ -1,6 +1,10 @@
 <?php
 
 require_once('./modeles/societe.php');
+if(isset($_POST['add2Cart'])){
+    $add2Cart = add2Cart($auth, $_POST['quantiteProduit'], $_POST['idProduit'], $_POST['idSociete']);
+}
+
 if (isset($_POST['idSociete'])) {
     $_GET['act'] = $_POST['idSociete'];
 }
@@ -27,13 +31,12 @@ if (isset($_GET['act'])) {
     }
     
 }
-if(isset($_POST['add2Cart'])){
-    $add2Cart = add2Cart($auth, $_POST['quantiteProduit'], $_POST['idProduit'], $_POST['idSociete']);
-}
+
 if(isset($_POST['searchProduct'])){
     searchAndAdd($auth, $_POST['refSearch'], $_POST['qteSearch']);
 }
 if ((strstr($_SERVER['HTTP_ACCEPT'], "html") == TRUE)) {
     require_once('./vues/societe.php');
 }
+
 ?>

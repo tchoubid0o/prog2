@@ -50,3 +50,8 @@ Problème: clic categorie 1 -> nb par page, puis clic sur page 2
 Ajouter les boutons de suppression d'objet de la fenetre qui s'ouvre lorsque l'on passe la souris sur "Mon panier"
 
 Retravailler la méthode d'ajout d'un objet au panier?! Peut-être le faire en ajax ?
+
+Modif quantité dans le panier, il faut modifier le prix + prix total PK IL Y A LE MINICART QUI NE SE MET PAS A JOUR APRES UN ACHAT?
+La fonction minicart est include dans le header, du coup elle est réalisé avant la fonction add2Cart, il faudrait l'appeller dans le footer.
+
+Il faut modifier l'ajout des articles pour le passer en Ajax afin de guarder la catégorie ouverte etc...
