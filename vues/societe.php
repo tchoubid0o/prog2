@@ -114,18 +114,18 @@ if (isset($add2Cart['message'])) {
                             if(pa <= (maxPage)){
                                 if(pa == 1){
                                     if(pa == $("#idPage").text()){
-                                        $("#pagination").append('<form method="POST" id="pagination" style="float: left; border: 1px solid #c6c6c6;" action="societe.html"><input type="hidden" name="numPage" value="'+pa+'"><input type="submit" class="paginationForm" style="border: none; background: none;" data-value="'+pa+'" value="'+pa+'" /></form>');
+                                        $("#pagination").append('<form method="POST" id="pagination" style="float: left; border: 1px solid #c6c6c6; background: #e6e6e6;" action="societe.html"><input type="hidden" name="numPage" value="'+pa+'"><input type="submit" class="paginationForm" style="border: none; background: none;" data-value="'+pa+'" value="'+pa+'" /></form>');
                                     }
                                     else{
-                                    $("#pagination").append('<form method="POST" id="pagination" style="float: left; border: 1px solid #c6c6c6; background: #f9f9f9;" action="societe.html"><input type="hidden" name="numPage" value="'+pa+'"><input type="submit" class="paginationForm" style="cursor: pointer; border: none; background: none;" data-value="'+pa+'" value="'+pa+'" /></form>');
+                                    $("#pagination").append('<form method="POST" id="pagination" style="float: left; border: 1px solid #c6c6c6;" action="societe.html"><input type="hidden" name="numPage" value="'+pa+'"><input type="submit" class="paginationForm" style="cursor: pointer; border: none; background: none;" data-value="'+pa+'" value="'+pa+'" /></form>');
                                     } 
                                 }
                                 else{
                                     if(pa == $("#idPage").text()){
-                                        $("#pagination").append('<form method="POST" id="pagination" style="float: left; border: 1px solid #c6c6c6;" action="societe.html"><input type="hidden" name="numPage" value="'+pa+'"><input type="submit" class="paginationForm" style="border: none; background: none;" data-value="'+pa+'" value="'+pa+'" /></form>');
+                                        $("#pagination").append('<form method="POST" id="pagination" style="float: left; border: 1px solid #c6c6c6; background: #e6e6e6;" action="societe.html"><input type="hidden" name="numPage" value="'+pa+'"><input type="submit" class="paginationForm" style="border: none; background: none;" data-value="'+pa+'" value="'+pa+'" /></form>');
                                     }
                                     else{
-                                        $("#pagination").append('<form method="POST" id="pagination" style="float: left; border: 1px solid #c6c6c6; background: #f9f9f9;" action="societe.html"><input type="hidden" name="numPage" value="'+pa+'"><input type="submit" class="paginationForm" style="cursor: pointer; border: none; background: none;" data-value="'+pa+'" value="'+pa+'" /></form>');
+                                        $("#pagination").append('<form method="POST" id="pagination" style="float: left; border: 1px solid #c6c6c6;" action="societe.html"><input type="hidden" name="numPage" value="'+pa+'"><input type="submit" class="paginationForm" style="cursor: pointer; border: none; background: none;" data-value="'+pa+'" value="'+pa+'" /></form>');
                                     }
                                 }
                             }
@@ -150,18 +150,18 @@ if (isset($add2Cart['message'])) {
                         //Si c'est la 1ère page
                         if(p == 1){
                             if(p == $("#idPage").text()){
-                                $("#pagination").append('<form method="POST" id="pagination" style="float: left; border: 1px solid #c6c6c6;" action="societe.html"><input type="hidden" name="numPage" value="'+p+'"><input type="submit" class="paginationForm" style="border: none; background: none;" data-value="'+p+'" value="'+p+'" /></form>');
+                                $("#pagination").append('<form method="POST" id="pagination" style="float: left; border: 1px solid #c6c6c6; background: #e6e6e6;" action="societe.html"><input type="hidden" name="numPage" value="'+p+'"><input type="submit" class="paginationForm" style="border: none; background: none;" data-value="'+p+'" value="'+p+'" /></form>');
                             }
                             else{
-                            $("#pagination").append('<form method="POST" id="pagination" style="float: left; border: 1px solid #c6c6c6; background: #f9f9f9;" action="societe.html"><input type="hidden" name="numPage" value="'+p+'"><input type="submit" class="paginationForm" style="cursor: pointer; border: none; background: none;" data-value="'+p+'" value="'+p+'" /></form>');
+                            $("#pagination").append('<form method="POST" id="pagination" style="float: left; border: 1px solid #c6c6c6;" action="societe.html"><input type="hidden" name="numPage" value="'+p+'"><input type="submit" class="paginationForm" style="cursor: pointer; border: none; background: none;" data-value="'+p+'" value="'+p+'" /></form>');
                             } 
                         }
                         else{
                             if(p == $("#idPage").text()){
-                                $("#pagination").append('<form method="POST" id="pagination" style="float: left; border: 1px solid #c6c6c6;" action="societe.html"><input type="hidden" name="numPage" value="'+p+'"><input type="submit" class="paginationForm" style="border: none; background: none;" data-value="'+p+'" value="'+p+'" /></form>');
+                                $("#pagination").append('<form method="POST" id="pagination" style="float: left; border: 1px solid #c6c6c6; background: #e6e6e6;" action="societe.html"><input type="hidden" name="numPage" value="'+p+'"><input type="submit" class="paginationForm" style="border: none; background: none;" data-value="'+p+'" value="'+p+'" /></form>');
                             }
                             else{
-                                $("#pagination").append('<form method="POST" id="pagination" style="float: left; border: 1px solid #c6c6c6; background: #f9f9f9;" action="societe.html"><input type="hidden" name="numPage" value="'+p+'"><input type="submit" class="paginationForm" style="cursor: pointer; border: none; background: none;" data-value="'+p+'" value="'+p+'" /></form>');
+                                $("#pagination").append('<form method="POST" id="pagination" style="float: left; border: 1px solid #c6c6c6;" action="societe.html"><input type="hidden" name="numPage" value="'+p+'"><input type="submit" class="paginationForm" style="cursor: pointer; border: none; background: none;" data-value="'+p+'" value="'+p+'" /></form>');
                             }
                         }
                     }
@@ -249,18 +249,18 @@ if (isset($add2Cart['message'])) {
                             if(pa <= (maxPage)){
                                 if(pa == 1){
                                     if(pa == $("#idPage").text()){
-                                        $("#pagination").append('<form method="POST" id="pagination" style="float: left; border: 1px solid #c6c6c6;" action="societe.html"><input type="hidden" name="numPage" value="'+pa+'"><input type="submit" class="paginationForm" style="border: none; background: none;" data-value="'+pa+'" value="'+pa+'" /></form>');
+                                        $("#pagination").append('<form method="POST" id="pagination" style="float: left; border: 1px solid #c6c6c6; background: #e6e6e6;" action="societe.html"><input type="hidden" name="numPage" value="'+pa+'"><input type="submit" class="paginationForm" style="border: none; background: none;" data-value="'+pa+'" value="'+pa+'" /></form>');
                                     }
                                     else{
-                                    $("#pagination").append('<form method="POST" id="pagination" style="float: left; border: 1px solid #c6c6c6; background: #f9f9f9;" action="societe.html"><input type="hidden" name="numPage" value="'+pa+'"><input type="submit" class="paginationForm" style="cursor: pointer; border: none; background: none;" data-value="'+pa+'" value="'+pa+'" /></form>');
+                                    $("#pagination").append('<form method="POST" id="pagination" style="float: left; border: 1px solid #c6c6c6;" action="societe.html"><input type="hidden" name="numPage" value="'+pa+'"><input type="submit" class="paginationForm" style="cursor: pointer; border: none; background: none;" data-value="'+pa+'" value="'+pa+'" /></form>');
                                     } 
                                 }
                                 else{
                                     if(pa == $("#idPage").text()){
-                                        $("#pagination").append('<form method="POST" id="pagination" style="float: left; border: 1px solid #c6c6c6;" action="societe.html"><input type="hidden" name="numPage" value="'+pa+'"><input type="submit" class="paginationForm" style="border: none; background: none;" data-value="'+pa+'" value="'+pa+'" /></form>');
+                                        $("#pagination").append('<form method="POST" id="pagination" style="float: left; border: 1px solid #c6c6c6; background: #e6e6e6;" action="societe.html"><input type="hidden" name="numPage" value="'+pa+'"><input type="submit" class="paginationForm" style="border: none; background: none;" data-value="'+pa+'" value="'+pa+'" /></form>');
                                     }
                                     else{
-                                        $("#pagination").append('<form method="POST" id="pagination" style="float: left; border: 1px solid #c6c6c6; background: #f9f9f9;" action="societe.html"><input type="hidden" name="numPage" value="'+pa+'"><input type="submit" class="paginationForm" style="cursor: pointer; border: none; background: none;" data-value="'+pa+'" value="'+pa+'" /></form>');
+                                        $("#pagination").append('<form method="POST" id="pagination" style="float: left; border: 1px solid #c6c6c6;" action="societe.html"><input type="hidden" name="numPage" value="'+pa+'"><input type="submit" class="paginationForm" style="cursor: pointer; border: none; background: none;" data-value="'+pa+'" value="'+pa+'" /></form>');
                                     }
                                 }
                             }
@@ -285,18 +285,18 @@ if (isset($add2Cart['message'])) {
                         //Si c'est la 1ère page
                         if(p == 1){
                             if(p == $("#idPage").text()){
-                                $("#pagination").append('<form method="POST" id="pagination" style="float: left; border: 1px solid #c6c6c6;" action="societe.html"><input type="hidden" name="numPage" value="'+p+'"><input type="submit" class="paginationForm" style="border: none; background: none;" data-value="'+p+'" value="'+p+'" /></form>');
+                                $("#pagination").append('<form method="POST" id="pagination" style="float: left; border: 1px solid #c6c6c6; background: #e6e6e6;" action="societe.html"><input type="hidden" name="numPage" value="'+p+'"><input type="submit" class="paginationForm" style="border: none; background: none;" data-value="'+p+'" value="'+p+'" /></form>');
                             }
                             else{
-                            $("#pagination").append('<form method="POST" id="pagination" style="float: left; border: 1px solid #c6c6c6; background: #f9f9f9;" action="societe.html"><input type="hidden" name="numPage" value="'+p+'"><input type="submit" class="paginationForm" style="cursor: pointer; border: none; background: none;" data-value="'+p+'" value="'+p+'" /></form>');
+                            $("#pagination").append('<form method="POST" id="pagination" style="float: left; border: 1px solid #c6c6c6;" action="societe.html"><input type="hidden" name="numPage" value="'+p+'"><input type="submit" class="paginationForm" style="cursor: pointer; border: none; background: none;" data-value="'+p+'" value="'+p+'" /></form>');
                             } 
                         }
                         else{
                             if(p == $("#idPage").text()){
-                                $("#pagination").append('<form method="POST" id="pagination" style="float: left; border: 1px solid #c6c6c6;" action="societe.html"><input type="hidden" name="numPage" value="'+p+'"><input type="submit" class="paginationForm" style="border: none; background: none;" data-value="'+p+'" value="'+p+'" /></form>');
+                                $("#pagination").append('<form method="POST" id="pagination" style="float: left; border: 1px solid #c6c6c6; background: #e6e6e6;" action="societe.html"><input type="hidden" name="numPage" value="'+p+'"><input type="submit" class="paginationForm" style="border: none; background: none;" data-value="'+p+'" value="'+p+'" /></form>');
                             }
                             else{
-                                $("#pagination").append('<form method="POST" id="pagination" style="float: left; border: 1px solid #c6c6c6; background: #f9f9f9;" action="societe.html"><input type="hidden" name="numPage" value="'+p+'"><input type="submit" class="paginationForm" style="cursor: pointer; border: none; background: none;" data-value="'+p+'" value="'+p+'" /></form>');
+                                $("#pagination").append('<form method="POST" id="pagination" style="float: left; border: 1px solid #c6c6c6;" action="societe.html"><input type="hidden" name="numPage" value="'+p+'"><input type="submit" class="paginationForm" style="cursor: pointer; border: none; background: none;" data-value="'+p+'" value="'+p+'" /></form>');
                             }
                         }
                     }
@@ -411,18 +411,18 @@ if (isset($add2Cart['message'])) {
                             if(pa <= (maxPage)){
                                 if(pa == 1){
                                     if(pa == $("#idPage").text()){
-                                        $("#pagination").append('<form method="POST" id="pagination" style="float: left; border: 1px solid #c6c6c6;" action="societe.html"><input type="hidden" name="numPage" value="'+pa+'"><input type="submit" class="paginationForm" style="border: none; background: none;" data-value="'+pa+'" value="'+pa+'" /></form>');
+                                        $("#pagination").append('<form method="POST" id="pagination" style="float: left; border: 1px solid #c6c6c6; background: #e6e6e6;" action="societe.html"><input type="hidden" name="numPage" value="'+pa+'"><input type="submit" class="paginationForm" style="border: none; background: none;" data-value="'+pa+'" value="'+pa+'" /></form>');
                                     }
                                     else{
-                                    $("#pagination").append('<form method="POST" id="pagination" style="float: left; border: 1px solid #c6c6c6; background: #f9f9f9;" action="societe.html"><input type="hidden" name="numPage" value="'+pa+'"><input type="submit" class="paginationForm" style="cursor: pointer; border: none; background: none;" data-value="'+pa+'" value="'+pa+'" /></form>');
+                                    $("#pagination").append('<form method="POST" id="pagination" style="float: left; border: 1px solid #c6c6c6;" action="societe.html"><input type="hidden" name="numPage" value="'+pa+'"><input type="submit" class="paginationForm" style="cursor: pointer; border: none; background: none;" data-value="'+pa+'" value="'+pa+'" /></form>');
                                     } 
                                 }
                                 else{
                                     if(pa == $("#idPage").text()){
-                                        $("#pagination").append('<form method="POST" id="pagination" style="float: left; border: 1px solid #c6c6c6;" action="societe.html"><input type="hidden" name="numPage" value="'+pa+'"><input type="submit" class="paginationForm" style="border: none; background: none;" data-value="'+pa+'" value="'+pa+'" /></form>');
+                                        $("#pagination").append('<form method="POST" id="pagination" style="float: left; border: 1px solid #c6c6c6; background: #e6e6e6;" action="societe.html"><input type="hidden" name="numPage" value="'+pa+'"><input type="submit" class="paginationForm" style="border: none; background: none;" data-value="'+pa+'" value="'+pa+'" /></form>');
                                     }
                                     else{
-                                        $("#pagination").append('<form method="POST" id="pagination" style="float: left; border: 1px solid #c6c6c6; background: #f9f9f9;" action="societe.html"><input type="hidden" name="numPage" value="'+pa+'"><input type="submit" class="paginationForm" id="paginationForm" style="cursor: pointer; border: none; background: none;" data-value="'+pa+'" value="'+pa+'" /></form>');
+                                        $("#pagination").append('<form method="POST" id="pagination" style="float: left; border: 1px solid #c6c6c6;" action="societe.html"><input type="hidden" name="numPage" value="'+pa+'"><input type="submit" class="paginationForm" id="paginationForm" style="cursor: pointer; border: none; background: none;" data-value="'+pa+'" value="'+pa+'" /></form>');
                                     }
                                 }
                             }
@@ -448,18 +448,18 @@ if (isset($add2Cart['message'])) {
                         console.log(maxPage);
                         if(p == 1){
                             if(p == $("#idPage").text()){
-                                $("#pagination").append('<form method="POST" id="pagination" style="float: left; border: 1px solid #c6c6c6;" action="societe.html"><input type="hidden" name="numPage" value="'+p+'"><input type="submit" class="paginationForm" style="border: none; background: none;" data-value="'+p+'" value="'+p+'" /></form>');
+                                $("#pagination").append('<form method="POST" id="pagination" style="float: left; border: 1px solid #c6c6c6; background: #e6e6e6;" action="societe.html"><input type="hidden" name="numPage" value="'+p+'"><input type="submit" class="paginationForm" style="border: none; background: none;" data-value="'+p+'" value="'+p+'" /></form>');
                             }
                             else{
-                            $("#pagination").append('<form method="POST" id="pagination" style="float: left; border: 1px solid #c6c6c6; background: #f9f9f9;" action="societe.html"><input type="hidden" name="numPage" value="'+p+'"><input type="submit" class="paginationForm" style="cursor: pointer; border: none; background: none;" data-value="'+p+'" value="'+p+'" /></form>');
+                            $("#pagination").append('<form method="POST" id="pagination" style="float: left; border: 1px solid #c6c6c6;" action="societe.html"><input type="hidden" name="numPage" value="'+p+'"><input type="submit" class="paginationForm" style="cursor: pointer; border: none; background: none;" data-value="'+p+'" value="'+p+'" /></form>');
                             } 
                         }
                         else{
                             if(p == $("#idPage").text()){
-                                $("#pagination").append('<form method="POST" id="pagination" style="float: left; border: 1px solid #c6c6c6;" action="societe.html"><input type="hidden" name="numPage" value="'+p+'"><input type="submit" class="paginationForm" style="border: none; background: none;" data-value="'+p+'" value="'+p+'" /></form>');
+                                $("#pagination").append('<form method="POST" id="pagination" style="float: left; border: 1px solid #c6c6c6; background: #e6e6e6;" action="societe.html"><input type="hidden" name="numPage" value="'+p+'"><input type="submit" class="paginationForm" style="border: none; background: none;" data-value="'+p+'" value="'+p+'" /></form>');
                             }
                             else{
-                                $("#pagination").append('<form method="POST" id="pagination" style="float: left; border: 1px solid #c6c6c6; background: #f9f9f9;" action="societe.html"><input type="hidden" name="numPage" value="'+p+'"><input type="submit" class="paginationForm" style="cursor: pointer; border: none; background: none;" data-value="'+p+'" value="'+p+'" /></form>');
+                                $("#pagination").append('<form method="POST" id="pagination" style="float: left; border: 1px solid #c6c6c6;" action="societe.html"><input type="hidden" name="numPage" value="'+p+'"><input type="submit" class="paginationForm" style="cursor: pointer; border: none; background: none;" data-value="'+p+'" value="'+p+'" /></form>');
                             }
                         }
                     }
