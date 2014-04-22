@@ -41,7 +41,7 @@
                         <td style="width: 250px;"><a href="<?php echo ROOTPATH; ?>/index.html">Accueil</a></td>
                         <td style="width: 250px;"><a href="<?php echo ROOTPATH; ?>/HowtoUse.html">Comment ça marche?</a></td>
                         <td style="width: 250px;"><a href="<?php echo ROOTPATH; ?>/mySpace.html">Mon compte</a></td>
-                        <td style="width: 250px;"><a href="<?php echo ROOTPATH; ?>/basket.html">Mon panier</a></td>
+                        <td style="width: 250px;"><div id="miniCart" class="miniCart"><a href="<?php echo ROOTPATH; ?>/basket.html">Mon panier</a><?php include("controleurs/miniCart.php"); ?></div></td>
                     </tr>
                 </table>
             <?php } ?>

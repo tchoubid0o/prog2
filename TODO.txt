@@ -46,3 +46,7 @@ PAGINATION FINIE AIIIIIIIIIIIIIIIIIGHHHT
 Problème: clic categorie 1 -> nb par page, puis clic sur page 2 
 
 ********************************************************* PB FIXED *****************************************************
+
+Ajouter les boutons de suppression d'objet de la fenetre qui s'ouvre lorsque l'on passe la souris sur "Mon panier"
+
+Retravailler la méthode d'ajout d'un objet au panier?! Peut-être le faire en ajax ?
