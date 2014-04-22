@@ -318,6 +318,8 @@ if (isset($add2Cart['message'])) {
                 section.fadeIn();
             });
             $('#result').fadeIn();
+            
+            generatePagination();
         // Changer le contenu de la page avec les nouvelles données recues (celles contenues dans data) 
         }, 'json'); //,'json' // à mettre après l'accolade
     });  
