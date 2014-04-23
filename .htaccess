@@ -1,3 +1,10 @@
+Options -Indexes
+Options +FollowSymLinks
+Options -MultiViews
+
+DirectoryIndex index.php
+
+<IfModule mod_rewrite.c>
 RewriteEngine On
 
 RewriteRule	([a-zA-Z0-9_]+)\.([a-zA-Z0-9_]+)&([a-zA-Z0-9_]+)&([a-zA-Z0-9_]+)\.html	index.php?page=$1&param1=$2&param2=$3&param3=$4
@@ -10,6 +17,7 @@ RewriteRule	([a-zA-Z0-9_]+)-([a-zA-Z0-9_]+)&([0-9]+)&([0-9]+)\.html	index.php?pa
 
 RewriteRule	([a-zA-Z0-9_]+)-([a-zA-Z0-9_]+)\.html	index.php?page=$1&act=$2
 RewriteRule	([a-zA-Z0-9_]+)\.html	index.php?page=$1
+</IfModule>
 
 # Compression GZip
 <IfModule mod_deflate.c>

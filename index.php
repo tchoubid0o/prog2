@@ -2,7 +2,7 @@
 session_start();
 
 try {
-	$auth = new PDO('mysql:host=localhost;dbname=virolle', 'root', '');
+	$auth = new PDO('mysql:host=localhost;dbname=virolle', 'root', 'root');
 }
 catch (Exception $e) {
 	die('Erreur de connexion à la base de donn&eacute;e : ' . $e->getMessage());

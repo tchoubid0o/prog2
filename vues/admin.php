@@ -2,7 +2,8 @@
 if (isset($_SESSION['id'])) {
     if ($_SESSION['adm'] == 1) {
         ?>
-        <a href="<?php echo ROOTPATH; ?>/admin.html">Accueil</a>  
+        <a href="<?php echo ROOTPATH; ?>/admin.html">Accueil</a>
+        <a href="<?php echo ROOTPATH; ?>/admin-import.html">Import</a>
         <?php
         if (isset($_GET['act']) && $_GET['act'] == "modifyclient") {
             echo "> Client n°" . $_GET['param1'] . "";
@@ -27,7 +28,7 @@ if (isset($_SESSION['id'])) {
                             echo "<a href='" . ROOTPATH . "/admin-modifyclient&" . $client['id'] . ".html'>Client n°" . $client['id'] . "</a><form style='display: inline;' action='" . ROOTPATH . "/admin.html' enctype='multipart/form-data' method='post'>
                         <input type='hidden' name='idClient' value='" . $client['id'] . "' />
                         <input style='width: 15px; display: inline;' type='image' src='" . ROOTPATH . "/img/1387754326_001_05.png' alt='submit' name='submitDeleteClient" . $client['id'] . "' />
-                        </form><br/>                            
+                        </form><br/>
 
                         ";
                         }
@@ -43,7 +44,7 @@ if (isset($_SESSION['id'])) {
                             echo "<a href=''>" . $societe['nomSociete'] . "</a><form style='display: inline;' action='" . ROOTPATH . "/admin.html' enctype='multipart/form-data' method='post'>
                         <input type='hidden' name='idSociete' value='" . $societe['idSociete'] . "' />
                         <input style='width: 15px; display: inline;' type='image' src='" . ROOTPATH . "/img/1387754326_001_05.png' alt='submit' name='submitDeleteSociete" . $societe['idSociete'] . "' />
-                        </form><br/>                            
+                        </form><br/>
 
                         ";
                         }
@@ -230,7 +231,7 @@ if (isset($_SESSION['id'])) {
                                 ?>
                             </table>
                             <h3 class="center">
-                                <span class="underline">Total:</span> 
+                                <span class="underline">Total:</span>
                                 <span id="cartPrice"><?php echo $prixPanier; ?></span>€
                             </h3>
                             <div class="center">
@@ -244,6 +245,9 @@ if (isset($_SESSION['id'])) {
                     ?>
                 </div>
                 <?php
+            }
+            if ($_GET['act'] == "import") {
+                include('import.php');
             }
         }
     }
