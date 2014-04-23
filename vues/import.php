@@ -42,9 +42,19 @@ if(isset($_FILES['spreadsheet'])){
                 //  Read a row of data into an array
 					$rowData = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row, NULL, TRUE, FALSE);
                 //Insert into database
-					echo '<br>';
-					echo 'nouvelle ligne : ';
-					print_r($rowData);
+					$codeProduit = $rowData[0][0];
+					$libelleProduit = $rowData[0][1];
+					$prixProduit = $rowData[0][3];
+					$barCodeProduit = $rowData[0][5];
+
+					if($codeProduit != ""){
+						$query = "INSERT INTO produit (codeProduit, barCodeProduit, libelleProduit, quantiteProduit, prixProduit) VALUES ('" . $codeProduit . "', '" . $barCodeProduit . "', '" . $libelleProduit . "', '" . $quantiteProduit . "', '" . $prixProduit . "')";
+						$auth = new PDO('mysql:host=localhost;dbname=virolle', 'root', 'root');
+						echo "<br>";
+						echo $query;
+						$auth->exec($query);
+					}
+					// else : ligne vide 
 				}
 			}
 			else{
