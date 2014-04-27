@@ -2,7 +2,9 @@
 if (isset($_SESSION['id'])) {
     if ($_SESSION['adm'] == 1) {
         ?>
-        <a href="<?php echo ROOTPATH; ?>/admin.html">Accueil</a>  
+        <a href="<?php echo ROOTPATH; ?>/index.html">Index</a>
+        <a href="<?php echo ROOTPATH; ?>/admin.html">Administration</a>
+        <a href="<?php echo ROOTPATH; ?>/admin-import.html">Import</a>
         <?php
         if (isset($_GET['act']) && $_GET['act'] == "modifyclient") {
             echo "> Client n°" . $_GET['param1'] . "";
@@ -27,7 +29,7 @@ if (isset($_SESSION['id'])) {
                             echo "<a href='" . ROOTPATH . "/admin-modifyclient&" . $client['id'] . ".html'>Client n°" . $client['id'] . "</a><form style='display: inline;' action='" . ROOTPATH . "/admin.html' enctype='multipart/form-data' method='post'>
                         <input type='hidden' name='idClient' value='" . $client['id'] . "' />
                         <input style='width: 15px; display: inline;' type='image' src='" . ROOTPATH . "/img/1387754326_001_05.png' alt='submit' name='submitDeleteClient" . $client['id'] . "' />
-                        </form><br/>                            
+                        </form><br/>
 
                         ";
                         }
@@ -43,7 +45,7 @@ if (isset($_SESSION['id'])) {
                             echo "<a href=''>" . $societe['nomSociete'] . "</a><form style='display: inline;' action='" . ROOTPATH . "/admin.html' enctype='multipart/form-data' method='post'>
                         <input type='hidden' name='idSociete' value='" . $societe['idSociete'] . "' />
                         <input style='width: 15px; display: inline;' type='image' src='" . ROOTPATH . "/img/1387754326_001_05.png' alt='submit' name='submitDeleteSociete" . $societe['idSociete'] . "' />
-                        </form><br/>                            
+                        </form><br/>
 
                         ";
                         }
@@ -87,9 +89,7 @@ if (isset($_SESSION['id'])) {
                                 ?>" /><br/><br/>
 
                                 <label for="password">Mot de passe</label><br/>
-                                <input type="text" name="password" id="password" value="<?php if (!empty($infoClient['password'])) {
-                                    echo $infoClient['password'];
-                                } ?>"/><br /><br />
+                                <input type="password" placeholder="**********" name="password" id="password"/><br /><br />
                             </div>
                         </div>
                         <div id="societesAdm" style="width: 200px;text-align: center;float: left; padding: 20px;">
@@ -232,7 +232,7 @@ if (isset($_SESSION['id'])) {
                                 ?>
                             </table>
                             <h3 class="center">
-                                <span class="underline">Total:</span> 
+                                <span class="underline">Total:</span>
                                 <span id="cartPrice"><?php echo $prixPanier; ?></span>€
                             </h3>
                             <div class="center">
@@ -246,6 +246,9 @@ if (isset($_SESSION['id'])) {
                     ?>
                 </div>
                 <?php
+            }
+            if ($_GET['act'] == "import") {
+                include('import.php');
             }
         }
     }

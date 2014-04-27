@@ -132,6 +132,11 @@ body{
     padding-top: 15px;
 }
 
+.miniCart{
+
+    text-align: center;
+}
+
 .minicart_con{
     position: absolute;
     height: auto;

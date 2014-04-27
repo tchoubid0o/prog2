@@ -35,13 +35,15 @@
             <?php if (empty($_SESSION['id'])) { ?> 
                 <a href="<?php echo ROOTPATH; ?>/connexion.html">Connexion</a>
             <?php } else {
+                if($_GET['page'] != "admin"){
                 ?>
-                <table style="width: 1000px; margin: auto;">
+                <table style="width: 750px; margin: auto; float: left;">
                     <tr>
                         <td style="width: 250px;"><a href="<?php echo ROOTPATH; ?>/index.html">Accueil</a></td>
                         <td style="width: 250px;"><a href="<?php echo ROOTPATH; ?>/HowtoUse.html">Comment ça marche?</a></td>
                         <td style="width: 250px;"><a href="<?php echo ROOTPATH; ?>/mySpace.html">Mon compte</a></td>
-                        <td style="width: 250px;"><div id="miniCart" class="miniCart"><a href="<?php echo ROOTPATH; ?>/basket.html">Mon panier</a><?php include("controleurs/miniCart.php"); ?></div></td>
+                        
                     </tr>
                 </table>
-            <?php } ?>
+                <div style="clear: both;"></div>
+            <?php }} ?>

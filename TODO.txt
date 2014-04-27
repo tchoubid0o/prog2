@@ -1,3 +1,25 @@
+// **************************************** TODO OFFICIEL **************************************** //
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+-Ajout produits au panier en ajax (avec unpdate du miniCart) **Ajout AJAX OK, mettre des alert + update minicart** **DONE**
+-Calcul du nouveau prix panier après suppression d'item, ou mise à jour des quantités **DONE**
+-Pagination en bas à droite des articles **DONE**
+-Page description du produit sur lequel on a cliqué.
+-Envoyez mail récapitulatif (à l'utilisateur + admin) de commande après avoir cliquer sur "je valide ma commande"
+-Page "Comment ça marche" modifiable par l'admin grâce à un formulaire ?
+-Regler le menu de l'administration (1 seul menu, ne pas afficher celui de l'utilsateur lambda) **DONE**
+-Administration -> Client -> mot de pass = 20 caractères max
+-Recherche rapide
+
+
+NB: Nb produit par page voulu par Mr Pierre Virolle: 10/25/50
+bug: quand on est sur la page 2 et qu'on modifie le nb produit par page. il faut remettre page 1 **DONE**
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+*****************************************************************************************************
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 <form class="nbPerPage" method="post" action="">
             <select>Affichage par page:

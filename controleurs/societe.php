@@ -1,8 +1,18 @@
 <?php
 
 require_once('./modeles/societe.php');
-if(isset($_POST['add2Cart'])){
+if (isset($_POST['add2Cart'])) {
     $add2Cart = add2Cart($auth, $_POST['quantiteProduit'], $_POST['idProduit'], $_POST['idSociete']);
+    //echo json_encode($add2Cart);
+
+    ob_start();
+    include './controleurs/miniCart.php';
+    $view = ob_get_clean();
+    ob_end_flush();
+    
+    $return_array = array($add2Cart, 'miniCart' => $view);
+        
+    echo json_encode($return_array);
 }
 
 if (isset($_POST['idSociete'])) {
@@ -29,14 +39,12 @@ if (isset($_GET['act'])) {
             echo json_encode($recupProduits2);
         }
     }
-    
 }
 
-if(isset($_POST['searchProduct'])){
+if (isset($_POST['searchProduct'])) {
     searchAndAdd($auth, $_POST['refSearch'], $_POST['qteSearch']);
 }
 if ((strstr($_SERVER['HTTP_ACCEPT'], "html") == TRUE)) {
     require_once('./vues/societe.php');
 }
-
 ?>

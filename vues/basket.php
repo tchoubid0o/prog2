@@ -1,5 +1,3 @@
-<!-- Vue Panier -->
-<!-- !!!ATTENTION!!! IL FAULT ENCORE RECALCULER LE PRIX TOTAL DU PANIER APRES LES REQUETES AJAX!! -->
 <div class="width1000">
     <?php $prixPanier = 0; ?>
     <table id="basketTable">
@@ -36,8 +34,8 @@
                             <input type="submit" style="cursor: pointer;margin: 0;padding: 0;line-height: 100%;border: 0;background: transparent;" value="supprimer"/>
                         </form>
                     </td>
-                    <td><?php echo $produit['prixProduit']; ?></td>
-                    <td><?php
+                    <td class="prixU"><?php echo $produit['prixProduit']; ?></td>
+                    <td class="prix"><?php
                         $prixTot = $produit['prixProduit'] * $produit['qteProduit'];
                         $prixPanier += $prixTot;
                         echo $prixTot;
@@ -60,16 +58,49 @@
         $(".ui-button-text").click(function(event) {
             $(this).parent().parent().parent().submit(event);
             event.preventDefault();
-            $.ajax({url: "basket.html", type: "POST",
+
+            var prixU = parseFloat($(this).parent().parent().parent().parent().parent().find("td.prixU").text());
+            var oldPrixProduct = parseFloat($(this).parent().parent().parent().parent().parent().find("td.prix").text());
+            var qte = parseFloat($(this).parent().parent().find("input").val());
+            var newProductPrice = parseFloat(prixU) * parseFloat(qte);
+            $(this).parent().parent().parent().parent().parent().find("td.prix").html(newProductPrice);
+
+            var oldCartPrice = $("#cartPrice").text();
+
+            if (oldPrixProduct >= newProductPrice) {
+                var newCartPrice = parseFloat(oldCartPrice) - (parseFloat(oldPrixProduct) - parseFloat(newProductPrice));
+                $("#cartPrice").html(newCartPrice);
+            }
+            else {
+                var newCartPrice = parseFloat(oldCartPrice) + (parseFloat(newProductPrice) - parseFloat(oldPrixProduct));
+                $("#cartPrice").html(newCartPrice);
+            }
+
+            $.ajax({url: "basket.html",
+                type: "POST",
+                dataType: "json",
                 data: $(this).parent().parent().parent().serialize()
-                //On envoie le formulaire qui contient: idProduit et qteProduit
+            }).done(function(data) {
+                $("#previewMinicart").html(data.miniCart);
             });
         });
-        $(".deleteProduit").click(function(event){
+        $(".deleteProduit").click(function(event) {
             event.preventDefault();
-            $.ajax({url: "basket.html", type: "POST",
+            
+            var oldPrixProduct = parseFloat($(this).parent().parent().find("td.prix").text());
+
+            var oldCartPrice = $("#cartPrice").text();
+
+            var newCartPrice = parseFloat(oldCartPrice) - (parseFloat(oldPrixProduct));
+            $("#cartPrice").html(newCartPrice);
+            
+            $.ajax({url: "basket.html", 
+                type: "POST",
+                dataType: "json",
                 data: $(this).serialize()
-                //On envoie le formulaire qui contient: idProduit et qteProduit
+                        //On envoie le formulaire qui contient: idProduit et qteProduit
+            }).done(function(data) {
+                $("#previewMinicart").html(data.miniCart);
             });
             $(this).parent().parent().hide("slow");
         });
