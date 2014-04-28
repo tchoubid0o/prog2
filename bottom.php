@@ -9,5 +9,6 @@ if (!empty($_SESSION['id'])) {
     }
 }?>
 </div>
+<div id="global"></div>
 </body>
 </html>

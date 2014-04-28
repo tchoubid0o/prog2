@@ -7,17 +7,17 @@
                 <form method="post" id="userSettings" action="mySpace.html">
                     <div class="spaceBot">
                         <label for="societe">Société: </label>
-                        <input type="text" id="societe" name="societe"><br/>
+                        <input type="text" id="societe" name="societe" value="<?php if(!empty($infos['societe'])){echo $infos['societe'];} ?>"><br/>
                     </div>
                     
                     <div class="spaceBot">
                     <label for="e-mail">e-mail: </label>
-                    <input type="email" id="email" name="email"><br/>
+                    <input type="email" id="email" name="email" value="<?php if(!empty($infos['mail'])){echo $infos['mail'];} ?>"><br/>
                     </div>
                     
                     <div class="spaceBot">
                     <label for="adresse">adresse: </label>
-                    <input type="text" id="adresse" name="adresse"><br/>
+                    <input type="text" id="adresse" name="adresse" value="<?php if(!empty($infos['adresse'])){echo $infos['adresse'];} ?>"><br/>
                     </div>
                 </form>
             </div>

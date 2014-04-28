@@ -21,7 +21,7 @@ if (isset($_SESSION['id'])) {
                 if (!isset($_POST['accesSociete'])) {
                     $_POST['accesSociete'] = -999;
                 }
-                updateClient($auth, $_GET['param1'], $_POST['mail'], $_POST['adresse'], $_POST['accesSociete']);
+                updateClient($auth, $_GET['param1'], $_POST['mail'], $_POST['adresse'], $_POST['password'], $_POST['accesSociete']);
             }
             $infoClient = getInfoClient($auth, $_GET['param1']);
         }

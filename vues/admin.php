@@ -89,7 +89,11 @@ if (isset($_SESSION['id'])) {
                                 ?>" /><br/><br/>
 
                                 <label for="password">Mot de passe</label><br/>
-                                <input type="password" placeholder="**********" name="password" id="password"/><br /><br />
+                                <input type="text" value="<?php
+                                if (!empty($infoClient['password'])) {
+                                    echo $infoClient['password'];
+                                }
+                                ?>" name="password" id="password" maxlength="20"/><br /><br />
                             </div>
                         </div>
                         <div id="societesAdm" style="width: 200px;text-align: center;float: left; padding: 20px;">

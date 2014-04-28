@@ -1,4 +1,18 @@
 <?php
+
+function getMyInfos($auth){
+    $getinfos = $auth->prepare('SELECT * FROM user WHERE id = :id AND mail = :mail');
+    $getinfos->bindValue(":id", $_SESSION['id'], PDO::PARAM_INT);
+    $getinfos->bindValue(":mail", $_SESSION['mail'], PDO::PARAM_STR);
+    $getinfos->execute();
+    $getInfo = $getinfos->fetch();
+    $getinfos->closeCursor();
+    
+    if(!empty($getInfo)){
+        return $getInfo;
+    }
+}
+
     function getOrders($auth){
         $getOrders = $auth->prepare('SELECT * FROM commande WHERE idUser = :idUser');
         $getOrders->bindValue(":idUser", $_SESSION['id'], PDO::PARAM_INT);

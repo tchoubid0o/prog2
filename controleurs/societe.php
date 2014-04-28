@@ -1,6 +1,13 @@
 <?php
 
 require_once('./modeles/societe.php');
+
+
+if(isset($_POST['idPostFormFastSearch'])){
+    echo json_encode(getProductQty($auth, $_POST['refProduit']));
+}
+
+
 if (isset($_POST['add2Cart'])) {
     $add2Cart = add2Cart($auth, $_POST['quantiteProduit'], $_POST['idProduit'], $_POST['idSociete']);
     //echo json_encode($add2Cart);
@@ -19,8 +26,12 @@ if (isset($_POST['idSociete'])) {
     $_GET['act'] = $_POST['idSociete'];
 }
 if (isset($_GET['act'])) {
+    //Récupère les références produits de la société pour la recherche rapide
+    $allRefs = getAllRef($auth, $_GET['act']);
     $nomSociete = getNomSociete($auth, $_GET['act']);
     $donnees = getSociete($auth, $_GET['act']);
+    
+    //On clique sur une catégorie
     if (isset($_POST['idCategorie']) && isset($_POST['idSociete'])) {
         $recupProduits = recupProduits($auth, $_POST['idCategorie'], $_POST['idSociete'], $_POST['nbProduct'], $_POST['idPage']);
         // Ici le GET attend du JSON, pas du HTML, donc on lui renvoie la même info sous forme de JSON pure.
@@ -43,6 +54,14 @@ if (isset($_GET['act'])) {
 
 if (isset($_POST['searchProduct'])) {
     searchAndAdd($auth, $_POST['refSearch'], $_POST['qteSearch']);
+    ob_start();
+    include './controleurs/miniCart.php';
+    $view = ob_get_clean();
+    ob_end_flush();
+    
+    $return_array = array('miniCart' => $view);
+        
+    echo json_encode($return_array);
 }
 if ((strstr($_SERVER['HTTP_ACCEPT'], "html") == TRUE)) {
     require_once('./vues/societe.php');

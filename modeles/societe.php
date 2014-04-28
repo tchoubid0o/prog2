@@ -1,5 +1,64 @@
 <?php
 
+function getProductQty($auth, $ref) {
+    $getinfos = $auth->query('SELECT * FROM produit WHERE refProduit = ' . $ref . '');
+    $getinfo = $getinfos->fetch();
+    $getinfos->closeCursor();
+
+    if (!empty($getinfo)) {
+        return $getinfo;
+    }
+}
+
+function getAllRef($auth, $idSociete) {
+    $get = $auth->query('SELECT refProduit FROM produit WHERE idSociete = ' . $idSociete . '');
+
+    $liste = array();
+    $i = 0;
+    while ($donnees = $get->fetch()) {
+        $d[$i]['refProduit'] = $donnees['refProduit'];
+
+        $i++;
+    }
+    $nb = 0;
+    foreach ($d as $ref) {
+        $liste[$nb] = $ref['refProduit'];
+        $nb++;
+    }
+
+    $scriptReturn = '<script>$(function() {
+                        
+                        var availableTags = ' . json_encode($liste) . ';
+                        $("#refSearch").autocomplete({
+                            source: availableTags,
+                            select: function(event, ui){
+                                $("#refSearch").attr("value",ui.item.value);
+                                
+                                $.ajax({url: "' . ROOTPATH . '/societe.html",
+                                    type: "POST",
+                                    dataType: "json",
+                                    data: "refProduit="+ui.item.value+"&idPostFormFastSearch=1"
+                                }).done(function(data) {
+                                    var o = 1;
+                                    newContentV = "";
+                                    do {
+                                        j = o * data.minQte;
+                                        newContentV += "<option value="+j+">"+j+"</option>";
+                                        o++;
+                                    } while (j < data.quantiteProduit);
+                                    $("#valueSearchQte").html(newContentV);
+                                });
+
+                            }
+                        });
+                    });
+                     </script>';
+
+    if (!empty($scriptReturn)) {
+        return $scriptReturn;
+    }
+}
+
 function searchAndAdd($auth, $refSearch, $qteSearch) {
     $searchAndAdd['message'] = "";
 
@@ -169,7 +228,7 @@ function afficher_menu($parent, $niveau, $array) {
             }
 
             if ($niveau == 0) {
-                $html .= '<li><form class="menuCategorie" id="cat'.$niveau.'" style="border-bottom: 1px solid black; border-top: 1px solid black;" method="post" ><input type="hidden" name="submitSearch" value="' . $noeud['idCategorie'] . '"><input class="formvalid" type="submit" name="idCategorie" value="' . $noeud['libelleCategorie'] . '" />';
+                $html .= '<li><form class="menuCategorie" id="cat' . $niveau . '" style="border-bottom: 1px solid black; border-top: 1px solid black;" method="post" ><input type="hidden" name="submitSearch" value="' . $noeud['idCategorie'] . '"><input class="formvalid" type="submit" name="idCategorie" value="' . $noeud['libelleCategorie'] . '" />';
             } else {
                 $html .= '<li><form class="menuCategorie" method="post" ><input type="hidden" name="submitSearch" value="' . $noeud['idCategorie'] . '"><input class="formvalid" type="submit" name="idCategorie" value="' . $noeud['libelleCategorie'] . '" />';
             }
@@ -190,28 +249,69 @@ function afficher_menu($parent, $niveau, $array) {
     return $html;
 }
 
+function findSons($auth, $parent, $reset) {
+    static $fil;
+
+    if ($reset == true) {
+        $fil = array();
+        $fil[] = $parent;
+    }
+    $d = array();
+    $sons = $auth->query('SELECT idCategorie FROM categorie WHERE idParent = ' . $parent . '');
+
+    $i = 0;
+    while ($donnees = $sons->fetch()) {
+
+        $d[$i]['idCategorie'] = $donnees['idCategorie'];
+        $fil[] = $donnees['idCategorie'];
+        
+        $i++;
+    }
+    foreach($d as $fils){
+        findSons($auth, $fils['idCategorie'], false);
+    }
+    
+    return $fil;
+}
+    
+
+
 function recupProduits($auth, $idCategorie, $idSociete, $nbProduct, $idPage) {
-    $minIdProduct = ($idPage-1)*$nbProduct;
-    $maxIdProduct = ($idPage*$nbProduct);
+    $minIdProduct = ($idPage - 1) * $nbProduct;
+    $maxIdProduct = ($idPage * $nbProduct);
     $checkPerm = $auth->query('SELECT COUNT(*) AS nb FROM accessociete WHERE idUser = ' . $_SESSION['id'] . ' AND idSociete = ' . $idSociete . '');
     $checkP = $checkPerm->fetch();
 
     //Si on a les accès
+    //Il faut aussi récupérer les sociétés filles s'il y en a
+    $sons = findSons($auth, $idCategorie, true);
+    $nbSon = 0;
+    $andRequest = "";
+    foreach($sons as $son){
+        if($nbSon == 0){
+            $andRequest = "idCategorie = ".$son."";
+        }
+        else{
+            $andRequest .= " OR idCategorie = ".$son."";
+        }
+        $nbSon++;
+    }
+
     if ($checkP['nb'] >= 1) {
-        $selectProduct = $auth->prepare('SELECT * FROM produit WHERE idSociete = :idSociete AND idCategorie = :idCategorie ORDER BY idProduit ASC LIMIT '.$minIdProduct.','.$nbProduct.'');
+        $selectProduct = $auth->prepare('SELECT * FROM produit WHERE idSociete = :idSociete AND ('.$andRequest.') ORDER BY idProduit ASC LIMIT ' . $minIdProduct . ',' . $nbProduct . '');
         $selectProduct->bindValue(':idSociete', $idSociete, PDO::PARAM_INT);
-        $selectProduct->bindValue(':idCategorie', $idCategorie, PDO::PARAM_INT);
+        //$selectProduct->bindValue(':idCategorie', $idCategorie, PDO::PARAM_INT);
         $selectProduct->execute();
 
         $i = 0;
         while ($donnees = $selectProduct->fetch()) {
-            
-            $countProducts = $auth->prepare('SELECT COUNT(*) AS nb FROM produit WHERE idSociete = :idSociete AND idCategorie = :idCategorie ORDER BY idProduit ASC');
+
+            $countProducts = $auth->prepare('SELECT COUNT(*) AS nb FROM produit WHERE idSociete = :idSociete AND ('.$andRequest.') ORDER BY idProduit ASC');
             $countProducts->bindValue(':idSociete', $idSociete, PDO::PARAM_INT);
-            $countProducts->bindValue(':idCategorie', $idCategorie, PDO::PARAM_INT);
+            //$countProducts->bindValue(':idCategorie', $idCategorie, PDO::PARAM_INT);
             $countProducts->execute();
             $countProduct = $countProducts->fetch();
-            
+
             $d[$i]['idProduit'] = $donnees['idProduit'];
             $d[$i]['idSociete'] = $donnees['idSociete'];
             $d[$i]['idCategorie'] = $donnees['idCategorie'];
@@ -221,13 +321,12 @@ function recupProduits($auth, $idCategorie, $idSociete, $nbProduct, $idPage) {
             $d[$i]['imgProduit'] = $donnees['imgProduit'];
             $d[$i]['refProduit'] = $donnees['refProduit'];
             $d[$i]['nbProduit'] = $countProduct['nb'];
-            
+
             $i++;
-        }     
+        }
     }
     if (!empty($d)) {
         return $d;
     }
 }
-
 ?>

@@ -145,10 +145,11 @@ function getAccesClient($auth, $id) {
         return $a;
 }
 
-function updateClient($auth, $id, $mail, $adresse, $accesSociete) {
+function updateClient($auth, $id, $mail, $adresse, $password, $accesSociete) {
     $checkAdm = checkIsAdmin($auth);
     if ($checkAdm['nb'] >= 1) {
-        $updateClient = $auth->prepare('UPDATE user SET mail = :mail, adresse = :adresse WHERE id = :id');
+        $updateClient = $auth->prepare('UPDATE user SET password = :password, mail = :mail, adresse = :adresse WHERE id = :id');
+        $updateClient->bindValue(':password', $password, PDO::PARAM_STR);
         $updateClient->bindValue(':mail', $mail, PDO::PARAM_STR);
         $updateClient->bindValue(':adresse', $adresse, PDO::PARAM_STR);
         $updateClient->bindValue(':id', $id, PDO::PARAM_INT);

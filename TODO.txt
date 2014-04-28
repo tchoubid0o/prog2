@@ -5,12 +5,14 @@
 -Ajout produits au panier en ajax (avec unpdate du miniCart) **Ajout AJAX OK, mettre des alert + update minicart** **DONE**
 -Calcul du nouveau prix panier après suppression d'item, ou mise à jour des quantités **DONE**
 -Pagination en bas à droite des articles **DONE**
--Page description du produit sur lequel on a cliqué.
+-Page description du produit sur lequel on a cliqué. **DONE** (Manque info à mettre dedans ??!)
 -Envoyez mail récapitulatif (à l'utilisateur + admin) de commande après avoir cliquer sur "je valide ma commande"
--Page "Comment ça marche" modifiable par l'admin grâce à un formulaire ?
+-Page "Comment ça marche" modifiable par l'admin grâce à un formulaire ? **DONE** (ajout .html)
 -Regler le menu de l'administration (1 seul menu, ne pas afficher celui de l'utilsateur lambda) **DONE**
--Administration -> Client -> mot de pass = 20 caractères max
--Recherche rapide
+-Administration -> Client -> mot de pass = 20 caractères max **DONE**
+-Recherche rapide -> auto completion + recherche quantité valide du produit **DONE**
+-Produit présent dans une sous catégorie doivent etre visible dans la catégorie parent **DONE**
+-Administration -> Société -> ajouter catégorie pour chaque société
 
 
 NB: Nb produit par page voulu par Mr Pierre Virolle: 10/25/50
