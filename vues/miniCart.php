@@ -26,7 +26,7 @@
             </div><br/>
             <div class="minicart_end center">
                 TOTAL : <?php echo $prixPanier; ?>€<br/>
-                <a class="btn_viewcart" href="">Passer ma commande</a>
+                <a class="btn_viewcart" href="OrderProcess.html">Passer ma commande</a>
             </div><?php
         } else {
             echo "<div class='center'>Votre panier est vide</div>";

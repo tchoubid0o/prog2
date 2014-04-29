@@ -27,23 +27,28 @@
         <script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.js"></script>
         <script type="text/javascript" src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
         <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
-        
+
         <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
     </head> 
     <body>
         <div id="content" style="width: 1000px;margin: auto;">
-            <?php if (empty($_SESSION['id'])) { ?> 
-                <a href="<?php echo ROOTPATH; ?>/connexion.html">Connexion</a>
-            <?php } else {
-                if($_GET['page'] != "admin" && $_GET['page'] != "societeadm"){
-                ?>
-                <table style="width: 750px; margin: auto; float: left;">
-                    <tr>
-                        <td style="width: 250px;"><a href="<?php echo ROOTPATH; ?>/index.html">Accueil</a></td>
-                        <td style="width: 250px;"><a href="<?php echo ROOTPATH; ?>/HowtoUse.html">Comment ça marche?</a></td>
-                        <td style="width: 250px;"><a href="<?php echo ROOTPATH; ?>/mySpace.html">Mon compte</a></td>
-                        
-                    </tr>
-                </table>
-                <div style="clear: both;"></div>
-            <?php }} ?>
+            <?php if (empty($_SESSION['id'])) {
+                if ($_GET['page'] != "connexion" && $_GET['page'] != "recover") {
+                    ?> 
+                    <a href="<?php echo ROOTPATH; ?>/connexion.html">Connexion</a>
+                <?php
+                }
+            } else {
+                if ($_GET['page'] != "admin" && $_GET['page'] != "societeadm") {
+                    ?>
+                    <table style="width: 750px; margin: auto; float: left;">
+                        <tr>
+                            <td style="width: 250px;"><a href="<?php echo ROOTPATH; ?>/index.html">Accueil</a></td>
+                            <td style="width: 250px;"><a href="<?php echo ROOTPATH; ?>/HowtoUse.html">Comment ça marche?</a></td>
+                            <td style="width: 250px;"><a href="<?php echo ROOTPATH; ?>/mySpace.html">Mon compte</a></td>
+
+                        </tr>
+                    </table>
+                    <div style="clear: both;"></div>
+    <?php }
+} ?>

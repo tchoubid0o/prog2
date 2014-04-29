@@ -3,9 +3,7 @@
 function connexion($auth, $mail, $password) {
     if (!isset($_SESSION['id'])) {
         if (isset($mail) && !empty($mail) && isset($password) && !empty($password)) {
-            $connexion['message_mail'] = "";
-            $connexion['message_password'] = "";
-            $connexion['message_actif'] = "";
+            $connexion['message_global'] = "";
 
             // On vérifie si le mail existe dans la bdd
             if (empty($connexion['message_pseudo'])) {
@@ -15,7 +13,7 @@ function connexion($auth, $mail, $password) {
                 $nb_mail = $retour_check_pseudo->fetch();
 
                 if ($nb_mail['nb'] != 1) {
-                    $connexion['message_mail'] .= "Le mail entr&eacute; n'existe pas.<br />";
+                    $connexion['message_global'] .= "<span class=\"red\">Le mail entr&eacute; n'existe pas.</span>";
                 } else {
 
                     $_SESSION['connexion_mail'] = $mail;
@@ -26,15 +24,16 @@ function connexion($auth, $mail, $password) {
                         $retour_check_pass->execute();
                         $mdp = $retour_check_pass->fetch();
                         if ($mdp['password'] != $password) {
-                            $connexion['message_password'] .= "Vous avez entré un mauvais mot de pass!<br />";
+                            $connexion['message_global'] .= "<span class=\"red\">Vous avez entré un mauvais mot de passe!</span>";
                         } else {
                             $connexion['ok'] = 1;
-                            $connexion['message_global'] = "<span class=\"red\">Vous êtes maintenant connecté !</span>";
+                            $connexion['message_global'] = "<script>document.location.href='".ROOTPATH."/index.html'</script>";
                             $_SESSION['id'] = $mdp['id'];
                             $_SESSION['mail'] = $mail;
                             $_SESSION['prenom'] = $mdp['prenom'];
                             $_SESSION['nom'] = $mdp['nom'];
                             $_SESSION['adm'] = $mdp['adm'];
+                            
                         }
 
                         $retour_check_pass->closeCursor();
@@ -47,7 +46,7 @@ function connexion($auth, $mail, $password) {
             $connexion['message_global'] = "<span class=\"red\">Vous devez remplir tous les champs.</span>";
         }
     } else {
-        $connexion['message_global'] = "<span class=\"red\">Vous &ecirc;tes d&eacute;j&agrave; connect&eacute; !</span>";
+        $connexion['message_global'] = "<script>document.location.href='".ROOTPATH."/index.html'</script>";
     }
     return $connexion;
 }

@@ -1,6 +1,33 @@
 <?php
 
 function confirmOrder($auth, $date, $comment) {
+    $prixTotal = 0;
+    $getClient = $auth->prepare('SELECT * FROM user WHERE id = :id AND mail = :mail');
+    $getClient->bindValue(":id", $_SESSION['id'], PDO::PARAM_INT);
+    $getClient->bindValue(":mail", $_SESSION['mail'], PDO::PARAM_STR);
+    $getClient->execute();
+    $client = $getClient->fetch();
+    $getClient->closeCursor();
+    $mail = "Bonjour!<br/>
+					 
+	Nous vous confirmons la bonne prise en compte de votre commande passée ce jour sur notre site. <br/>
+        
+        Vous trouverez ci-dessous le récapitulatif de vos coordonnées ainsi que de vos achats. <br/><br/>
+        
+        ".ucfirst($client['prenom'])." ".ucfirst($client['nom'])."<br/>
+        ".ucfirst($client['adresse'])."<br/>
+        ".ucfirst($client['cp'])." ".ucfirst($client['ville'])."<br/>
+        ".ucfirst($client['mail'])."<br/><br/>
+            
+        <strong>Vos Achats:</strong>
+        <table style='text-align: center;border-collapse:collapse;'>
+            <tr>
+                <th style='padding: 5px; border: 1px solid black;'>N° commande</th>
+                <th style='padding: 5px; border: 1px solid black;'>Produit</th>
+                <th style='padding: 5px; border: 1px solid black;'>Qté</th>
+                <th style='padding: 5px; border: 1px solid black;'>Prix U</th>
+                <th style='padding: 5px; border: 1px solid black;'>Prix</th>
+            </tr>";
     $select = $auth->prepare('SELECT * FROM panier WHERE idUser = :id');
     $select->bindValue(":id", $_SESSION['id'], PDO::PARAM_INT);
     $select->execute();
@@ -41,9 +68,24 @@ function confirmOrder($auth, $date, $comment) {
         $insert2->bindValue(":unitPrice", $price['prixProduit'], PDO::PARAM_STR);
         $insert2->bindValue(":quantity", $donnees['qteProduit'], PDO::PARAM_INT);
         $insert2->execute();
+        
+        $tempPrice = $price['prixProduit']*$donnees['qteProduit'];
+        $prixTotal += $tempPrice;
+        
+        $mail .= "<tr>
+                    <td style='padding: 5px; border: 1px solid black;'>".$key."</td>
+                    <td style='padding: 5px; border: 1px solid black;'>".$price['libelleProduit']." Réf: ".$price['refProduit']."</td>
+                    <td style='padding: 5px; border: 1px solid black;'>".$donnees['qteProduit']."</td>
+                    <td style='padding: 5px; border: 1px solid black;'>".$price['prixProduit']."€</td>
+                    <td style='padding: 5px; border: 1px solid black;'>".$tempPrice."€</td>
+                </tr>
+                ";
 
         $i++;
     }
+    
+    $mail .= "</table>";
+    $mail .= "<br/><br/>Total: ".$prixTotal."€";
 
     //Quand tout est commandé, alors on supprime le panier
 
@@ -51,6 +93,17 @@ function confirmOrder($auth, $date, $comment) {
     $del->bindValue(":id", $_SESSION['id'], PDO::PARAM_INT);
     $del->execute();
     $del->closeCursor();
+    
+    //Envoi d'un mail nouveau message
+	$siteWebMail = "messagerie@virolle.fr";
+	$destinataire = $siteWebMail.", ".$_SESSION['mail']."";
+	$sujet = "Virolle: Suivi de votre commande" ;
+	$headers = 'From: messagerie@virolle.fr' . "\r\n";
+	$headers .= 'MIME-Version: 1.0' . "\n";
+        $headers .= 'Content-type:text/html;charset=utf-8' . "\r\n" .
+                    'Bcc:' . $_SESSION['mail'] . '';
+				 
+	mail($destinataire, $sujet, $mail, $headers) ;
 }
 
 function generateOrderKey($auth){
