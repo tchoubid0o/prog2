@@ -16,9 +16,13 @@ if (isset($_SESSION['id'])) {
         if (isset($_GET['act']) && $_GET['act'] == "OrderDetail") {
             echo "> <a href='admin-modifyclient&".$_GET['param1'].".html'>Client n°" . $_GET['param1'] . "</a> > commande du " . date("d/m/Y", strtotime($order['dateCommande'])) . "";
         }
+        if (isset($_GET['act']) && $_GET['act'] == "societe") {
+            echo "> Société n°" . $_GET['param1'] . "";
+        }
         if (!isset($_GET['act'])) {
             ?>
-
+            <!--Page d'Index du panneau d'Administration-->
+            
             <h4 style="text-align: center;">Accueil Administration</h4>
             <div style="width:380px; margin: auto;">
                 <div id="clientsAdm" style="width: 150px;float: left; padding: 20px;">
@@ -42,7 +46,7 @@ if (isset($_SESSION['id'])) {
                     <div style="overflow-x: hidden; overflow-y: scroll;height: 300px;">
                         <?php
                         foreach ($societes as $societe) {
-                            echo "<a href=''>" . $societe['nomSociete'] . "</a><form style='display: inline;' action='" . ROOTPATH . "/admin.html' enctype='multipart/form-data' method='post'>
+                            echo "<a href='" . ROOTPATH . "/societeadm." . $societe['idSociete'] . ".html'>" . $societe['nomSociete'] . "</a><form style='display: inline;' action='" . ROOTPATH . "/admin.html' enctype='multipart/form-data' method='post'>
                         <input type='hidden' name='idSociete' value='" . $societe['idSociete'] . "' />
                         <input style='width: 15px; display: inline;' type='image' src='" . ROOTPATH . "/img/1387754326_001_05.png' alt='submit' name='submitDeleteSociete" . $societe['idSociete'] . "' />
                         </form><br/>
@@ -59,6 +63,8 @@ if (isset($_SESSION['id'])) {
         } else {
             if ($_GET['act'] == "modifyclient") {
                 ?>
+                <!--Modification d'un utilisateur-->
+                
                 <h4 style="text-align: center;">Client n°<?php echo $_GET['param1']; ?></h4>
                 <form action="<?php echo ROOTPATH; ?>/admin-modifyclient&<?php echo $_GET['param1']; ?>.html" method="post" enctype="multipart/form-data">
                     <div style="width:720px; margin: auto;">
@@ -148,6 +154,8 @@ if (isset($_SESSION['id'])) {
             if ($_GET['act'] == "adduser") {
                 $nbUser = countNbClients($auth);
                 ?>
+                <!--Ajout d'un utilisateur-->
+                
                 <h4 style="text-align: center;">Client n°<?php echo ($nbUser['nb'] + 1); ?></h4>
                 <form action="<?php echo ROOTPATH; ?>/admin.html" method="post" enctype="multipart/form-data">
                     <div style="width:720px; margin: auto;">
@@ -198,6 +206,8 @@ if (isset($_SESSION['id'])) {
             }
             if ($_GET['act'] == "OrderDetail") {
                 ?>
+                <!--Détail d'une commande client-->
+                
                 <div class="width800">
                     <?php
                     date_default_timezone_set("Europe/Paris");
@@ -253,6 +263,9 @@ if (isset($_SESSION['id'])) {
             }
             if ($_GET['act'] == "import") {
                 include('import.php');
+            }
+            if ($_GET['act'] == "societe") {
+                
             }
         }
     }

@@ -35,7 +35,7 @@
             <?php if (empty($_SESSION['id'])) { ?> 
                 <a href="<?php echo ROOTPATH; ?>/connexion.html">Connexion</a>
             <?php } else {
-                if($_GET['page'] != "admin"){
+                if($_GET['page'] != "admin" && $_GET['page'] != "societeadm"){
                 ?>
                 <table style="width: 750px; margin: auto; float: left;">
                     <tr>
