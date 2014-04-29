@@ -12,7 +12,8 @@
 -Administration -> Client -> mot de pass = 20 caractères max **DONE**
 -Recherche rapide -> auto completion + recherche quantité valide du produit **DONE**
 -Produit présent dans une sous catégorie doivent etre visible dans la catégorie parent **DONE**
--Administration -> Société -> ajouter catégorie pour chaque société
+-Administration -> Société -> ajouter catégorie pour chaque société **DONE**
+-Admin -> Ajout société **DONE**
 
 
 NB: Nb produit par page voulu par Mr Pierre Virolle: 10/25/50

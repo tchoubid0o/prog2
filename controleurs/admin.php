@@ -3,6 +3,10 @@
 require_once('./modeles/admin.php');
 
 if (isset($_SESSION['id'])) {
+    if(isset($_POST['addNewSociete'])){
+        addSociete($auth, $_POST['addNewSociete']);
+    }
+    
     if (isset($_POST['addClient'])) {
         if (!isset($_POST['accesSociete'])) {
             $_POST['accesSociete'] = -999;

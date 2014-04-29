@@ -55,7 +55,7 @@ if (isset($_SESSION['id'])) {
                         }
                         ?>
                     </div>
-                    <a style="color: red;" href="">Ajouter une société</a>
+                    <a style="color: red;" href="<?php echo ROOTPATH; ?>/admin-addsociete.html">Ajouter une société</a>
                 </div>
                 <div style="clear:both;"></div>
             </div>
@@ -201,6 +201,17 @@ if (isset($_SESSION['id'])) {
                             <input type="hidden" name="addClient" value="1" />
                             <input class="submit" type="submit" value="Valider" style="color: #fff;border-radius: 4px;padding: 10px;background-color: #00ba84;text-transform: none;text-decoration: none;font-weight: 600;-moz-transition: background-color 0.35s linear;-webkit-transition: background-color 0.35s linear;transition: background-color 0.35s linear;" id="submit" /></center>
                     </div>
+                </form>
+                <?php
+            }
+            if($_GET['act'] == "addsociete"){?>
+                <!--Ajout d'une société-->
+                
+                <h4 style="text-align: center;">Ajout d'une nouvelle société</h4>
+                <form method="post" action="<?php echo ROOTPATH; ?>/admin.html">
+                    <label for="addNewSociete">Nom de la société:</label>
+                    <input type="text" name="addNewSociete" id="addNewSociete" required/>
+                    <input type="submit" value="Ajouter la société" />
                 </form>
                 <?php
             }

@@ -1,5 +1,13 @@
 <?php
 
+function addSociete($auth, $nom){
+    $add = $auth->prepare('INSERT INTO societe(`nomSociete`) VALUES(:nom)');
+    $add->bindValue(":nom", $nom, PDO::PARAM_STR);
+    $add->execute();
+
+    $add->closeCursor();
+}
+
 function countNbClients($auth) {
     $countNb = $auth->query('SELECT COUNT(*) AS nb FROM user');
     $nb = $countNb->fetch();
