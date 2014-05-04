@@ -58,8 +58,14 @@ if(isset($_FILES['spreadsheet'])){
 					$prixProduit = $rowData[0][3];
 					$barCodeProduit = $rowData[0][5];
 
-					if($codeProduit != "" && $barCodeProduit != "" && !in_array($barCodeProduit, $allBarCodes)){
-						$query = "INSERT INTO produit (codeProduit, barCodeProduit, libelleProduit, quantiteProduit, prixProduit) VALUES ('" . $codeProduit . "', '" . $barCodeProduit . "', '" . $libelleProduit . "', '" . $quantiteProduit . "', '" . $prixProduit . "')";
+					if($codeProduit != "" && $barCodeProduit != ""){
+						if (in_array($barCodeProduit, $allBarCodes)) {
+							$query = "UPDATE produit SET codeProduit = '". $codeProduit ."', barCodeProduit = '". $barCodeProduit ."', libelleProduit = '". $libelleProduit ."', quantiteProduit = '". $quantiteProduit ."', prixProduit = '". $prixProduit ."' WHERE  barCodeProduit = '". $barCodeProduit . "'";
+						} elseif (!in_array($barCodeProduit, $allBarCodes)) {
+							$query = "INSERT INTO produit (codeProduit, barCodeProduit, libelleProduit, quantiteProduit, prixProduit) VALUES ('" . $codeProduit . "', '" . $barCodeProduit . "', '" . $libelleProduit . "', '" . $quantiteProduit . "', '" . $prixProduit . "')";
+						} else {
+							$query = "";
+						}
 						$auth->exec($query);
 					}
 					// else : ligne vide 
