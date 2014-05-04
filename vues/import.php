@@ -1,6 +1,6 @@
 <?php 
-	require 'lib/PHPExcel.php';
-	require_once 'lib/PHPExcel/IOFactory.php';
+require 'lib/PHPExcel.php';
+require_once 'lib/PHPExcel/IOFactory.php';
 ?>
 
 <div class="width800">
@@ -36,22 +36,30 @@ if(isset($_FILES['spreadsheet'])){
 				$highestRow = $sheet->getHighestRow(); 
 				$highestColumn = $sheet->getHighestColumn();
 
+		// Check if barCodeProduit exist in DB
+				$auth = new PDO('mysql:host=localhost;dbname=virolle', 'root', 'root');
+				$allBarCodes = array();
+				$sql = 'SELECT barCodeProduit FROM produit';    
+				$req = $auth->query($sql);    
+				while($row = $req->fetch()) {    
+					$allBarCodes[] = $row['barCodeProduit'];  
+				}    
+				$req->closeCursor();
 
         //Loop through each row of the worksheet in turn
 				for ($row = 2; $row <= $highestRow; $row++){ 
                 //  Read a row of data into an array
 					$rowData = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row, NULL, TRUE, FALSE);
                 //Insert into database
+
+
 					$codeProduit = $rowData[0][0];
 					$libelleProduit = $rowData[0][1];
 					$prixProduit = $rowData[0][3];
 					$barCodeProduit = $rowData[0][5];
 
-					if($codeProduit != ""){
+					if($codeProduit != "" && $barCodeProduit != "" && !in_array($barCodeProduit, $allBarCodes)){
 						$query = "INSERT INTO produit (codeProduit, barCodeProduit, libelleProduit, quantiteProduit, prixProduit) VALUES ('" . $codeProduit . "', '" . $barCodeProduit . "', '" . $libelleProduit . "', '" . $quantiteProduit . "', '" . $prixProduit . "')";
-						$auth = new PDO('mysql:host=localhost;dbname=virolle', 'root', 'root');
-						echo "<br>";
-						echo $query;
 						$auth->exec($query);
 					}
 					// else : ligne vide 
