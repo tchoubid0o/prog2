@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.1
+-- version 4.0.4
 -- http://www.phpmyadmin.net
 --
--- Client :  localhost
--- Généré le :  Lun 24 Février 2014 à 00:18
--- Version du serveur :  5.5.24-log
--- Version de PHP :  5.3.13
+-- Client: localhost
+-- Généré le: Lun 21 Avril 2014 à 14:38
+-- Version du serveur: 5.6.12-log
+-- Version de PHP: 5.4.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,8 +17,10 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Base de données :  `virolle`
+-- Base de données: `virolle`
 --
+CREATE DATABASE IF NOT EXISTS `virolle` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `virolle`;
 
 -- --------------------------------------------------------
 
@@ -31,40 +33,16 @@ CREATE TABLE IF NOT EXISTS `accessociete` (
   `idUser` int(11) NOT NULL,
   `idSociete` int(11) NOT NULL,
   PRIMARY KEY (`ref`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
 
 --
 -- Contenu de la table `accessociete`
 --
 
 INSERT INTO `accessociete` (`ref`, `idUser`, `idSociete`) VALUES
-(1, 1, 1),
-(2, 1, 2);
-
--- --------------------------------------------------------
-
---
--- Structure de la table `activation`
---
-
-CREATE TABLE IF NOT EXISTS `activation` (
-  `idUser` int(11) NOT NULL,
-  `clee` varchar(32) NOT NULL,
-  `actif` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Contenu de la table `activation`
---
-
-INSERT INTO `activation` (`idUser`, `clee`, `actif`) VALUES
-(1, '906c5301cd3414d55a371a06ca9e2786', 1),
-(2, '4056adc86603034ac113d19ff02f60bc', 1),
-(6, 'fdhgfghfghfg', 1),
-(20, 'sdfd', 1),
-(8, 'bnb', 1),
-(23, 'a79bd2cdf32ad5afd27700958426fa61', 0),
-(24, '2bd98f679261d4be914f4b7e89c6c4a0', 0);
+(8, 1, 1),
+(9, 1, 2),
+(10, 1, 3);
 
 -- --------------------------------------------------------
 
@@ -92,7 +70,8 @@ INSERT INTO `categorie` (`idCategorie`, `idSociete`, `idParent`, `libelleCategor
 (5, 1, 2, 'ss cat2'),
 (6, 1, 5, 'ss ss cat2'),
 (7, 1, 4, 'sous sous sous cat1'),
-(8, 1, 1, 'ss cat1-2');
+(8, 1, 1, 'ss cat1-2'),
+(9, 2, 0, 'test Societe2');
 
 -- --------------------------------------------------------
 
@@ -107,16 +86,20 @@ CREATE TABLE IF NOT EXISTS `commande` (
   `dateCommande` datetime NOT NULL,
   `dateLivraison` varchar(25) NOT NULL,
   `commentOrder` text NOT NULL,
+  `keyOrder` varchar(25) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- Contenu de la table `commande`
 --
 
-INSERT INTO `commande` (`id`, `idUser`, `idSociete`, `dateCommande`, `dateLivraison`, `commentOrder`) VALUES
-(1, 1, 1, '2014-02-24 01:04:23', '26/02/2014', 'dfgdf'),
-(2, 1, 1, '2014-02-24 01:16:00', '28/02/2014', 'test');
+INSERT INTO `commande` (`id`, `idUser`, `idSociete`, `dateCommande`, `dateLivraison`, `commentOrder`, `keyOrder`) VALUES
+(3, 1, 1, '2014-02-24 12:33:41', '28/02/2014', 'test', '139324162183150744'),
+(4, 1, 1, '2014-02-24 15:08:16', '28/02/2014', 'panier', '139325089690288256'),
+(5, 1, 1, '2014-04-15 17:25:12', '16/04/2014', 'commentaire', '139757551222184750'),
+(6, 1, 1, '2014-04-20 18:21:25', '', '', '139801088536773209'),
+(7, 1, 2, '2014-04-20 18:33:20', '', '', '139801160068753245');
 
 -- --------------------------------------------------------
 
@@ -131,16 +114,21 @@ CREATE TABLE IF NOT EXISTS `orderdetails` (
   `unitPrice` decimal(10,0) NOT NULL,
   `quantity` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
 
 --
 -- Contenu de la table `orderdetails`
 --
 
 INSERT INTO `orderdetails` (`id`, `idOrder`, `idProduct`, `unitPrice`, `quantity`) VALUES
-(1, 1, 1, '15', 4),
-(2, 1, 3, '18', 5),
-(3, 2, 5, '60', 14);
+(4, 3, 1, '15', 4),
+(5, 4, 1, '15', 4),
+(6, 4, 3, '18', 5),
+(7, 4, 4, '20', 2),
+(8, 4, 5, '60', 1),
+(9, 5, 1, '15', 4),
+(10, 6, 1, '15', 52),
+(11, 7, 6, '60', 1);
 
 -- --------------------------------------------------------
 
@@ -155,7 +143,7 @@ CREATE TABLE IF NOT EXISTS `panier` (
   `idSociete` int(11) NOT NULL,
   `qteProduit` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -231,15 +219,15 @@ CREATE TABLE IF NOT EXISTS `user` (
   `descri` text NOT NULL,
   `adm` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=23 ;
 
 --
 -- Contenu de la table `user`
 --
 
 INSERT INTO `user` (`id`, `prenom`, `nom`, `password`, `ip`, `mail`, `adresse`, `tel`, `cp`, `ville`, `birthday`, `imgAvatar`, `descri`, `adm`) VALUES
-(1, 'michaël', 'RUPP', '180f068dc45ee81f66123d46d2768c29', '::1', 'michaelrupp@free.fr', '316 rue leon blum', '0698329149', 62232, 'Annezin', '10/11/1992', '1383611218_green-35.png', 'ghjghgh', 1),
-(2, 'Prenomtest', 'Nomtest', '180f068dc45ee81f66123d46d2768c29', '::1', 'tst@hotmail.fr', '', '', 0, '', '', '1383611218_green-35.png', '', 0),
+(1, 'michaël', 'RUPP', 'password', '::1', 'michaelrupp@free.fr', '316 rue leon blum', '0698329149', 62232, 'Annezin', '10/11/1992', '1383611218_green-35.png', 'ghjghgh', 1),
+(2, 'Stanislas', 'BOYET', '180f068dc45ee81f66123d46d2768c29', '::1', 'stanislas', 'adresse', 'tel', 59000, 'Lille', '01/01/1451', 'image.jpg', 'ghjghgh', 1),
 (3, 'monprenom', 'test', '180f068dc45ee81f66123d46d2768c29', '::1', 'blabliblou@hotmail.fr', '', '', 0, '', '0000-00-00', '1383611218_green-35.png', '', 0),
 (4, 'new', 'moi', '180f068dc45ee81f66123d46d2768c29', '::1', 'boum@hotmail.fr', '', '', 0, '', '0000-00-00', '1383611218_green-35.png', '', 0),
 (5, 'mew', 'toum', '180f068dc45ee81f66123d46d2768c29', '::1', 'azerty@hotmail.fr', '', '', 0, '', '0000-00-00', '1383611218_green-35.png', '', 0),
@@ -258,10 +246,7 @@ INSERT INTO `user` (`id`, `prenom`, `nom`, `password`, `ip`, `mail`, `adresse`, 
 (18, 'j', 'j', '180f068dc45ee81f66123d46d2768c29', '::1', 'j@hotmail.fr', '', '', 0, '', '0000-00-00', '', '', 0),
 (19, 'k', 'k', '180f068dc45ee81f66123d46d2768c29', '::1', 'k@hotmail.fr', '', '', 0, '', '0000-00-00', '1383611218_green-35.png', '', 0),
 (20, 'l', 'l', '180f068dc45ee81f66123d46d2768c29', '::1', 'l@hotmail.fr', '23 rue des martyrs', '33642643617', 13000, 'Marseille', '04/11/2013', '702799712.jpg', '', 0),
-(21, 'uiop', 'uiop', '180f068dc45ee81f66123d46d2768c29', '::1', 'osef@hotmail.fr', '', '', 0, '', '', '1383611218_green-35.png', '', 0),
-(22, 'theo', 'fanchini', '77fac59c9d1db9b83bfab3787de86659', '88.165.159.101', 'theo.fanchini@hei.fr', '', '', 0, '', '', '2117745655.jpeg', '', 0),
-(23, 'dfgdfg', 'dfgfdgf', '8ead6e4b55f7813e69c4217a16c24cfb', '::1', 'test@hotmail.fr', '', '', 0, '', '', '1383611218_green-35.png', '', 0),
-(24, 'gvnhgh', 'gh,nhg,', '180f068dc45ee81f66123d46d2768c29', '::1', 'abcdefg@hotmail.fr', '', '', 0, '', '', '1383611218_green-35.png', '', 0);
+(22, 'theo', 'fanchini', '77fac59c9d1db9b83bfab3787de86659', '88.165.159.101', 'theo.fanchini@hei.fr', '', '', 0, '', '', '2117745655.jpeg', '', 0);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
