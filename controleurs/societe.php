@@ -4,7 +4,7 @@ require_once('./modeles/societe.php');
 
 
 if(isset($_POST['idPostFormFastSearch'])){
-    echo json_encode(getProductQty($auth, $_POST['refProduit']));
+    echo json_encode(getProductQty($auth, $_POST['codeProduit']));
 }
 
 

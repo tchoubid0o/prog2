@@ -7,7 +7,7 @@ if(isset($_POST['AddCat_SocieteId']) && isset($_POST['AddCat_libelleCat'])){
 }
 
 if(isset($_POST['idPostFormFastSearch'])){
-    echo json_encode(getProductQty($auth, $_POST['refProduit']));
+    echo json_encode(getProductQty($auth, $_POST['codeProduit']));
 }
 
 if (isset($_POST['idSociete'])) {

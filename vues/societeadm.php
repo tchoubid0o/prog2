@@ -6,7 +6,6 @@ if (isset($_SESSION['id'])) {
             ?>
             <a href="<?php echo ROOTPATH; ?>/index.html">Index</a>
             <a href="<?php echo ROOTPATH; ?>/admin.html">Administration</a>
-            <a href="<?php echo ROOTPATH; ?>/admin-import.html">Import</a>
             <?php
             if (isset($_GET['page']) && $_GET['page'] == "societeadm") {
                 echo "> Société n°" . $_GET['param1'] . "";

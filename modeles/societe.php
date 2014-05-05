@@ -1,7 +1,7 @@
 <?php
 
 function getProductQty($auth, $ref) {
-    $getinfos = $auth->query('SELECT * FROM produit WHERE refProduit = ' . $ref . '');
+    $getinfos = $auth->query('SELECT * FROM produit WHERE codeProduit = ' . $ref . '');
     $getinfo = $getinfos->fetch();
     $getinfos->closeCursor();
 
@@ -11,18 +11,18 @@ function getProductQty($auth, $ref) {
 }
 
 function getAllRef($auth, $idSociete) {
-    $get = $auth->query('SELECT refProduit FROM produit WHERE idSociete = ' . $idSociete . '');
+    $get = $auth->query('SELECT codeProduit FROM produit WHERE idSociete = ' . $idSociete . '');
 
     $liste = array();
     $i = 0;
     while ($donnees = $get->fetch()) {
-        $d[$i]['refProduit'] = $donnees['refProduit'];
+        $d[$i]['codeProduit'] = $donnees['codeProduit'];
 
         $i++;
     }
     $nb = 0;
     foreach ($d as $ref) {
-        $liste[$nb] = $ref['refProduit'];
+        $liste[$nb] = $ref['codeProduit'];
         $nb++;
     }
 
@@ -37,7 +37,7 @@ function getAllRef($auth, $idSociete) {
                                 $.ajax({url: "' . ROOTPATH . '/societe.html",
                                     type: "POST",
                                     dataType: "json",
-                                    data: "refProduit="+ui.item.value+"&idPostFormFastSearch=1"
+                                    data: "codeProduit="+ui.item.value+"&idPostFormFastSearch=1"
                                 }).done(function(data) {
                                     var o = 1;
                                     newContentV = "";
@@ -62,7 +62,7 @@ function getAllRef($auth, $idSociete) {
 function searchAndAdd($auth, $refSearch, $qteSearch) {
     $searchAndAdd['message'] = "";
 
-    $checkRef = $auth->prepare('SELECT COUNT(*) AS nb FROM produit WHERE refProduit = :refSearch');
+    $checkRef = $auth->prepare('SELECT COUNT(*) AS nb FROM produit WHERE codeProduit = :refSearch');
     $checkRef->bindValue(":refSearch", $refSearch, PDO::PARAM_STR);
     $checkRef->execute();
     $checkNb = $checkRef->fetch();
@@ -70,7 +70,7 @@ function searchAndAdd($auth, $refSearch, $qteSearch) {
     if ($checkNb['nb'] > 0) {
         //Le produit existe
         //On vérifie l'id de la société correspondant au produit et on vérifie qu'on a pas un autre panier d'une société différente.
-        $getSociete = $auth->prepare('SELECT * FROM produit WHERE refProduit = :refSearch');
+        $getSociete = $auth->prepare('SELECT * FROM produit WHERE codeProduit = :refSearch');
         $getSociete->bindValue(":refSearch", $refSearch, PDO::PARAM_STR);
         $getSociete->execute();
         $item = $getSociete->fetch();
@@ -85,7 +85,7 @@ function searchAndAdd($auth, $refSearch, $qteSearch) {
         $checkPanier->closeCursor();
         if ($returnNb['nb'] == 0) {
             //On peut ajouter le produit au panier
-            $idSearch = $auth->prepare('SELECT * FROM produit WHERE refProduit = :refSearch');
+            $idSearch = $auth->prepare('SELECT * FROM produit WHERE codeProduit = :refSearch');
             $idSearch->bindValue(":refSearch", $refSearch, PDO::PARAM_STR);
             $idSearch->execute();
             $idProd = $idSearch->fetch();
@@ -319,7 +319,7 @@ function recupProduits($auth, $idCategorie, $idSociete, $nbProduct, $idPage) {
             $d[$i]['minQte'] = $donnees['minQte'];
             $d[$i]['quantiteProduit'] = $donnees['quantiteProduit'];
             $d[$i]['imgProduit'] = $donnees['imgProduit'];
-            $d[$i]['refProduit'] = $donnees['refProduit'];
+            $d[$i]['codeProduit'] = $donnees['codeProduit'];
             $d[$i]['nbProduit'] = $countProduct['nb'];
 
             $i++;

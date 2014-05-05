@@ -4,7 +4,6 @@ if (isset($_SESSION['id'])) {
         ?>
         <a href="<?php echo ROOTPATH; ?>/index.html">Index</a>
         <a href="<?php echo ROOTPATH; ?>/admin.html">Administration</a>
-        <a href="<?php echo ROOTPATH; ?>/admin-import.html">Import</a>
         <?php
         if (isset($_GET['act']) && $_GET['act'] == "modifyclient") {
             echo "> Client n°" . $_GET['param1'] . "";

@@ -1,12 +1,15 @@
 <?php 
 require 'lib/PHPExcel.php';
 require_once 'lib/PHPExcel/IOFactory.php';
+if(isset($_POST['idCat'])){
 ?>
 
 <div class="width800">
 	<form method="post" enctype="multipart/form-data">
 		Upload File: <input type="file" name="spreadsheet"/>
 		<input type="submit" name="submit" value="Submit" />
+                <input type="hidden" name="idSociete" value="<?php echo $_POST['idSociete']; ?>" />
+                <input type="hidden" name="idCat" value="<?php echo $_POST['idCat']; ?>" />
 	</form>
 </div>
 
@@ -37,7 +40,6 @@ if(isset($_FILES['spreadsheet'])){
 				$highestColumn = $sheet->getHighestColumn();
 
 		// Check if barCodeProduit exist in DB
-				$auth = new PDO('mysql:host=localhost;dbname=virolle', 'root', 'root');
 				$allBarCodes = array();
 				$sql = 'SELECT barCodeProduit FROM produit';    
 				$req = $auth->query($sql);    
@@ -51,20 +53,33 @@ if(isset($_FILES['spreadsheet'])){
                 //  Read a row of data into an array
 					$rowData = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row, NULL, TRUE, FALSE);
                 //Insert into database
-					$codeProduit = $rowData[0][0];
-					$libelleProduit = $rowData[0][1];
+					$codeProduit = mysql_real_escape_string($rowData[0][0]);
+					$libelleProduit = mysql_real_escape_string($rowData[0][1]);
+                                        $quantiteProduit = $rowData[0][2];
 					$prixProduit = $rowData[0][3];
-					$barCodeProduit = $rowData[0][5];
+					$barCodeProduit = mysql_real_escape_string($rowData[0][5]);
 
 					if($codeProduit != "" && $barCodeProduit != ""){
 						if (in_array($barCodeProduit, $allBarCodes)) {
-							$query = "UPDATE produit SET codeProduit = '". $codeProduit ."', barCodeProduit = '". $barCodeProduit ."', libelleProduit = '". $libelleProduit ."', quantiteProduit = '". $quantiteProduit ."', prixProduit = '". $prixProduit ."' WHERE  barCodeProduit = '". $barCodeProduit . "'";
-						} elseif (!in_array($barCodeProduit, $allBarCodes)) {
-							$query = "INSERT INTO produit (codeProduit, barCodeProduit, libelleProduit, quantiteProduit, prixProduit) VALUES ('" . $codeProduit . "', '" . $barCodeProduit . "', '" . $libelleProduit . "', '" . $quantiteProduit . "', '" . $prixProduit . "')";
+							$query = "UPDATE produit SET codeProduit = '". $codeProduit ."', barCodeProduit = '". $barCodeProduit ."', libelleProduit = '". $libelleProduit ."', quantiteProduit = '". $quantiteProduit ."', prixProduit = '". $prixProduit ."', idSociete = '". $_POST['idSociete'] ."'  WHERE  barCodeProduit = '". $barCodeProduit . "'";
+                                                        $auth->exec($query);
+                                                        
+                                                } elseif (!in_array($barCodeProduit, $allBarCodes)) {
+							$query = $auth->prepare("INSERT INTO produit (codeProduit, barCodeProduit, libelleProduit, quantiteProduit, prixProduit, idSociete, idCategorie) VALUES (:codeProduit, :barCode, :libelleProduit, :quantiteProduit, :prixProduit, :idSociete, :idCat)");
+                                                        $query->bindValue(":codeProduit", $codeProduit, PDO::PARAM_STR);
+                                                        $query->bindValue(":barCode", $barCodeProduit, PDO::PARAM_STR);
+                                                        $query->bindValue(":libelleProduit", $libelleProduit, PDO::PARAM_STR);
+                                                        $query->bindValue(":quantiteProduit", $quantiteProduit, PDO::PARAM_INT);
+                                                        $query->bindValue(":prixProduit", $prixProduit, PDO::PARAM_STR);
+                                                        $query->bindValue(":idSociete", $_POST['idSociete'], PDO::PARAM_INT);
+                                                        $query->bindValue(":idCat", $_POST['idCat'], PDO::PARAM_INT);
+                                                        $query->execute();
+                                                        
 						} else {
-							$query = "";
+							$query = 
+                                                        $auth->exec($query);
 						}
-						$auth->exec($query);
+						
 					}
 					// else : ligne vide 
 				}
@@ -98,5 +113,5 @@ if(isset($_FILES['spreadsheet'])){
 // 	}
 // }
 
-
+}
 ?>
