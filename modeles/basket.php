@@ -10,7 +10,7 @@
             $basket[$i]['idSociete'] = $donnees['idSociete'];
             $basket[$i]['qteProduit'] = $donnees['qteProduit'];
             $basket[$i]['libelleProduit'] = $donnees['libelleProduit'];
-            $basket[$i]['refProduit'] = $donnees['refProduit'];
+            $basket[$i]['codeProduit'] = $donnees['codeProduit'];
             $basket[$i]['prixProduit'] = $donnees['prixProduit'];
             $basket[$i]['minQte'] = $donnees['minQte'];
             $basket[$i]['quantiteProduit'] = $donnees['quantiteProduit'];

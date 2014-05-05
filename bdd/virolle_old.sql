@@ -160,7 +160,7 @@ CREATE TABLE IF NOT EXISTS `produit` (
   `quantiteProduit` int(11) NOT NULL,
   `imgProduit` varchar(250) NOT NULL DEFAULT '1393110376_Picture.png',
   `libelleProduit` varchar(250) NOT NULL,
-  `refProduit` varchar(50) NOT NULL,
+  `codeProduit` varchar(50) NOT NULL,
   PRIMARY KEY (`idProduit`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
@@ -168,7 +168,7 @@ CREATE TABLE IF NOT EXISTS `produit` (
 -- Contenu de la table `produit`
 --
 
-INSERT INTO `produit` (`idProduit`, `idSociete`, `idCategorie`, `prixProduit`, `minQte`, `quantiteProduit`, `imgProduit`, `libelleProduit`, `refProduit`) VALUES
+INSERT INTO `produit` (`idProduit`, `idSociete`, `idCategorie`, `prixProduit`, `minQte`, `quantiteProduit`, `imgProduit`, `libelleProduit`, `codeProduit`) VALUES
 (1, 1, 1, '15', 4, 200, '1393110376_Picture.png', 'Produit1', '5894632154'),
 (2, 1, 3, '10', 4, 200, '1393110376_Picture.png', 'Cravate', '215498'),
 (3, 1, 1, '18', 5, 200, '1393110376_Picture.png', 'Chemise', '49785463'),

@@ -8,7 +8,7 @@
                     <?php
                     foreach ($basket as $produit) {
                         ?>
-                        <li class="minicart_item" data-ref="<?php echo $produit['refProduit']; ?>">
+                        <li class="minicart_item" data-ref="<?php echo $produit['codeProduit']; ?>">
                             <?php echo $produit['libelleProduit']; ?> Qté <?php echo $produit['qteProduit']; ?> Prix <?php
                             $prixTot = $produit['prixProduit'] * $produit['qteProduit'];
                             $prixPanier += $prixTot;

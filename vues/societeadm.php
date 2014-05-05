@@ -235,10 +235,10 @@ if (isset($_SESSION['id'])) {
                             //newContent += ''+data[i].quantiteProduit+'<br/>';
                             newContent += '<li style="list-style: none; width: 220px; margin: auto;float: left;">';
                             newContent += '<div class="img_index">';
-                            newContent += '<img class="productImg" data-ref="' + data[i].refProduit + '" alt="imgProduit" style="width: 128px; height: 128px;" src="img/' + data[i].imgProduit + '" />';
+                            newContent += '<img class="productImg" data-ref="' + data[i].codeProduit + '" alt="imgProduit" style="width: 128px; height: 128px;" src="img/' + data[i].imgProduit + '" />';
                             newContent += '<br/>';
                             newContent += '<span class="prixProduit">Prix: ' + data[i].prixProduit + '€</span><br/>';
-                            newContent += '<span>Ref: ' + data[i].refProduit + '</span><br/>';
+                            newContent += '<span>Ref: ' + data[i].codeProduit + '</span><br/>';
                             //newContent += '<form method="POST" class="formAdd2Cart" action="societe-' + idS + '.html">';
                             newContent += 'Quantité: <select name="quantiteProduit">';
                             var o = 1;
@@ -253,9 +253,9 @@ if (isset($_SESSION['id'])) {
                             //newContent += '</form>';
                             newContent += '</li>';
 
-                            var detailsProduct = '<div class="productDetails" id="productDetails' + data[i].refProduit + '"><div class="detailsI"><center>';
+                            var detailsProduct = '<div class="productDetails" id="productDetails' + data[i].codeProduit + '"><div class="detailsI"><center>';
                             detailsProduct += '<img style="width: 128px; height: 128px;" src="img/1393110376_Picture.png" alt="" />';
-                            detailsProduct += '<div class="testRef">' + data[i].refProduit + '</div>';
+                            detailsProduct += '<div class="testRef">' + data[i].codeProduit + '</div>';
                             detailsProduct += '</center></div></div>';
 
                             $("#productDetails").append(detailsProduct);
@@ -357,7 +357,7 @@ if (isset($_SESSION['id'])) {
                     $(".productImg").click(function() {
                         var getRefProduct = $(this).attr("data-ref");
                         if ($("#productDetails" + getRefProduct).is(":hidden")) { /* Si le menu d'inscription est caché alors lorsque l'on clique... */
-                            //$(".testRef").html(data.refProduit);
+                            //$(".testRef").html(data.codeProduit);
                             $("#productDetails" + getRefProduct).slideDown("slow");  /* Permet de descendre le menu inscription */
                             $('#global').css({'position': 'fixed', 'left': '0px', 'top': '0px', 'background-color': 'black', 'height': '100%', 'width': '100%', 'z-index': '100', 'opacity': '0.7'});
                         }

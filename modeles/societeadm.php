@@ -9,7 +9,7 @@ function addNewCat($auth, $idParent, $idSociete, $libelleCat) {
 }
 
 function getProductQty($auth, $ref) {
-    $getinfos = $auth->query('SELECT * FROM produit WHERE refProduit = ' . $ref . '');
+    $getinfos = $auth->query('SELECT * FROM produit WHERE codeProduit = ' . $ref . '');
     $getinfo = $getinfos->fetch();
     $getinfos->closeCursor();
 
@@ -172,7 +172,7 @@ function recupProduits($auth, $idCategorie, $idSociete, $nbProduct, $idPage) {
             $d[$i]['minQte'] = $donnees['minQte'];
             $d[$i]['quantiteProduit'] = $donnees['quantiteProduit'];
             $d[$i]['imgProduit'] = $donnees['imgProduit'];
-            $d[$i]['refProduit'] = $donnees['refProduit'];
+            $d[$i]['codeProduit'] = $donnees['codeProduit'];
             $d[$i]['nbProduit'] = $countProduct['nb'];
 
             $i++;

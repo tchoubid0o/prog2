@@ -14,14 +14,14 @@
                 ?>
                 <tr>
                     <td><?php echo $produit['libelleProduit']; ?></td>
-                    <td><?php echo $produit['refProduit']; ?></td>
+                    <td><?php echo $produit['codeProduit']; ?></td>
                     <td>
                         <form method="post" action="basket.html">
                             <input type="hidden" name="idProduit" value="<?php echo $produit['idProduit']; ?>">
-                            <input name="qteProduit" style="font-size: 13px; width: 70px;" class="qteProd" id="spinner_<?php echo $produit['refProduit']; ?>" value="<?php echo $produit['qteProduit']; ?>"/>
+                            <input name="qteProduit" style="font-size: 13px; width: 70px;" class="qteProd" id="spinner_<?php echo $produit['codeProduit']; ?>" value="<?php echo $produit['qteProduit']; ?>"/>
                             <script>
                                 $(function() {
-                                    $('#spinner_<?php echo $produit['refProduit']; ?>').spinner({
+                                    $('#spinner_<?php echo $produit['codeProduit']; ?>').spinner({
                                         min: <?php echo $produit['minQte']; ?>,
                                         max: <?php echo $produit['quantiteProduit']; ?>,
                                         step: <?php echo $produit['minQte']; ?>});

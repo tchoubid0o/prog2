@@ -39,7 +39,7 @@ if ($checkResult['nb'] > 0) {
     while ($order = $select->fetch()) {
         $result[$i]['quantity'] = $order['quantity'];
         $result[$i]['libelleProduit'] = $order['libelleProduit'];
-        $result[$i]['refProduit'] = $order['refProduit'];
+        $result[$i]['codeProduit'] = $order['codeProduit'];
         $result[$i]['prixProduit'] = $order['prixProduit'];
         $i++;
     }
@@ -47,7 +47,7 @@ if ($checkResult['nb'] > 0) {
 
 foreach ($result as $produit) {
     $prixTot = $produit['prixProduit'] * $produit['quantity'];
-    echo '"'.$produit['libelleProduit'].'";"'.$produit['refProduit'].'";"'.$produit['quantity'].'";"'.$produit['prixProduit'].'";"'.$prixTot.'"'."\n";
+    echo '"'.$produit['libelleProduit'].'";"'.$produit['codeProduit'].'";"'.$produit['quantity'].'";"'.$produit['prixProduit'].'";"'.$prixTot.'"'."\n";
     
     $prixPanier += $prixTot;
 }

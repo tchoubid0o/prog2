@@ -74,7 +74,7 @@ function confirmOrder($auth, $date, $comment) {
         
         $mail .= "<tr>
                     <td style='padding: 5px; border: 1px solid black;'>".$key."</td>
-                    <td style='padding: 5px; border: 1px solid black;'>".$price['libelleProduit']." Réf: ".$price['refProduit']."</td>
+                    <td style='padding: 5px; border: 1px solid black;'>".$price['libelleProduit']." Réf: ".$price['codeProduit']."</td>
                     <td style='padding: 5px; border: 1px solid black;'>".$donnees['qteProduit']."</td>
                     <td style='padding: 5px; border: 1px solid black;'>".$price['prixProduit']."€</td>
                     <td style='padding: 5px; border: 1px solid black;'>".$tempPrice."€</td>

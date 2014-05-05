@@ -20,7 +20,7 @@
                     ?>
                     <tr>
                         <td><?php echo $produit['libelleProduit']; ?></td>
-                        <td><?php echo $produit['refProduit']; ?></td>
+                        <td><?php echo $produit['codeProduit']; ?></td>
                         <td><?php echo $produit['quantity']; ?></td>
                         <td><?php echo $produit['prixProduit']; ?></td>
                         <td><?php

@@ -40,7 +40,7 @@ function getProductsOrder($auth, $keyOrder) {
         while ($order = $select->fetch()) {
             $result[$i]['quantity'] = $order['quantity'];
             $result[$i]['libelleProduit'] = $order['libelleProduit'];
-            $result[$i]['refProduit'] = $order['refProduit'];
+            $result[$i]['codeProduit'] = $order['codeProduit'];
             $result[$i]['prixProduit'] = $order['prixProduit'];
             $i++;
         }
