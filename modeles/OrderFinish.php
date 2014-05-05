@@ -14,9 +14,7 @@ function confirmOrder($auth, $date, $comment) {
         
         Vous trouverez ci-dessous le récapitulatif de vos coordonnées ainsi que de vos achats. <br/><br/>
         
-        ".ucfirst($client['prenom'])." ".ucfirst($client['nom'])."<br/>
         ".ucfirst($client['adresse'])."<br/>
-        ".ucfirst($client['cp'])." ".ucfirst($client['ville'])."<br/>
         ".ucfirst($client['mail'])."<br/><br/>
             
         <strong>Vos Achats:</strong>

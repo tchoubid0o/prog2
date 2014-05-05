@@ -30,8 +30,6 @@ function connexion($auth, $mail, $password) {
                             $connexion['message_global'] = "<script>document.location.href='".ROOTPATH."/index.html'</script>";
                             $_SESSION['id'] = $mdp['id'];
                             $_SESSION['mail'] = $mail;
-                            $_SESSION['prenom'] = $mdp['prenom'];
-                            $_SESSION['nom'] = $mdp['nom'];
                             $_SESSION['adm'] = $mdp['adm'];
                             
                         }

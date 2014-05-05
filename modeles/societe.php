@@ -21,6 +21,7 @@ function getAllRef($auth, $idSociete) {
         $i++;
     }
     $nb = 0;
+    if(isset($d)){
     foreach ($d as $ref) {
         $liste[$nb] = $ref['codeProduit'];
         $nb++;
@@ -53,6 +54,7 @@ function getAllRef($auth, $idSociete) {
                         });
                     });
                      </script>';
+    }
 
     if (!empty($scriptReturn)) {
         return $scriptReturn;

@@ -49,8 +49,8 @@
     <div class="width800">
         <div class="right">Total: <span id="cartPrice"><?php echo $prixPanier; ?></span>€</div>
         <div style="clear: both;"></div>
-        <a href="index.html" class="classButton left">Continuer mes achats</a>
-        <a href="OrderProcess.html" class="classButton right">Valider ma commande</a>
+        <a href="javascript:history.go(-1)" class="classButton left">Continuer mes achats</a>
+        <?php if(isset($basket)){ ?><a href="OrderProcess.html" class="classButton right">Valider ma commande</a><?php } ?>
     </div>
 </div>
 <script>

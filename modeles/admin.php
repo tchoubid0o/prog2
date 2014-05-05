@@ -153,13 +153,14 @@ function getAccesClient($auth, $id) {
         return $a;
 }
 
-function updateClient($auth, $id, $mail, $adresse, $password, $accesSociete) {
+function updateClient($auth, $id, $mail, $adresse,$societe, $password, $accesSociete) {
     $checkAdm = checkIsAdmin($auth);
     if ($checkAdm['nb'] >= 1) {
-        $updateClient = $auth->prepare('UPDATE user SET password = :password, mail = :mail, adresse = :adresse WHERE id = :id');
+        $updateClient = $auth->prepare('UPDATE user SET password = :password, mail = :mail, adresse = :adresse, societe = :societe WHERE id = :id');
         $updateClient->bindValue(':password', $password, PDO::PARAM_STR);
         $updateClient->bindValue(':mail', $mail, PDO::PARAM_STR);
         $updateClient->bindValue(':adresse', $adresse, PDO::PARAM_STR);
+        $updateClient->bindValue(':societe', $societe, PDO::PARAM_STR);
         $updateClient->bindValue(':id', $id, PDO::PARAM_INT);
         $updateClient->execute();
         $updateClient->closeCursor();
@@ -192,13 +193,14 @@ function updateClient($auth, $id, $mail, $adresse, $password, $accesSociete) {
     }
 }
 
-function insertClient($auth, $password, $mail, $adresse, $accesSociete) {
+function insertClient($auth, $password, $mail, $adresse,$societe, $accesSociete) {
     $checkAdm = checkIsAdmin($auth);
     if ($checkAdm['nb'] >= 1) {
-        $insertClient = $auth->prepare('INSERT INTO user(`password`, `mail` , `adresse`) VALUES(:password, :mail, :adresse)');
+        $insertClient = $auth->prepare('INSERT INTO user(`password`, `mail` , `adresse`, `societe`) VALUES(:password, :mail, :adresse, :societe)');
         $insertClient->bindValue(':password', md5("web" . (sha1($password)) . "site"), PDO::PARAM_STR);
         $insertClient->bindValue(':mail', $mail, PDO::PARAM_STR);
         $insertClient->bindValue(':adresse', $adresse, PDO::PARAM_STR);
+        $insertClient->bindValue(':societe', $societe, PDO::PARAM_STR);
         $insertClient->execute();
         $insertClient->closeCursor();
 

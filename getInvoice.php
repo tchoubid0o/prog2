@@ -17,7 +17,7 @@ $prixPanier = 0;
 
 header('Content-Type: application/csv-tab-delimited-table');
 //nommage du fichier avec la date du jour
-header('Content-disposition: filename=monfichier_' . date('Ymd') . '.csv');
+header('Content-disposition: filename=commande-'.$_GET['id'].'.csv');
 
 //Première ligne avec le noms des colonnes
 echo '"Produit";"Référence";"Quantité";"Prix U";"Prix"' . "\n";
@@ -47,14 +47,14 @@ if ($checkResult['nb'] > 0) {
 
 foreach ($result as $produit) {
     $prixTot = $produit['prixProduit'] * $produit['quantity'];
-    echo '"'.$produit['libelleProduit'].'";"'.$produit['codeProduit'].'";"'.$produit['quantity'].'";"'.$produit['prixProduit'].'";"'.$prixTot.'"'."\n";
+    echo '"'.$produit['libelleProduit'].'";"'.$produit['codeProduit'].'";"'.$produit['quantity'].'";"'.$produit['prixProduit'].'€";"'.$prixTot.'€"'."\n";
     
     $prixPanier += $prixTot;
 }
     
 echo "\n";
 echo "\n";
-echo '"";"";"'.$prixPanier.'";"";""'."\n";
+echo '"";"Total:";"'.$prixPanier.'€";"";""'."\n";
 //Pour chaque ligne, création d'une ligne dans le csv.
 //Les champs sont entourés de guillemets, séparés par des points-virgules
 //Les lignes sont terminées par un retour-chariot.

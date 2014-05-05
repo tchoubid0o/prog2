@@ -38,9 +38,9 @@ if (isset($add2Cart['message'])) {
         <form class="nbPerPage" method="get" action="">
             <label>Affichage par page:</label>
             <select>
-                <option value="1">1</option>
-                <option value="3">3</option>
-                <option value="6">6</option>
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
             </select>
         </form>
     </div>
@@ -172,7 +172,6 @@ if (isset($add2Cart['message'])) {
     });
 
     function hideFatherAndSons(element) {
-        console.log("ok");
         $(element).next().slideUp();
         if ($(element).hasClass('menuCategorie')) {
             var sons = $(element).next().children('li').children('form.menuCategorie'); // rappeler deroule menu sur chacun d'entre eux
@@ -182,7 +181,6 @@ if (isset($add2Cart['message'])) {
     }
 
     function derouleMenu(element, event) {
-        console.log("menu");
 
         // Si on est pas dans la même catégorie, on cache les autres
         var categories = $(element).parent().siblings().children('form.menuCategorie'); // On sélectionne les autres catégories

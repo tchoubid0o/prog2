@@ -34,8 +34,10 @@
         <div id="content" style="width: 1000px;margin: auto;">
             <?php if (empty($_SESSION['id'])) {
                 if ($_GET['page'] != "connexion" && $_GET['page'] != "recover") {
+                    
+                    include("./controleurs/connexion.php");
                     ?> 
-                    <a href="<?php echo ROOTPATH; ?>/connexion.html">Connexion</a>
+                    
                 <?php
                 }
             } else {

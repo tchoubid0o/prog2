@@ -1,7 +1,7 @@
 <?php
 
 function afficheSociete($auth){
-    $reqSociete = $auth->prepare('SELECT DISTINCT ac.idSociete,so.nomSociete FROM accessociete ac INNER JOIN societe so ON ac.idSociete = so.idSociete WHERE ac.idUser = :id');
+    $reqSociete = $auth->prepare('SELECT DISTINCT ac.idSociete,so.nomSociete FROM accessociete ac INNER JOIN societe so ON ac.idSociete = so.idSociete WHERE ac.idUser = :id ORDER BY ac.idSociete ASC');
     $reqSociete->bindValue(':id', $_SESSION['id'], PDO::PARAM_INT);
     $reqSociete->execute();
     $i=0;

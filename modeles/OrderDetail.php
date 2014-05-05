@@ -48,18 +48,4 @@ function getProductsOrder($auth, $keyOrder) {
     }
 }
 
-function getInvoice($auth) {
-    header('Content-Type: application/csv-tab-delimited-table');
-//nommage du fichier avec la date du jour
-    header('Content-disposition: filename=monfichier_' . date('Ymd') . '.csv');
-
-//Première ligne avec le noms des colonnes
-    echo '"Nom";"Prénom";"Email"' . "\n"; {
-        //Pour chaque ligne, création d'une ligne dans le csv.
-        //Les champs sont entourés de guillemets, séparés par des points-virgules
-        //Les lignes sont terminées par un retour-chariot.
-        echo '"RUPP";"Michaël";"michrupp@free.fr"';
-    }
-}
-
 ?>
