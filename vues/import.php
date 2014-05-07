@@ -1,4 +1,4 @@
-<?php 
+<?php
 require 'lib/PHPExcel.php';
 require_once 'lib/PHPExcel/IOFactory.php';
 if(isset($_POST['idCat'])){
@@ -13,7 +13,7 @@ if(isset($_POST['idCat'])){
 	</form>
 </div>
 
-<?php 
+<?php
 	//Check valid spreadsheet has been uploaded
  //Check valid spreadsheet has been uploaded
 if(isset($_FILES['spreadsheet'])){
@@ -35,21 +35,21 @@ if(isset($_FILES['spreadsheet'])){
 				}
 
         //Get worksheet dimensions
-				$sheet = $objPHPExcel->getSheet(2); 
-				$highestRow = $sheet->getHighestRow(); 
+				$sheet = $objPHPExcel->getSheet(2);
+				$highestRow = $sheet->getHighestRow();
 				$highestColumn = $sheet->getHighestColumn();
 
 		// Check if barCodeProduit exist in DB
 				$allBarCodes = array();
-				$sql = 'SELECT barCodeProduit FROM produit';    
-				$req = $auth->query($sql);    
-				while($row = $req->fetch()) {    
-					$allBarCodes[] = $row['barCodeProduit'];  
-				}    
+				$sql = 'SELECT barCodeProduit FROM produit';
+				$req = $auth->query($sql);
+				while($row = $req->fetch()) {
+					$allBarCodes[] = $row['barCodeProduit'];
+				}
 				$req->closeCursor();
 
         //Loop through each row of the worksheet in turn
-				for ($row = 2; $row <= $highestRow; $row++){ 
+				for ($row = 2; $row <= $highestRow; $row++){
                 //  Read a row of data into an array
 					$rowData = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row, NULL, TRUE, FALSE);
                 //Insert into database
@@ -60,10 +60,13 @@ if(isset($_FILES['spreadsheet'])){
 					$barCodeProduit = mysql_real_escape_string($rowData[0][5]);
 
 					if($codeProduit != ""){
+						preg_match("/[a-zA-Z]+/", $codeProduit, $output);
+						$idCategorie = $output[0];
+
 						if (in_array($barCodeProduit, $allBarCodes)) {
 							$query = "UPDATE produit SET codeProduit = '". $codeProduit ."', barCodeProduit = '". $barCodeProduit ."', libelleProduit = '". $libelleProduit ."', quantiteProduit = '". $quantiteProduit ."', prixProduit = '". $prixProduit ."', idSociete = '". $_POST['idSociete'] ."'  WHERE  barCodeProduit = '". $barCodeProduit . "'";
                                                         $auth->exec($query);
-                                                        
+
                                                 } elseif (!in_array($barCodeProduit, $allBarCodes)) {
 							$query = $auth->prepare("INSERT INTO produit (codeProduit, barCodeProduit, libelleProduit, quantiteProduit, prixProduit, idSociete, idCategorie) VALUES (:codeProduit, :barCode, :libelleProduit, :quantiteProduit, :prixProduit, :idSociete, :idCat)");
                                                         $query->bindValue(":codeProduit", $codeProduit, PDO::PARAM_STR);
@@ -74,14 +77,14 @@ if(isset($_FILES['spreadsheet'])){
                                                         $query->bindValue(":idSociete", $_POST['idSociete'], PDO::PARAM_INT);
                                                         $query->bindValue(":idCat", $_POST['idCat'], PDO::PARAM_INT);
                                                         $query->execute();
-                                                        
+
 						} else {
-							$query = 
+							$query =
                                                         $auth->exec($query);
 						}
-						
+
 					}
-					// else : ligne vide 
+					// else : ligne vide
 				}
 			}
 			else{
