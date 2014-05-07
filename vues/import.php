@@ -59,7 +59,7 @@ if(isset($_FILES['spreadsheet'])){
 					$prixProduit = $rowData[0][3];
 					$barCodeProduit = mysql_real_escape_string($rowData[0][5]);
 
-					if($codeProduit != "" && $barCodeProduit != ""){
+					if($codeProduit != ""){
 						if (in_array($barCodeProduit, $allBarCodes)) {
 							$query = "UPDATE produit SET codeProduit = '". $codeProduit ."', barCodeProduit = '". $barCodeProduit ."', libelleProduit = '". $libelleProduit ."', quantiteProduit = '". $quantiteProduit ."', prixProduit = '". $prixProduit ."', idSociete = '". $_POST['idSociete'] ."'  WHERE  barCodeProduit = '". $barCodeProduit . "'";
                                                         $auth->exec($query);
