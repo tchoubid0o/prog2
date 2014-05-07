@@ -64,18 +64,18 @@ if(isset($_FILES['spreadsheet'])){
 						$idCategorie = $output[0];
 
 						if (in_array($barCodeProduit, $allBarCodes)) {
-							$query = "UPDATE produit SET codeProduit = '". $codeProduit ."', barCodeProduit = '". $barCodeProduit ."', libelleProduit = '". $libelleProduit ."', quantiteProduit = '". $quantiteProduit ."', prixProduit = '". $prixProduit ."', idSociete = '". $_POST['idSociete'] ."'  WHERE  barCodeProduit = '". $barCodeProduit . "'";
+							$query = "UPDATE produit SET codeProduit = '". $codeProduit ."', barCodeProduit = '". $barCodeProduit ."', libelleProduit = '". $libelleProduit ."', quantiteProduit = '". $quantiteProduit ."', prixProduit = '". $prixProduit ."', idSociete = '". $_POST['idSociete'] ."', idCategorie = '". $_POST['idCategorie'] ."'  WHERE  barCodeProduit = '". $barCodeProduit . "'";
                                                         $auth->exec($query);
 
                                                 } elseif (!in_array($barCodeProduit, $allBarCodes)) {
-							$query = $auth->prepare("INSERT INTO produit (codeProduit, barCodeProduit, libelleProduit, quantiteProduit, prixProduit, idSociete, idCategorie) VALUES (:codeProduit, :barCode, :libelleProduit, :quantiteProduit, :prixProduit, :idSociete, :idCat)");
+							$query = $auth->prepare("INSERT INTO produit (codeProduit, barCodeProduit, libelleProduit, quantiteProduit, prixProduit, idSociete, idCategorie) VALUES (:codeProduit, :barCode, :libelleProduit, :quantiteProduit, :prixProduit, :idSociete, :idCategorie)");
                                                         $query->bindValue(":codeProduit", $codeProduit, PDO::PARAM_STR);
                                                         $query->bindValue(":barCode", $barCodeProduit, PDO::PARAM_STR);
                                                         $query->bindValue(":libelleProduit", $libelleProduit, PDO::PARAM_STR);
                                                         $query->bindValue(":quantiteProduit", $quantiteProduit, PDO::PARAM_INT);
                                                         $query->bindValue(":prixProduit", $prixProduit, PDO::PARAM_STR);
                                                         $query->bindValue(":idSociete", $_POST['idSociete'], PDO::PARAM_INT);
-                                                        $query->bindValue(":idCat", $_POST['idCat'], PDO::PARAM_INT);
+                                                        $query->bindValue(":idCategorie", $idCategorie, PDO::PARAM_STR);
                                                         $query->execute();
 
 						} else {
