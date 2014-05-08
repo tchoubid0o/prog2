@@ -1,15 +1,16 @@
 <?php
 
-function addNewCat($auth, $idParent, $idSociete, $libelleCat) {
-    $ins = $auth->prepare('INSERT INTO categorie(`idSociete`, `idParent`, `libelleCategorie`) VALUES(:idSociete, :idParent, :libelleCat)');
+function addNewCat($auth, $idParent, $idSociete, $libelleCat, $codeCat) {
+    $ins = $auth->prepare('INSERT INTO categorie(`idSociete`, `idParent`, `libelleCategorie`, `codeCat`) VALUES(:idSociete, :idParent, :libelleCat, :codeCat)');
     $ins->bindValue(":idSociete", $idSociete, PDO::PARAM_INT);
     $ins->bindValue(":idParent", $idParent, PDO::PARAM_INT);
     $ins->bindValue(":libelleCat", $libelleCat, PDO::PARAM_STR);
+    $ins->bindValue(":codeCat", $codeCat, PDO::PARAM_STR);
     $ins->execute();
 }
 
 function getProductQty($auth, $ref) {
-    $getinfos = $auth->query('SELECT * FROM produit WHERE codeProduit = ' . $ref . '');
+    $getinfos = $auth->query('SELECT * FROM produit WHERE codeProduit = "' . $ref . '"');
     $getinfo = $getinfos->fetch();
     $getinfos->closeCursor();
 
@@ -37,6 +38,7 @@ function getSociete($auth, $id) {
         $d[$i]['idSociete'] = $donnees['idSociete'];
         $d[$i]['idParent'] = $donnees['idParent'];
         $d[$i]['libelleCategorie'] = $donnees['libelleCategorie'];
+        $d[$i]['codeCat'] = $donnees['codeCat'];
 
         $i++;
     }
@@ -141,11 +143,16 @@ function recupProduits($auth, $idCategorie, $idSociete, $nbProduct, $idPage) {
     $sons = findSons($auth, $idCategorie, true);
     $nbSon = 0;
     $andRequest = "";
-    foreach ($sons as $son) {
-        if ($nbSon == 0) {
-            $andRequest = "idCategorie = " . $son . "";
-        } else {
-            $andRequest .= " OR idCategorie = " . $son . "";
+    foreach($sons as $son){
+        if($nbSon == 0){
+            $getCode = $auth->query('SELECT codeCat FROM categorie WHERE idCategorie = '.$son.'');
+            $code = $getCode->fetch();
+            $andRequest = "idCategorie = '".$code['codeCat']."'";
+        }
+        else{
+            $getCode = $auth->query('SELECT codeCat FROM categorie WHERE idCategorie = '.$son.'');
+            $code = $getCode->fetch();
+            $andRequest .= " OR idCategorie = '".$code['codeCat']."'";
         }
         $nbSon++;
     }

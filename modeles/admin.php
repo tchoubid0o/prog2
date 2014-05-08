@@ -35,7 +35,8 @@ function getClients($auth) {
         while ($donnees = $getClients->fetch()) {
             $d[$i]['id'] = $donnees['id'];
             $d[$i]['mail'] = $donnees['mail'];
-
+            $d[$i]['adresse'] = $donnees['adresse'];
+            $d[$i]['societe'] = $donnees['societe'];
             $i++;
         }
         if (!empty($d)) {

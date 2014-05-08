@@ -29,7 +29,7 @@ if (isset($_SESSION['id'])) {
                     <div style="overflow-x: hidden; overflow-y: scroll;height: 300px;">
                         <?php
                         foreach ($clients as $client) {
-                            echo "<a href='" . ROOTPATH . "/admin-modifyclient&" . $client['id'] . ".html'>Client n°" . $client['id'] . "</a><form style='display: inline;' action='" . ROOTPATH . "/admin.html' enctype='multipart/form-data' method='post'>
+                            echo "<a href='" . ROOTPATH . "/admin-modifyclient&" . $client['id'] . ".html'>" . $client['societe'] . "</a><form style='display: inline;' action='" . ROOTPATH . "/admin.html' enctype='multipart/form-data' method='post'>
                         <input type='hidden' name='idClient' value='" . $client['id'] . "' />
                         <input style='width: 15px; display: inline;' type='image' src='" . ROOTPATH . "/img/1387754326_001_05.png' alt='submit' name='submitDeleteClient" . $client['id'] . "' />
                         </form><br/>

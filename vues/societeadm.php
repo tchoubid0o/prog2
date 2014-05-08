@@ -51,9 +51,9 @@ if (isset($_SESSION['id'])) {
                     <form class="nbPerPage" method="get" action="">
                         <label>Affichage par page:</label>
                         <select>
-                            <option value="1">1</option>
-                            <option value="3">3</option>
-                            <option value="6">6</option>
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
                         </select>
                     </form>
                 </div>
@@ -403,6 +403,8 @@ if (isset($_SESSION['id'])) {
                 <input type="hidden" name="AddCat_SocieteId" value="<?php echo $_GET['param1']; ?>" />
                 <label for="AddCat_libelleCat"> Libelle de la nouvelle <?php if($_GET['param3'] != "0"){ echo "sous";} ?> catégorie:</label>
                 <input type="text" name="AddCat_libelleCat" id="AddCat_libelleCat" placeholder="nom" required/>
+                <label for="AddCat_code"> code:</label>
+                <input type="text" name="AddCat_code" id="AddCat_code" placeholder="code" required/>
                 <input type="submit" value="Ajouter la <?php if($_GET['param3'] != "0"){ echo "sous ";} ?>catégorie" />
             </form>
                 <?php

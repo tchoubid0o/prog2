@@ -1,7 +1,6 @@
 <div class="minicart_con hidden" style="display: none;">
     <?php $prixPanier = 0; ?>
     <div class="center">Votre panier</div>
-    <ul class="minicart_item_list">
         <?php if (isset($basket)) { ?>
             <div class="minicart_list center">
                 <ul class="minicart_item_list">
@@ -26,7 +25,7 @@
             </div><br/>
             <div class="minicart_end center">
                 TOTAL : <?php echo $prixPanier; ?>€<br/>
-                <a class="btn_viewcart" href="OrderProcess.html">Passer ma commande</a>
+                <a class="btn_viewcart" href="basket.html">Passer ma commande</a>
             </div><?php
         } else {
             echo "<div class='center'>Votre panier est vide</div>";

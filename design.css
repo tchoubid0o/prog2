@@ -143,12 +143,13 @@ body{
 
 .minicart_con{
     position: absolute;
-    height: auto;
-    width: 272px;
-    overflow: hidden;
+    max-height: 450px;
+    width: 450px;
+    overflow-x: auto;
     border: 1px solid #bbb;
     border-radius: 0 0 5px 5px;
     background: #fff;
+    margin-left: -192px;
 }
 
 .minicart_item_list{

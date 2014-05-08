@@ -62,18 +62,21 @@
             var prixU = parseFloat($(this).parent().parent().parent().parent().parent().find("td.prixU").text());
             var oldPrixProduct = parseFloat($(this).parent().parent().parent().parent().parent().find("td.prix").text());
             var qte = parseFloat($(this).parent().parent().find("input").val());
-            var newProductPrice = parseFloat(prixU) * parseFloat(qte);
+            var newProductPrice = prixU * qte;
+            
             $(this).parent().parent().parent().parent().parent().find("td.prix").html(newProductPrice);
 
-            var oldCartPrice = $("#cartPrice").text();
+            var oldCartPrice = parseFloat($("#cartPrice").text());
+
+            console.log("oldCartPrice"+oldCartPrice);
 
             if (oldPrixProduct >= newProductPrice) {
-                var newCartPrice = parseFloat(oldCartPrice) - (parseFloat(oldPrixProduct) - parseFloat(newProductPrice));
-                $("#cartPrice").html(newCartPrice);
+                var newCartPrice = oldCartPrice - (oldPrixProduct - newProductPrice);
+                $("#cartPrice").html(newCartPrice.toFixed(2));
             }
             else {
-                var newCartPrice = parseFloat(oldCartPrice) + (parseFloat(newProductPrice) - parseFloat(oldPrixProduct));
-                $("#cartPrice").html(newCartPrice);
+                var newCartPrice = oldCartPrice + (newProductPrice - oldPrixProduct);
+                $("#cartPrice").html(newCartPrice.toFixed(2));
             }
 
             $.ajax({url: "basket.html",
@@ -89,10 +92,14 @@
             
             var oldPrixProduct = parseFloat($(this).parent().parent().find("td.prix").text());
 
-            var oldCartPrice = $("#cartPrice").text();
+            var oldCartPrice = parseFloat($("#cartPrice").text());
 
-            var newCartPrice = parseFloat(oldCartPrice) - (parseFloat(oldPrixProduct));
-            $("#cartPrice").html(newCartPrice);
+            var newCartPrice = oldCartPrice - oldPrixProduct;
+            $("#cartPrice").html(newCartPrice.toFixed(2));
+            
+            console.log("oldPrixProduct"+oldPrixProduct);
+            console.log("oldCartPrice"+oldCartPrice);
+            console.log("newCartPrice"+newCartPrice);
             
             $.ajax({url: "basket.html", 
                 type: "POST",

@@ -1,7 +1,7 @@
 <?php
 
 function getProductQty($auth, $ref) {
-    $getinfos = $auth->query('SELECT * FROM produit WHERE codeProduit = ' . $ref . '');
+    $getinfos = $auth->query('SELECT * FROM produit WHERE codeProduit = "' . $ref . '"');
     $getinfo = $getinfos->fetch();
     $getinfos->closeCursor();
 
@@ -201,6 +201,7 @@ function getSociete($auth, $id) {
         $d[$i]['idSociete'] = $donnees['idSociete'];
         $d[$i]['idParent'] = $donnees['idParent'];
         $d[$i]['libelleCategorie'] = $donnees['libelleCategorie'];
+        $d[$i]['codeCat'] = $donnees['codeCat'];
 
         $i++;
     }
@@ -291,10 +292,14 @@ function recupProduits($auth, $idCategorie, $idSociete, $nbProduct, $idPage) {
     $andRequest = "";
     foreach($sons as $son){
         if($nbSon == 0){
-            $andRequest = "idCategorie = ".$son."";
+            $getCode = $auth->query('SELECT codeCat FROM categorie WHERE idCategorie = '.$son.'');
+            $code = $getCode->fetch();
+            $andRequest = "idCategorie = '".$code['codeCat']."'";
         }
         else{
-            $andRequest .= " OR idCategorie = ".$son."";
+            $getCode = $auth->query('SELECT codeCat FROM categorie WHERE idCategorie = '.$son.'');
+            $code = $getCode->fetch();
+            $andRequest .= " OR idCategorie = '".$code['codeCat']."'";
         }
         $nbSon++;
     }
