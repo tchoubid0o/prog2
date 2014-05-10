@@ -1,5 +1,14 @@
+html{
+    background-image: url(http://subtlepatterns.com/patterns/cream_pixels.png);
+}
+
 body{
-    background-color: #ffffff;	
+    margin: 0px;
+}
+
+a{
+    text-decoration: none;
+    color: #2db3e8;
 }
 
 .underline{
@@ -37,6 +46,17 @@ body{
     float: left;
 }
 
+.menuAccordion{
+    background: linear-gradient(to bottom, #FFFFFF, #FAFAFA);
+    padding: 20px;
+    border-radius: 5px;
+    background-clip: padding-box;
+    box-shadow: inset 0px 1px 0 rgba(255,255,255,1);
+    border: 1px solid;
+    border-color: rgba(0,0,0,0.1);
+    border-bottom-color: rgba(0,0,0,0.2);
+}
+
 /*Catalogue Catégorie*/
 .accordion{
     list-style: none;
@@ -44,7 +64,7 @@ body{
     float: left;
     padding-left: 0px;
     border: 1px solid black;
-    margin-top: 20px;
+    margin-top: 0px;
 }
 
 .accordion li{
@@ -53,8 +73,7 @@ body{
 
 #right{
     float: left;
-
-    width: 750px;
+    width: 690px;
 }
 
 .right_content{
@@ -79,8 +98,12 @@ body{
     top: 5%;
     padding: 50px;
     border-radius: 5px;
-    background-color: #f6f6f6;
+    background: linear-gradient(to bottom, #FFFFFF, #FAFAFA);
+    box-shadow: inset 0px 1px 0 rgba(255,255,255,1);
     z-index: 999;
+    border: 1px solid;
+    border-color: rgba(0,0,0,0.1);
+    border-bottom-color: rgba(0,0,0,0.2);
 }
 
 
@@ -94,7 +117,7 @@ body{
 }
 
 .formvalid{
-    color: #dc2b2b;
+    color: black;
     background-image: none;
     background-color: transparent;
     cursor: pointer;
@@ -115,6 +138,10 @@ body{
     border: 1px solid black;
 }
 
+#basketTable th{
+    color: #2db3e8;
+}
+
 .classButton{
     cursor: pointer;
     color: #fff;
@@ -123,6 +150,7 @@ body{
     background-color: #2db3e8;
     text-decoration: none;
     border: none;
+    margin-top: 15px;
 }
 
 #userSettings label{

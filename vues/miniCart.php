@@ -16,7 +16,7 @@
                             <form method="post" action="" style="display: inline;">
                                 <input type="hidden" name="deleteMiniCart" value="1" />
                                 <input type="hidden" name="idProduit" value="<?php echo $produit['idProduit']; ?>" />
-                                <i class="fa fa-times deleteItemMiniCart"></i>
+                                <i class="fa fa-times deleteItemMiniCart" style="color: #2db3e8;"></i>
                             </form>
                         </li>
                     <?php }

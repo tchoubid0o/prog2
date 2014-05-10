@@ -1,3 +1,4 @@
+<div class="menuAccordion" style="padding: 0px; margin-top: 20px;color: #56595E;">
 <div class="width1000">
     <?php $prixPanier = 0; ?>
     <table id="basketTable">
@@ -113,3 +114,4 @@
         });
     });
 </script>
+</div>

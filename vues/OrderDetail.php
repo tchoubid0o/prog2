@@ -1,3 +1,4 @@
+<div class="menuAccordion" style="padding: 0px; margin-top: 20px;color: #56595E;">
 <?php if(isset($_GET['act']) && !empty($_GET['act'])){?>
 <div class="width800">
     <?php date_default_timezone_set("Europe/Paris");
@@ -48,3 +49,4 @@
     ?>
 </div>
 <?php } ?>
+</div>

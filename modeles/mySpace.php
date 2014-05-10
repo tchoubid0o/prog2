@@ -38,7 +38,8 @@ function getMyInfos($auth){
             }
             $i++;
         }
-        
-        return $order;
+        if(!empty($order)){
+            return $order;
+        }
     }
 ?>

@@ -6,7 +6,7 @@ if (isset($add2Cart['message'])) {
     echo $add2Cart['message'];
 }
 ?>
-<h4 class="underline">Catalogue de la <?php echo $nomSociete['nomSociete']; ?></h4>
+<h4 class="underline" style="color: #2db3e8;">Catalogue de la <?php echo $nomSociete['nomSociete']; ?></h4>
 <div id="idSociete" style="display: none;"><?php
     if (isset($_GET['act'])) {
         echo $_GET['act'];
@@ -26,7 +26,7 @@ if (isset($add2Cart['message'])) {
         echo "0";
     }
     ?></div>
-<div class="left">
+<div class="left menuAccordion">
     <?php
     $menu = afficher_menu(0, 0, $donnees);
     if (isset($menu)) {
@@ -72,9 +72,9 @@ if (isset($add2Cart['message'])) {
 
 </div>
 
-<div id="result" style="width: 1000px; margin: auto;"></div><div id="pagination" style="display: none; float: right;margin-right: 68px;">
+<div id="result" style="width: 1000px; margin: auto;"></div><div id="pagination" style="display: none; float: right;margin-right: 68px; margin-top: 10px; margin-bottom: 10px;">
 
-</div>
+</div></div>
 <script type="text/javascript">
     var ROOTPATH = "/prog2/";
     var idS = $('#idSociete').text();
@@ -257,12 +257,12 @@ if (isset($add2Cart['message'])) {
 
     //Fonction permettant de générer l'affichage des produits et la pagination
     function generateData(data) {
-        var newContent = '<div id="right"><ul class="right_content">';
+        var newContent = '<div id="right" class="menuAccordion" style="padding: 0px; margin-left: 10px;"><ul class="right_content">';
         if (data) {
             for (var i = 0; i < data.length; ++i) {
                 //newContent += ''+data[i].prixProduit+'<br/>';
                 //newContent += ''+data[i].quantiteProduit+'<br/>';
-                newContent += '<li style="list-style: none; width: 220px; margin: auto;float: left;">';
+                newContent += '<li style="list-style: none; width: 200px; margin: auto;float: left;">';
                 newContent += '<div class="img_index">';
                 newContent += '<img class="productImg" data-ref="' + data[i].codeProduit + '" alt="imgProduit" style="width: 128px; height: 128px;" src="img/' + data[i].imgProduit + '" />';
                 newContent += '<br/>';
@@ -285,6 +285,8 @@ if (isset($add2Cart['message'])) {
                 var detailsProduct = '<div class="productDetails" id="productDetails' + data[i].codeProduit + '"><div class="detailsI"><center>';
                 detailsProduct += '<img style="width: 128px; height: 128px;" src="img/1393110376_Picture.png" alt="" />';
                 detailsProduct += '<div class="testRef">' + data[i].codeProduit + '</div>';
+                detailsProduct += '<div class="libelleProd">' + data[i].libelleProduit + '</div>';
+                detailsProduct += '<div class="prixU">Prix U: ' + data[i].prixProduit + '€</div>';
                 detailsProduct += '</center></div></div>';
 
                 $("#productDetails").append(detailsProduct);

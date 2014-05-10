@@ -4,6 +4,8 @@ if (isset($_SESSION['id'])) {
         if(!isset($_GET['param2'])){$_GET['param2'] = null;}
         if ($_GET['param2'] != "addCat") {
             ?>
+            <div style="height: 45px;background-color: white;border-top: 2px solid #2db3e8;border-bottom-color: rgba(0,0,0,0.2);border-bottom: 1px solid rgba(0,0,0,0.1);">
+            <div style="width: 1000px; margin: auto; padding-top: 10px;">
             <a href="<?php echo ROOTPATH; ?>/index.html">Index</a>
             <a href="<?php echo ROOTPATH; ?>/admin.html">Administration</a>
             <?php
@@ -11,6 +13,7 @@ if (isset($_SESSION['id'])) {
                 echo "> Société n°" . $_GET['param1'] . "";
             }
             ?>
+            </div></div>
             <div id="productDetails">
             </div>
 
@@ -19,7 +22,8 @@ if (isset($_SESSION['id'])) {
                 echo $add2Cart['message'];
             }
             ?>
-            <h4 class="underline">Catalogue de la <?php echo $nomSociete['nomSociete']; ?></h4>
+            <div style="width: 1000px; margin: auto;">
+            <h4 class="underline" style="color: #2db3e8;">Catalogue de la <?php echo $nomSociete['nomSociete']; ?></h4>
             <div id="idSociete" style="display: none;"><?php
                 if (isset($_GET['param1'])) {
                     echo $_GET['param1'];
@@ -39,7 +43,7 @@ if (isset($_SESSION['id'])) {
                     echo "0";
                 }
                 ?></div>
-            <div class="left">
+            <div class="left menuAccordion">
                 <?php
                 $menu = afficher_menu(0, 0, $donnees);
                 if (isset($menu)) {
@@ -48,6 +52,10 @@ if (isset($_SESSION['id'])) {
                 ?>
                 <div style="clear: both;"></div>
                 <div>
+                    <form method='post' action='import.html'>
+                        <input type='hidden' name='idSociete' value='<?php echo $_GET['param1'];?>'>
+                        <input type='submit' value='Importer des produits' style='border: none; padding: 0px; margin: 0px; color: black;background-color: white;text-decoration: underline; cursor: pointer;margin-bottom: 10px;'>
+                    </form>
                     <form class="nbPerPage" method="get" action="">
                         <label>Affichage par page:</label>
                         <select>
@@ -59,7 +67,7 @@ if (isset($_SESSION['id'])) {
                 </div>
             </div>
 
-            <div id="result" style="width: 1000px; margin: auto;"></div><div id="pagination" style="display: none; float: right;margin-right: 68px;">
+            <div id="result" style="width: 1000px; margin: auto;"></div><div id="pagination" style="display: none; float: right;margin-right: 68px; margin-top: 10px; margin-bottom: 10px;">
 
             </div>
             <script type="text/javascript">
@@ -228,12 +236,12 @@ if (isset($_SESSION['id'])) {
 
                 //Fonction permettant de générer l'affichage des produits et la pagination
                 function generateData(data) {
-                    var newContent = '<div id="right"><ul class="right_content">';
+                    var newContent = '<div id="right" class="menuAccordion" style="padding: 0px; margin-left: 10px;"><ul class="right_content">';
                     if (data) {
                         for (var i = 0; i < data.length; ++i) {
                             //newContent += ''+data[i].prixProduit+'<br/>';
                             //newContent += ''+data[i].quantiteProduit+'<br/>';
-                            newContent += '<li style="list-style: none; width: 220px; margin: auto;float: left;">';
+                            newContent += '<li style="list-style: none; width: 200px; margin: auto;float: left;">';
                             newContent += '<div class="img_index">';
                             newContent += '<img class="productImg" data-ref="' + data[i].codeProduit + '" alt="imgProduit" style="width: 128px; height: 128px;" src="img/' + data[i].imgProduit + '" />';
                             newContent += '<br/>';
@@ -376,19 +384,22 @@ if (isset($_SESSION['id'])) {
         <?php
         } else {
             ?>
+            <div style="height: 45px;background-color: white;border-top: 2px solid #2db3e8;border-bottom-color: rgba(0,0,0,0.2);border-bottom: 1px solid rgba(0,0,0,0.1);">
+            <div style="width: 1000px; margin: auto; padding-top: 10px;">
             <a href="<?php echo ROOTPATH; ?>/index.html">Index</a>
             <a href="<?php echo ROOTPATH; ?>/admin.html">Administration</a>
             <a href="<?php echo ROOTPATH; ?>/admin-import.html">Import</a>
             <?php
             if (isset($_GET['page']) && $_GET['page'] == "societeadm") {
-                echo "> Société n°" . $_GET['param1'] . "";
+                echo "> <a href='societeadm." . $_GET['param1'] . ".html'>Société n°" . $_GET['param1'] . "</a>";
                 if($_GET['param3'] != "0"){
                     echo "> Ajout d'une sous catégorie";
                 }
                 else{
                     echo "> Ajout d'une catégorie";
                 }?>
-            
+            </div></div>
+            <div style="width: 1000px; margin: auto;">
             <h4 class="underline"><?php
                 if($_GET['param3'] != "0"){
                     echo "Ajout d'une sous catégorie";
@@ -397,7 +408,8 @@ if (isset($_SESSION['id'])) {
                     echo "Ajout d'une catégorie";
                 }?>
             </h4>
-
+            
+            <div class="menuAccordion" style="padding: 20px; margin-top: 20px;color: #56595E;">
             <form method="post" action="societeadm.<?php echo $_GET['param1']; ?>.html">
                 <input type="hidden" name="AddCat_ParentId" value="<?php echo $_GET['param3']; ?>" />
                 <input type="hidden" name="AddCat_SocieteId" value="<?php echo $_GET['param1']; ?>" />
@@ -405,8 +417,9 @@ if (isset($_SESSION['id'])) {
                 <input type="text" name="AddCat_libelleCat" id="AddCat_libelleCat" placeholder="nom" required/>
                 <label for="AddCat_code"> code:</label>
                 <input type="text" name="AddCat_code" id="AddCat_code" placeholder="code" required/>
-                <input type="submit" value="Ajouter la <?php if($_GET['param3'] != "0"){ echo "sous ";} ?>catégorie" />
+                <input type="submit" class="classButton" value="Ajouter la <?php if($_GET['param3'] != "0"){ echo "sous ";} ?>catégorie" />
             </form>
+            </div>
                 <?php
             }
             
@@ -414,3 +427,5 @@ if (isset($_SESSION['id'])) {
     }
 }
 ?>
+            </div>
+            </div>

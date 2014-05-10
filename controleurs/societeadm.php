@@ -3,7 +3,7 @@
 require_once('./modeles/societeadm.php');
 
 if(isset($_POST['AddCat_SocieteId']) && isset($_POST['AddCat_libelleCat'])){
-    addNewCat($auth, $_POST['AddCat_ParentId'], $_POST['AddCat_SocieteId'], $_POST['AddCat_libelleCat']);
+    addNewCat($auth, $_POST['AddCat_ParentId'], $_POST['AddCat_SocieteId'], $_POST['AddCat_libelleCat'], $_POST['AddCat_code']);
 }
 
 if(isset($_POST['idPostFormFastSearch'])){

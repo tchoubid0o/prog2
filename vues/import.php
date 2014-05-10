@@ -1,16 +1,28 @@
 <?php
+if ($_SESSION['adm'] == 1) {
+        ?>
+        <div style="height: 45px;background-color: white;border-top: 2px solid #2db3e8;border-bottom-color: rgba(0,0,0,0.2);border-bottom: 1px solid rgba(0,0,0,0.1);">
+            <div style="width: 1000px; margin: auto; padding-top: 10px;">
+        <a href="<?php echo ROOTPATH; ?>/index.html">Index &nbsp;</a>
+        <a href="<?php echo ROOTPATH; ?>/admin.html">Administration &nbsp;</a>
+        <?php
+        if (isset($_POST['idSociete'])) {
+            echo "> <a href='societeadm." . $_POST['idSociete'] . ".html'>Société n°" . $_POST['idSociete'] . "</a>&nbsp; > Importer des produits";
+        }
+}
+
 require 'lib/PHPExcel.php';
 require_once 'lib/PHPExcel/IOFactory.php';
-if(isset($_POST['idCat'])){
+if(isset($_POST['idSociete'])){
 ?>
-
+<div class="menuAccordion" style="padding: 0px; margin-top: 30px;color: #56595E; padding: 20px;">
 <div class="width800">
 	<form method="post" enctype="multipart/form-data">
 		Upload File: <input type="file" name="spreadsheet"/>
 		<input type="submit" name="submit" value="Submit" />
                 <input type="hidden" name="idSociete" value="<?php echo $_POST['idSociete']; ?>" />
-                <input type="hidden" name="idCat" value="<?php echo $_POST['idCat']; ?>" />
 	</form>
+</div>
 </div>
 
 <?php
@@ -64,11 +76,11 @@ if(isset($_FILES['spreadsheet'])){
 						$idCategorie = $output[0];
 
 						if (in_array($barCodeProduit, $allBarCodes)) {
-							$query = "UPDATE produit SET codeProduit = '". $codeProduit ."', barCodeProduit = '". $barCodeProduit ."', libelleProduit = '". $libelleProduit ."', quantiteProduit = '". $quantiteProduit ."', prixProduit = '". $prixProduit ."', idSociete = '". $_POST['idSociete'] ."', idCategorie = '". $_POST['idCategorie'] ."'  WHERE  barCodeProduit = '". $barCodeProduit . "'";
+							$query = "UPDATE produit SET codeProduit = '". $codeProduit ."', barCodeProduit = '". $barCodeProduit ."', libelleProduit = '". $libelleProduit ."', minQte = '". $quantiteProduit ."', prixProduit = '". $prixProduit ."', idSociete = '". $_POST['idSociete'] ."', idCategorie = '". $_POST['idCategorie'] ."'  WHERE  barCodeProduit = '". $barCodeProduit . "'";
                                                         $auth->exec($query);
 
                                                 } elseif (!in_array($barCodeProduit, $allBarCodes)) {
-							$query = $auth->prepare("INSERT INTO produit (codeProduit, barCodeProduit, libelleProduit, quantiteProduit, prixProduit, idSociete, idCategorie) VALUES (:codeProduit, :barCode, :libelleProduit, :quantiteProduit, :prixProduit, :idSociete, :idCategorie)");
+							$query = $auth->prepare("INSERT INTO produit (codeProduit, barCodeProduit, libelleProduit, minQte, prixProduit, idSociete, idCategorie) VALUES (:codeProduit, :barCode, :libelleProduit, :quantiteProduit, :prixProduit, :idSociete, :idCategorie)");
                                                         $query->bindValue(":codeProduit", $codeProduit, PDO::PARAM_STR);
                                                         $query->bindValue(":barCode", $barCodeProduit, PDO::PARAM_STR);
                                                         $query->bindValue(":libelleProduit", $libelleProduit, PDO::PARAM_STR);

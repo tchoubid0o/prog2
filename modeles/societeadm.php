@@ -85,9 +85,9 @@ function afficher_menu($parent, $niveau, $array) {
                 $html .= "<span style=\"display: none;\" id=\"currentCategory\"></span>";
                 if ($noeud['idParent'] == "0") {
                     //Première visible
-                    $html .="&nbsp;&nbsp;&nbsp;<a class='addSsCat' href='" . ROOTPATH . "/societeadm." . $_GET['param1'] . "&addCat&" . $noeud['idCategorie'] . ".html'>Ajouter une sous catégorie</a><br/><form method='post' action='import.html'><input type='hidden' name='idSociete' value='".$_GET['param1']."'><input type='hidden' name='idCat' value='".$noeud['idCategorie']."' ><input type='submit' value='Importer des produits' style='border: none; padding: 0px; margin: 0px; color: black;background-color: white;padding-left: 12px;text-decoration: underline; cursor: pointer;'></form>";
+                    $html .="&nbsp;&nbsp;&nbsp;<a class='addSsCat' href='" . ROOTPATH . "/societeadm." . $_GET['param1'] . "&addCat&" . $noeud['idCategorie'] . ".html'>Ajouter une sous catégorie</a><br/>";
                 } else {
-                    $html .="&nbsp;&nbsp;&nbsp;<a class='addSsCat' href='" . ROOTPATH . "/societeadm." . $_GET['param1'] . "&addCat&" . $noeud['idCategorie'] . ".html'>Ajouter une sous catégorie</a><br/><form method='post' action='import.html'><input type='hidden' name='idSociete' value='".$_GET['param1']."'><input type='hidden' name='idCat' value='".$noeud['idCategorie']."' ><input type='submit' value='Importer des produits' style='border: none; padding: 0px; margin: 0px; color: black;background-color: white;padding-left: 12px;text-decoration: underline; cursor: pointer;'></form>";
+                    $html .="&nbsp;&nbsp;&nbsp;<a class='addSsCat' href='" . ROOTPATH . "/societeadm." . $_GET['param1'] . "&addCat&" . $noeud['idCategorie'] . ".html'>Ajouter une sous catégorie</a><br/>";
                 }
             }
         }
