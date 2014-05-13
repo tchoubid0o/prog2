@@ -17,7 +17,7 @@ if(isset($_POST['idSociete'])){
 ?>
 <div class="menuAccordion" style="padding: 0px; margin-top: 30px;color: #56595E; padding: 20px;">
 <div class="width800">
-	<form method="post" enctype="multipart/form-data">
+	<form method="post" id="formImport" enctype="multipart/form-data">
 		Upload File: <input type="file" name="spreadsheet"/>
 		<input type="submit" name="submit" value="Submit" />
                 <input type="hidden" name="idSociete" value="<?php echo $_POST['idSociete']; ?>" />
@@ -76,7 +76,7 @@ if(isset($_FILES['spreadsheet'])){
 						$idCategorie = $output[0];
 
 						if (in_array($barCodeProduit, $allBarCodes)) {
-							$query = "UPDATE produit SET codeProduit = '". $codeProduit ."', barCodeProduit = '". $barCodeProduit ."', libelleProduit = '". $libelleProduit ."', minQte = '". $quantiteProduit ."', prixProduit = '". $prixProduit ."', idSociete = '". $_POST['idSociete'] ."', idCategorie = '". $_POST['idCategorie'] ."'  WHERE  barCodeProduit = '". $barCodeProduit . "'";
+							$query = "UPDATE produit SET codeProduit = '". $codeProduit ."', barCodeProduit = '". $barCodeProduit ."', libelleProduit = '". $libelleProduit ."', minQte = '". $quantiteProduit ."', prixProduit = '". $prixProduit ."', idSociete = '". $_POST['idSociete'] ."', idCategorie = '". $idCategorie ."'  WHERE  barCodeProduit = '". $barCodeProduit . "'";
                                                         $auth->exec($query);
 
                                                 } elseif (!in_array($barCodeProduit, $allBarCodes)) {
@@ -130,3 +130,11 @@ if(isset($_FILES['spreadsheet'])){
 
 }
 ?>
+    <div id="pleaseWait" style="display: none;position: fixed;left: 50%;top: 25%;border-radius: 5px;background-image: url(img/cream_pixels.png);margin-left: -193px;z-index: 999;width: 355px;box-shadow: inset 0px 1px 0 rgba(255,255,255,1);border: 1px solid;border-color: rgba(0,0,0,0.1);border-bottom-color: rgba(0,0,0,0.2); padding: 15px"><img src="img/ajax-loader.gif" alt="" /> &nbsp; Importation des données en cours... Veuillez patienter.</div>    
+        
+        <script>
+            $("#formImport").submit(function(){
+                $("body").append('<div style="position: fixed;left: 0px;top: 0px;background-color: rgb(235, 235, 228);height: 100%;width: 100%;z-index: 100;opacity: 0.7;"></div>');
+                $("#pleaseWait").show();
+            });
+        </script>

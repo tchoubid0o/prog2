@@ -21,6 +21,7 @@ function confirmOrder($auth, $date, $comment) {
         <table style='text-align: center;border-collapse:collapse;'>
             <tr>
                 <th style='padding: 5px; border: 1px solid black;'>N° commande</th>
+                <th style='padding: 5px; border: 1px solid black;'>Référence</th>
                 <th style='padding: 5px; border: 1px solid black;'>Produit</th>
                 <th style='padding: 5px; border: 1px solid black;'>Qté</th>
                 <th style='padding: 5px; border: 1px solid black;'>Prix U</th>
@@ -72,7 +73,8 @@ function confirmOrder($auth, $date, $comment) {
         
         $mail .= "<tr>
                     <td style='padding: 5px; border: 1px solid black;'>".$key."</td>
-                    <td style='padding: 5px; border: 1px solid black;'>".$price['libelleProduit']." Réf: ".$price['codeProduit']."</td>
+                    <td style='padding: 5px; border: 1px solid black;'>".$price['codeProduit']."</td>
+                    <td style='padding: 5px; border: 1px solid black;'>".$price['libelleProduit']."</td>
                     <td style='padding: 5px; border: 1px solid black;'>".$donnees['qteProduit']."</td>
                     <td style='padding: 5px; border: 1px solid black;'>".$price['prixProduit']."€</td>
                     <td style='padding: 5px; border: 1px solid black;'>".$tempPrice."€</td>
@@ -83,8 +85,9 @@ function confirmOrder($auth, $date, $comment) {
     }
     
     $mail .= "</table>";
-    $mail .= "<br/><br/>Total: ".$prixTotal."€";
-
+    $mail .= "<br/><br/>Total: ".$prixTotal."€<br/>";
+    $mail .= "<a href='getInvoice.php?id=".$key."'>Télécharger la facture</a>";
+    
     //Quand tout est commandé, alors on supprime le panier
 
     $del = $auth->prepare('DELETE FROM panier WHERE idUser = :id');
@@ -92,11 +95,17 @@ function confirmOrder($auth, $date, $comment) {
     $del->execute();
     $del->closeCursor();
     
+    //On récupère lemail de l'admin
+    
+    $getAdm = $auth->query('SELECT * FROM user WHERE adm = 1 ORDER BY id ASC LIMIT 1');
+    $getAdmMail = $getAdm->fetch();
+    $getAdm->closeCursor();
+    
     //Envoi d'un mail nouveau message
-	$siteWebMail = "messagerie@virolle.fr";
+	$siteWebMail = $getAdmMail['mail'];
 	$destinataire = $siteWebMail.", ".$_SESSION['mail']."";
 	$sujet = "Virolle: Suivi de votre commande" ;
-	$headers = 'From: messagerie@virolle.fr' . "\r\n";
+	$headers = 'From: '.$getAdmMail['mail'].'' . "\r\n";
 	$headers .= 'MIME-Version: 1.0' . "\n";
         $headers .= 'Content-type:text/html;charset=utf-8' . "\r\n" .
                     'Bcc:' . $_SESSION['mail'] . '';

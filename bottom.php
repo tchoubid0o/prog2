@@ -13,10 +13,12 @@ if (!empty($_SESSION['id'])) {
 </div>
 <div id="global"></div>
 <?php
-     if($_SESSION['adm'] == 1) {?>
-        <a href="admin.html" style="position: fixed; bottom: 10px; right: 15px;">Administration</a>
-        <?php
-     }
+    if(isset($_SESSION['adm'])){
+        if($_SESSION['adm'] == 1) {?>
+           <a href="admin.html" style="position: fixed; bottom: 10px; right: 15px;">Administration</a>
+           <?php
+        }
+    }
 ?>
 </body>
 </html>
